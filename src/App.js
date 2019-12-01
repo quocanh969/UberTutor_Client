@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import FacebookLoginComponent from './Login/Components/FacebookLoginComponent';
+import GoogleLoginComponent from './Login/Components/GoogleLoginComponent';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <FacebookLoginComponent />
+      <GoogleLoginComponent />
     </div>
   );
 }

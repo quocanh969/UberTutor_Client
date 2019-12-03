@@ -19,7 +19,7 @@ function App() {
         <Switch>
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
-          <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
+          <Route path="/dashboard" exact component={DashboardContainer}></Route>
           <Redirect to='/login' />
         </Switch>
       </BrowserRouter>

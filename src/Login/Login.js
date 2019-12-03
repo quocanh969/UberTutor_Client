@@ -31,7 +31,12 @@ export default class Login extends Component {
                                                     <div className="form-group">
                                                         <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
                                                     </div>
-
+                                                    <div className="form-group">
+                                                        <select class="form-control" defaultValue="0">
+                                                            <option value="0">Learner</option>
+                                                            <option value="1">Tutor</option>
+                                                        </select>
+                                                    </div>
                                                     <a href="index.html" className="btn btn-primary btn-user btn-block font-weight-bold font-20 mt-5">
                                                         Login
                                                     </a>

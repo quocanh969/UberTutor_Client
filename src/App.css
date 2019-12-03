@@ -1,22 +1,26 @@
-.App {
-  text-align: center;
+body{
+  background-color:#2d3c63;
+  background-image:linear-gradient(180deg,#2d3c63 50%,#4d86cc 100%);
+  background-size: cover;
+
+  padding: 0;
+  height: auto;
 }
 
-.App-logo {
-  height: 40vmin;
+.bg-login-image{
+  /*background:url(https://source.unsplash.com/K4mSJ7kc0As/600x800);*/
+  background: url(./Assets/Images/Modern_Tutor.jpg);
+  background-position:center;
+  background-size:cover;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.bg-register-image{
+  /*background:url(https://source.unsplash.com/Mv9hjnEUHR4/600x800);*/
+  background: url(./Assets/Images/Register_Tutor.jpg);
+  background-position:center;
+  background-size:cover
 }
 
-.App-link {
-  color: #09d3ac;
+.font-20{
+  font-size: 20px  !important;
 }

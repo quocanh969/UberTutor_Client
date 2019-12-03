@@ -12,14 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from './ItemsList';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
+
 
 import Profile from './Profile/Profile';
 
@@ -155,14 +154,6 @@ export default function TutorDashboard() {
                 {/* <Divider />
                 <List>{secondaryListItems}</List> */}
             </Drawer>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <Paper className={classes.paper}>
-                        <Profile />
-                    </Paper>
-                </Container>
-            </main>
         </div>
     )
 }

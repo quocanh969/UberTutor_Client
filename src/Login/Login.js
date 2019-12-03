@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
 
+import FacebookLoginComponent from './Components/FacebookLoginComponent'
+import GoogleLoginComponent from './Components/GoogleLoginComponent'
+
+
 export default class Login extends Component {
     render() {
         return (
@@ -22,22 +26,20 @@ export default class Login extends Component {
                                                 </div>
                                                 <form className="user">
                                                     <div className="form-group">
-                                                        <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
+                                                        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
                                                     </div>
                                                     <div className="form-group">
-                                                        <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password" />
+                                                        <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
                                                     </div>
 
                                                     <a href="index.html" className="btn btn-primary btn-user btn-block font-weight-bold font-20 mt-5">
                                                         Login
-                        </a>
+                                                    </a>
                                                     <hr />
-                                                    <a href="index.html" className="btn btn-google btn-user btn-block">
-                                                        <i className="fab fa-google fa-fw" /> Login with Google
-                        </a>
-                                                    <a href="index.html" className="btn btn-facebook btn-user btn-block">
-                                                        <i className="fab fa-facebook-f fa-fw" /> Login with Facebook
-                        </a>
+                                                    <div class="align-center">
+                                                        <button type="button" class="btn btn-sm"><FacebookLoginComponent /></button>
+                                                        <button type="button" class="btn btn-sm"><GoogleLoginComponent /></button>
+                                                    </div>
                                                 </form>
                                                 <hr />
                                                 <div className="text-center">

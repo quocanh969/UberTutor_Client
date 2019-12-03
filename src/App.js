@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import FacebookLoginComponent from './Login/Components/FacebookLoginComponent';
+import GoogleLoginComponent from './Login/Components/GoogleLoginComponent';
 
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';

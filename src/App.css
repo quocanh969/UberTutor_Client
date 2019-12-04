@@ -28,3 +28,17 @@ body{
 .align-center{
   text-align: center;
 }
+
+.btn-facebook{ 
+  background-color: #4c69ba;
+  color: white;
+  border: 1px solid #4c69ba;
+  height: 45px;
+  text-align: left;
+  font-size: 18px;
+}
+
+.btn-facebook i{
+  margin-left: 4px;
+  margin-right: 20px;  
+}

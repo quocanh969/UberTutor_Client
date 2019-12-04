@@ -26,7 +26,7 @@ export default class Login extends Component {
                                                 </div>
                                                 <form className="user">
                                                     <div className="form-group">
-                                                        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
+                                                        <input type="email" className="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
                                                     </div>
                                                     <div className="form-group">
                                                         <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
@@ -41,9 +41,9 @@ export default class Login extends Component {
                                                         Login
                                                     </a>
                                                     <hr />
-                                                    <div class="align-center">
-                                                        <button type="button" class="btn btn-sm"><FacebookLoginComponent /></button>
-                                                        <button type="button" class="btn btn-sm"><GoogleLoginComponent /></button>
+                                                    <div className="align-center">
+                                                        <div className="btn btn-sm w-100"><FacebookLoginComponent /></div>
+                                                        <div className="btn btn-sm w-100"><GoogleLoginComponent /></div>
                                                     </div>
                                                 </form>
                                                 <hr />

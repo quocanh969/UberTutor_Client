@@ -21,6 +21,13 @@ body{
   background-size:cover
 }
 
+.bg-register-tutor-image{
+  /*background:url(https://images.wisegeek.com/teacher-at-chalkboard.jpg);*/
+  background: url(https://images.wisegeek.com/teacher-at-chalkboard.jpg);
+  background-position: left;
+  background-size: cover;
+}
+
 .font-20{
   font-size: 20px  !important;
 }

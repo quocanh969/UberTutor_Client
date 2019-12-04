@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import LoginContainer from './Login/Login.container';
 import RegisterContainer from './Register/Register.container';
 import DashboardContainer from './Dashboard/Dashboard.container';
+import RegisterTutorContainer from './Register/RegisterTutor.container';
 
 import { PrivateRoute } from './CustomRoutes/PrivateRoute';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
           <Route path="/dashboard" exact component={DashboardContainer}></Route>
+          <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
           <Redirect to='/login' />
         </Switch>
       </BrowserRouter>

@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom'
 
 import FacebookLoginComponent from './Components/FacebookLoginComponent'
 import GoogleLoginComponent from './Components/GoogleLoginComponent'
-
+import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 
 export default class Login extends Component {
     render() {
         return (
             <div>
+                <div><SecondaryNavBar /></div>
                 <div className="container">
                     {/* Outer Row */}
                     <div className="row justify-content-center">
@@ -31,7 +32,7 @@ export default class Login extends Component {
                                                         <option value="1">Tutor</option>
                                                     </select>
                                                 </div>
-                                                <hr/>
+                                                <hr />
                                                 <form className="user">
                                                     <div className="form-group">
                                                         <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
@@ -53,7 +54,10 @@ export default class Login extends Component {
                                                     <a className="small" href="forgot-password.html">Forgot Password?</a>
                                                 </div>
                                                 <div className="text-center">
-                                                    <NavLink className="small" to="/register">Create an Account!</NavLink>
+                                                    <NavLink className="small" to="/register">Sign up as a learner!</NavLink>
+                                                </div>
+                                                <div className="text-center">
+                                                    <NavLink className="small" to="/tutorRegister">Sign up as a tutor!</NavLink>
                                                 </div>
                                             </div>
                                         </div>

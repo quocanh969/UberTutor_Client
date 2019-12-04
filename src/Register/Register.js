@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
+import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 
 class Register extends Component {
     render() {
         return (
             <div>
+                <div><SecondaryNavBar/></div>
                 <div className="container my-0">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">

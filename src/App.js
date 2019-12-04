@@ -4,27 +4,27 @@ import FacebookLoginComponent from './Login/Components/FacebookLoginComponent';
 import GoogleLoginComponent from './Login/Components/GoogleLoginComponent';
 
 
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import LoginContainer from './Login/Login.container';
 import RegisterContainer from './Register/Register.container';
 import DashboardContainer from './Dashboard/Dashboard.container';
 import RegisterTutorContainer from './Register/RegisterTutor.container';
 
 import { PrivateRoute } from './CustomRoutes/PrivateRoute';
-
+import { history } from './Helpers/History';
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
-          <Route path="/dashboard" exact component={DashboardContainer}></Route>
+          <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
           <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
           <Redirect to='/login' />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

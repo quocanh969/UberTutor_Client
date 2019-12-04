@@ -25,7 +25,7 @@ export default class Login extends Component {
                                                 <div className="text-center">
                                                     <h1 className="h4 text-gray-900 mb-4">Welcome to UBER TUTOR!</h1>
                                                 </div>
-                                                <a>Login as:</a>
+                                                <label className="mb-1">Login as:</label>
                                                 <div className="form-group">
                                                     <select class="form-control" defaultValue="0">
                                                         <option value="0">Learner</option>

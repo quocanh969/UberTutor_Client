@@ -71,6 +71,7 @@ export default class Homepage extends Component {
                                 </div>
                             </div>
                         </div>
+                        
                         {/* <div class="w-100"></div> */}
                         <div class="col">
                             <div class="card card-size m-auto">

@@ -36,6 +36,7 @@ export default class FacebookLoginComponent extends Component {
     render() {
         console.log(this.state);
         let fbLoginBtn = <FacebookLogin
+            cssClass="w-100 btn-facebook"
             appId="1031064350575617"
             autoLoad={false}
             fields="name,email,picture"

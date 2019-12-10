@@ -25,7 +25,7 @@ export default class Login extends Component {
                                                 <div className="text-center">
                                                     <h1 className="h4 text-gray-900 mb-4 font-weight-bold">Welcome to UBER TUTOR!</h1>
                                                 </div>
-                                                <a>Login as:</a>
+                                                <label className="mb-1">Login as:</label>
                                                 <div className="form-group">
                                                     <select class="form-control" defaultValue="0">
                                                         <option value="0">Learner</option>
@@ -35,7 +35,7 @@ export default class Login extends Component {
                                                 <hr />
                                                 <form className="user">
                                                     <div className="form-group">
-                                                        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
+                                                        <input type="email" className="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" />
                                                     </div>
                                                     <div className="form-group">
                                                         <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
@@ -44,9 +44,9 @@ export default class Login extends Component {
                                                         Login
                                                     </a>
                                                     <hr />
-                                                    <div class="align-center row">
-                                                        <button type="button" className="btn btn-sm col"><FacebookLoginComponent /></button>
-                                                        <button type="button" className="btn btn-sm col"><GoogleLoginComponent /></button>
+                                                    <div className="align-center">
+                                                        <div className="btn btn-sm w-100"><FacebookLoginComponent /></div>
+                                                        <div className="btn btn-sm w-100"><GoogleLoginComponent /></div>
                                                     </div>
                                                 </form>
                                                 <hr />

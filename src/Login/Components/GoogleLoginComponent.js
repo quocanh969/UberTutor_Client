@@ -13,6 +13,7 @@ export default class GoogleLoginComponent extends Component {
                 <GoogleLogin
                     clientId="478268913211-ldu6mf2b7jpk6g7v62qcfogr2egt6dak.apps.googleusercontent.com"
                     buttonText="LOGIN WITH GOOGLE"
+                    className="w-100"
                     cookiePolicy={'single_host_origin'}
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle}

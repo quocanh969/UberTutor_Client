@@ -36,5 +36,22 @@ body{
   text-align: center;
 }
 
-.btn-facebook{
-  color:#fff;background-color:#3b5998;border-color:#fff}.btn-facebook:hover{color:#fff;background-color:#30497c;border-color:#e6e6e6}.btn-facebook.focus,.btn-facebook:focus{box-shadow:0 0 0 .2rem rgba(255,255,255,.5)}.btn-facebook.disabled,.btn-facebook:disabled{color:#fff;background-color:#3b5998;border-color:#fff}.btn-facebook:not(:disabled):not(.disabled).active,.btn-facebook:not(:disabled):not(.disabled):active,.show>.btn-facebook.dropdown-toggle{color:#fff;background-color:#2d4373;border-color:#dfdfdf}
+.btn-facebook{ 
+  background-color: #4c69ba;
+  color: white;
+  border: 1px solid #4c69ba;
+  height: 45px;
+  text-align: left;
+  font-size: 18px;
+}
+
+.btn-facebook i{
+  margin-left: 4px;
+  margin-right: 20px;  
+}
+
+.form-select{
+  border-radius: 40px;
+  color: #6e707e;
+  border: 1px solid #d1d3e2;
+}

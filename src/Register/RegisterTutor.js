@@ -4,6 +4,84 @@ import { NavLink } from 'react-router-dom'
 import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 
 export default class RegisterTutor extends Component {
+    
+    user = {
+        username: '',
+        password: '',
+        name: '',
+        email: '',
+        yob: 1980,
+        role: 1,
+        gender: 0,
+        address: '',
+        phone: '',        
+        major: '',        
+        levelTeaching: 0,        
+    }
+
+    constructor() {
+        super();
+
+        this.handleSubmit = this.handleSubmit.bind(this); // handle submit
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentWillMount() {
+        let { onTutorRegisterRefresh } = this.props;
+        onTutorRegisterRefresh();
+    }
+
+    handleChange(e) {
+        this.user[e.target.name] = e.target.value;
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        if (this.user.password === this.refs.confirm.value) {
+            let { onTutorRegister } = this.props;
+            onTutorRegister(this.user);
+        }
+        else {
+            let { onTutorValidateFail } = this.props;
+            onTutorValidateFail('Repeat is not the same as password');
+        }
+    }
+
+    generateNotice() {
+        let { status, message, loading } = this.props.RegisterReducer;
+
+        if (status === 0) {
+            if (loading === true) {
+                return (
+                    <div className="d-flex justify-content-center my-2">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                );
+            }
+            else {
+                return null;
+            }
+        }
+        else if (status === 1) {// Thành công
+            this.refs.registerForm.reset()
+            return (
+                <div className="alert alert-success mb-3">
+                    {message}
+                </div>
+            );
+        }
+        else {// Thất bại
+            return (
+                <div className="alert alert-danger mb-3">
+                    {message}
+                </div>
+            );
+        }
+    }
+
+
     render() {
         return (
             <div>
@@ -23,25 +101,22 @@ export default class RegisterTutor extends Component {
                                         <div className="text-center">
                                             <h1 className="h5 text-gray-900 mb-4">Personal information</h1>
                                         </div>
-                                        <form className="user">
+                                        <form ref="registerForm" className="user">
                                             <div className="form-group row">
-                                                <div className="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="text" className="form-control" id="exampleFirstName" placeholder="First Name" />
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <input type="text" className="form-control" id="exampleLastName" placeholder="Last Name" />
+                                                <div className="mb-3 mb-sm-0">
+                                                    <input type="text" required name="name" className="form-control" id="exampleLastName" placeholder="Name" />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <input type="email" className="form-control" id="exampleInputEmail" placeholder="Email Address" />
+                                                <input type="email" required name="email" className="form-control" id="exampleInputEmail" placeholder="Email Address" />
                                             </div>
 
                                             <div className="form-group row">
                                                 <div className="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
+                                                    <input type="password" required name="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <input type="password" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" />
+                                                    <input type="password" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" />
                                                 </div>
                                             </div>
                                             <hr />
@@ -50,11 +125,11 @@ export default class RegisterTutor extends Component {
                                             </div>
                                             {/* <a>Major:</a> */}
                                             <div className="form-group">
-                                                <input type="text" className="form-control" id="exampleInputEmail" placeholder="Enter your main major" />
+                                                <input type="text" required name="major" className="form-control" id="exampleInputEmail" placeholder="Enter your main major" />
                                             </div>
                                             <a>Choose your current educational level:</a>
                                             <div className="form-group">
-                                                <select class="form-control" defaultValue="0">
+                                                <select class="form-control" defaultValue="0" name='levelTeaching'>
                                                     <option value="0">Undergraduate</option>
                                                     <option value="1">Bachelor</option>
                                                     <option value="2">Master</option>

@@ -55,3 +55,29 @@ body{
   color: #6e707e;
   border: 1px solid #d1d3e2;
 }
+
+.cat-bar {
+  background-color:#ffff;
+  margin-top: 55px;
+}
+
+.float-center {
+  float: right;
+
+  position: relative;
+  left: -50%; /* or right 50% */
+  text-align: center;
+}
+
+.transparent {
+  opacity: 0.3;
+}
+
+.card-size {
+  width: 300px;
+  height: 200px;
+}
+
+.justify-items-center {
+  justify-items: center;
+}

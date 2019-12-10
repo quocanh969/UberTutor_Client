@@ -41,7 +41,7 @@ export default class FacebookLoginComponent extends Component {
             fields="name,email,picture"
             onClick={this.componentClicked}
             callback={this.responseFacebook}
-            // icon="fa-facebook"
+            icon="fa-facebook"
             textButton="LOGIN WITH FACEBOOK"
             size="small" />
         let authenticatedContent = <div>

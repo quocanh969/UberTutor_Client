@@ -35,3 +35,6 @@ body{
 .align-center{
   text-align: center;
 }
+
+.btn-facebook{
+  color:#fff;background-color:#3b5998;border-color:#fff}.btn-facebook:hover{color:#fff;background-color:#30497c;border-color:#e6e6e6}.btn-facebook.focus,.btn-facebook:focus{box-shadow:0 0 0 .2rem rgba(255,255,255,.5)}.btn-facebook.disabled,.btn-facebook:disabled{color:#fff;background-color:#3b5998;border-color:#fff}.btn-facebook:not(:disabled):not(.disabled).active,.btn-facebook:not(:disabled):not(.disabled):active,.show>.btn-facebook.dropdown-toggle{color:#fff;background-color:#2d4373;border-color:#dfdfdf}

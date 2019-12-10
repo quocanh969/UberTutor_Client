@@ -23,7 +23,7 @@ export default class Login extends Component {
                                         <div className="col-lg-6">
                                             <div className="p-5">
                                                 <div className="text-center">
-                                                    <h1 className="h4 text-gray-900 mb-4">Welcome to UBER TUTOR!</h1>
+                                                    <h1 className="h4 text-gray-900 mb-4 font-weight-bold">Welcome to UBER TUTOR!</h1>
                                                 </div>
                                                 <a>Login as:</a>
                                                 <div className="form-group">
@@ -44,9 +44,9 @@ export default class Login extends Component {
                                                         Login
                                                     </a>
                                                     <hr />
-                                                    <div class="align-center">
-                                                        <button type="button" class="btn btn-sm"><FacebookLoginComponent /></button>
-                                                        <button type="button" class="btn btn-sm"><GoogleLoginComponent /></button>
+                                                    <div class="align-center row">
+                                                        <button type="button" className="btn btn-sm col"><FacebookLoginComponent /></button>
+                                                        <button type="button" className="btn btn-sm col"><GoogleLoginComponent /></button>
                                                     </div>
                                                 </form>
                                                 <hr />

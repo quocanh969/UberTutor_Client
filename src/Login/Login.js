@@ -92,7 +92,7 @@ export default class Login extends Component {
                                         <div className="col-lg-6">
                                             <div className="p-5">
                                                 <div className="text-center">
-                                                    <h1 className="h4 text-gray-900 mb-4">Welcome to UBER TUTOR!</h1>
+                                                    <h1 className="h4 text-gray-900 mb-4 font-weight-bold">Welcome to UBER TUTOR!</h1>
                                                 </div>
                                                 <label className="mb-1">Login as:</label>
                                                 <div className="form-group">

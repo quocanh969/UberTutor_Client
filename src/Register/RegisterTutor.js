@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
+import { maj } from '../Services/MajorService';
 
 export default class RegisterTutor extends Component {
-    
+
     user = {
         username: '',
         password: '',
@@ -14,16 +15,27 @@ export default class RegisterTutor extends Component {
         role: 1,
         gender: 0,
         address: '',
-        phone: '',        
-        major: '',        
-        levelTeaching: 0,        
+        phone: '',
+        major: '',
+        levelTeaching: 0,
     }
+
 
     constructor() {
         super();
-
+        this.state = {
+            isLoaded: false,
+            majorsSelector: [],
+        }
         this.handleSubmit = this.handleSubmit.bind(this); // handle submit
         this.handleChange = this.handleChange.bind(this);
+
+        maj.getList().then(data => {
+            console.log(data);
+            this.setState({majorsSelector: data});
+            // console.log(this.majorsSelector);
+        })
+        console.log(this.majorsSelector);
     }
 
     componentWillMount() {
@@ -81,11 +93,22 @@ export default class RegisterTutor extends Component {
         }
     }
 
+    GenerateMajorsList = () => {
+        let content = [];
+        for (let i of this.state.majorsSelector) {
+            content.push(
+                <option value={i.id}>{i.name}</option>
+            )
+        }
+        console.log(content);
+        return content;
+    }
 
     render() {
+
         return (
             <div>
-                <div><SecondaryNavBar/></div>
+                <div><SecondaryNavBar /></div>
                 <div className="container my-0">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">
@@ -102,7 +125,7 @@ export default class RegisterTutor extends Component {
                                             <h1 className="h5 text-gray-900 mb-4">Personal information</h1>
                                         </div>
                                         <form ref="registerForm" className="user">
-                                            <div className="form-group row">
+                                            <div className="form-group">
                                                 <div className="mb-3 mb-sm-0">
                                                     <input type="text" required name="name" className="form-control" id="exampleLastName" placeholder="Name" />
                                                 </div>
@@ -125,7 +148,14 @@ export default class RegisterTutor extends Component {
                                             </div>
                                             {/* <a>Major:</a> */}
                                             <div className="form-group">
-                                                <input type="text" required name="major" className="form-control" id="exampleInputEmail" placeholder="Enter your main major" />
+                                                <select class="form-control" defaultValue="0" name='mainMajor'>
+                                                    {/* <option value="0">Major 1</option>
+                                                    <option value="1">Major 2</option>
+                                                    <option value="2">Major 3</option>
+                                                    <option value="4">Major 4</option>
+                                                    <option value="5">Major 5</option> */}
+                                                    {this.GenerateMajorsList()}
+                                                </select>
                                             </div>
                                             <a>Choose your current educational level:</a>
                                             <div className="form-group">

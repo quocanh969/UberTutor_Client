@@ -4,8 +4,16 @@ import GoogleLogin from 'react-google-login'
 export default class GoogleLoginComponent extends Component {
     // componentClicked = () => console.log("Clicked");
     responseGoogle = (res) => {
-        console.log("google response");
         console.log(res);
+        let { GoogleLoginFunc } = this.props;
+        let { role } = this.props;
+        GoogleLoginFunc({
+            name: res.profileObj.name,
+            id_social: res.profileObj.googleId,
+            email: res.profileObj.email,
+            avatarLink: res.profileObj.imageUrl,
+            role: role,
+        });
     }
     render() {
         return (

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import FacebookLogin from 'react-facebook-login';
 
 export default class FacebookLoginComponent extends Component {
@@ -11,10 +12,23 @@ export default class FacebookLoginComponent extends Component {
         token: '',
     };
 
-    componentClicked = () => console.log("Clicked");
+    componentClicked = () => {
+    };
     responseFacebook = (res) => {
+        
+        let { FacebookLogin } = this.props;
+        let { role } = this.props;
+        FacebookLogin({
+            name: res.name,
+            id_social: res.id,
+            email: res.email,
+            avatarLink: res.picture.data.url,
+            role: role,
+        });
+        /*
         console.log(res);
         const tokenBlob = new Blob([JSON.stringify({ access_token: res.accessToken }, null, 2)], { type: 'application/json' });
+        
         const options = {
             method: 'POST',
             body: tokenBlob,
@@ -31,10 +45,10 @@ export default class FacebookLoginComponent extends Component {
         // })
         if (options.body)
             this.setState({ isLoggedIn: true, userId: res.id, displayName: res.name, email: res.email, avatar: res.picture.data.url, token: res.accessToken });
+    */
     }
 
-    render() {
-        console.log(this.state);
+    render() {        
         let fbLoginBtn = <FacebookLogin
             cssClass="w-100 btn-facebook"
             appId="1031064350575617"

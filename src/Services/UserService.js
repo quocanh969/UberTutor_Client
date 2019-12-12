@@ -2,13 +2,15 @@ const ApiUrl = "http://localhost:8081";
 
 
 export const us = {
-    login,
+    normalLogin,
+    facebookLogin,
+    googleLogin,
     registerStudent,
     registerTutor,
 }
 
 
-function login(user) {
+function normalLogin(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -16,6 +18,42 @@ function login(user) {
     };
 
     return fetch(`${ApiUrl}/login`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            if (user !== false) {
+                localStorage.setItem('user', JSON.stringify(user));
+            }
+
+            return user;
+        });
+}
+
+function facebookLogin(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    return fetch(`${ApiUrl}/login-facebook`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            if (user !== false) {
+                localStorage.setItem('user', JSON.stringify(user));
+            }
+
+            return user;
+        });
+}
+
+function googleLogin(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    return fetch(`${ApiUrl}/login-google`, requestOptions)
         .then(handleResponse)
         .then(user => {
             if (user !== false) {

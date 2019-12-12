@@ -75,9 +75,13 @@ body{
 
 .card-size {
   width: 300px;
-  height: 200px;
+  height: 350px;
 }
 
 .justify-items-center {
   justify-items: center;
+}
+
+.dropdown-maxrows-4 {
+  height: 100px;
 }

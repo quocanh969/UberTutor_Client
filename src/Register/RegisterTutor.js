@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
+import { maj } from '../Services/MajorService';
 
 export default class RegisterTutor extends Component {
 
@@ -19,11 +20,22 @@ export default class RegisterTutor extends Component {
         levelTeaching: 0,
     }
 
+
     constructor() {
         super();
-
+        this.state = {
+            isLoaded: false,
+            majorsSelector: [],
+        }
         this.handleSubmit = this.handleSubmit.bind(this); // handle submit
         this.handleChange = this.handleChange.bind(this);
+
+        maj.getList().then(data => {
+            console.log(data);
+            this.setState({majorsSelector: data});
+            // console.log(this.majorsSelector);
+        })
+        console.log(this.majorsSelector);
     }
 
     componentWillMount() {
@@ -81,8 +93,19 @@ export default class RegisterTutor extends Component {
         }
     }
 
+    GenerateMajorsList = () => {
+        let content = [];
+        for (let i of this.state.majorsSelector) {
+            content.push(
+                <option value={i.id}>{i.name}</option>
+            )
+        }
+        console.log(content);
+        return content;
+    }
 
     render() {
+
         return (
             <div>
                 <div><SecondaryNavBar /></div>
@@ -126,11 +149,12 @@ export default class RegisterTutor extends Component {
                                             {/* <a>Major:</a> */}
                                             <div className="form-group">
                                                 <select class="form-control" defaultValue="0" name='mainMajor'>
-                                                    <option value="0">Major 1</option>
+                                                    {/* <option value="0">Major 1</option>
                                                     <option value="1">Major 2</option>
                                                     <option value="2">Major 3</option>
                                                     <option value="4">Major 4</option>
-                                                    <option value="5">Major 5</option>
+                                                    <option value="5">Major 5</option> */}
+                                                    {this.GenerateMajorsList()}
                                                 </select>
                                             </div>
                                             <a>Choose your current educational level:</a>

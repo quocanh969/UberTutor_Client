@@ -5,8 +5,7 @@ import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 
 class Register extends Component {
 
-    user = {
-        username: '',
+    user = {        
         password: '',
         name: '',
         email: '',
@@ -101,9 +100,6 @@ class Register extends Component {
                                             </div>
                                             <div className="form-group">
                                                 <input type="email" required onChange={this.handleChange} className="form-control form-control-user" id="email" name="email" placeholder="Email Address" />
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="text" required onChange={this.handleChange} className="form-control form-control-user" id="username" name="username" placeholder="Username" />
                                             </div>
                                             <div className="form-group row">
                                                 <div className="col-sm-6 mb-3 mb-sm-0">

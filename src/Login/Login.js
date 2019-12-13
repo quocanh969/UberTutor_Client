@@ -38,8 +38,7 @@ export default class Login extends Component {
         e.preventDefault();
         
 
-        let { onNormalLogin } = this.props;
-        
+        let { onNormalLogin } = this.props;        
         onNormalLogin({
             username: this.user.username,
             password: this.user.password,
@@ -104,7 +103,7 @@ export default class Login extends Component {
                                                 <hr />
                                                 <form className="user" onSubmit={this.handleSubmit}>
                                                     <div className="form-group">
-                                                        <input type="text" onChange={this.handleChange} required className="form-control" id="username" name="username" placeholder="Username" />
+                                                        <input type="email" onChange={this.handleChange} required className="form-control" id="username" name="username" placeholder="Email" />
                                                     </div>
                                                     <div className="form-group">
                                                         <input type="password" onChange={this.handleChange} required className="form-control" id="password" name="password" placeholder="Password" />

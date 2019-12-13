@@ -25,14 +25,14 @@ export const ActionTutorRegister = (user) => {
     function request(user) {
         return {
             type: 'REGISTER_TUTOR_REQUEST',
-            user
+            user,
         }
     }
 
     function success(message) {
         return {
             type: 'REGISTER_TUTOR_SUCCESS',
-            message
+            message,
         }
     }
 

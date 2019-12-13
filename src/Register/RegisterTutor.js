@@ -7,7 +7,6 @@ import { maj } from '../Services/MajorService';
 export default class RegisterTutor extends Component {
 
     user = {
-        username: '',
         password: '',
         name: '',
         email: '',
@@ -30,12 +29,10 @@ export default class RegisterTutor extends Component {
         this.handleSubmit = this.handleSubmit.bind(this); // handle submit
         this.handleChange = this.handleChange.bind(this);
 
-        maj.getList().then(data => {
-            console.log(data);
+        maj.getList().then(data => {          
             this.setState({majorsSelector: data});
             // console.log(this.majorsSelector);
         })
-        console.log(this.majorsSelector);
     }
 
     componentWillMount() {
@@ -48,8 +45,10 @@ export default class RegisterTutor extends Component {
     }
 
     handleSubmit(e) {
+
         e.preventDefault();
         if (this.user.password === this.refs.confirm.value) {
+            
             let { onTutorRegister } = this.props;
             onTutorRegister(this.user);
         }
@@ -60,7 +59,7 @@ export default class RegisterTutor extends Component {
     }
 
     generateNotice() {
-        let { status, message, loading } = this.props.RegisterReducer;
+        let { status, message, loading } = this.props.RegisterTutorReducer;
 
         if (status === 0) {
             if (loading === true) {
@@ -97,10 +96,9 @@ export default class RegisterTutor extends Component {
         let content = [];
         for (let i of this.state.majorsSelector) {
             content.push(
-                <option value={i.id}>{i.name}</option>
+                <option value={i.id} key={i.id}>{i.name}</option>
             )
         }
-        console.log(content);
         return content;
     }
 
@@ -122,24 +120,24 @@ export default class RegisterTutor extends Component {
                                         </div>
                                         <hr />
                                         <div className="text-center">
-                                            <h1 className="h5 text-gray-900 mb-4">Personal information</h1>
+                                            <h1 className="h5 text-gray-900 mb-4">Account information</h1>
                                         </div>
-                                        <form ref="registerForm" className="user">
+                                        <form ref="registerForm" onSubmit={this.handleSubmit} className="user">
                                             <div className="form-group">
                                                 <div className="mb-3 mb-sm-0">
-                                                    <input type="text" required name="name" className="form-control" id="exampleLastName" placeholder="Name" />
+                                                    <input type="text" required name="name" className="form-control" id="exampleLastName" placeholder="Name" onChange={this.handleChange}/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <input type="email" required name="email" className="form-control" id="exampleInputEmail" placeholder="Email Address" />
+                                                <input type="email" required name="email" className="form-control" id="exampleInputEmail" placeholder="Email Address" onChange={this.handleChange}/>
                                             </div>
 
                                             <div className="form-group row">
                                                 <div className="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" required name="password" className="form-control" id="exampleInputPassword" placeholder="Password" />
+                                                    <input type="password" required name="password" className="form-control" id="exampleInputPassword" placeholder="Password" onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <input type="password" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" />
+                                                    <input type="password" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" onChange={this.handleChange} />
                                                 </div>
                                             </div>
                                             <hr />
@@ -148,7 +146,7 @@ export default class RegisterTutor extends Component {
                                             </div>
                                             {/* <a>Major:</a> */}
                                             <div className="form-group">
-                                                <select class="form-control" defaultValue="0" name='mainMajor'>
+                                                <select className="form-control" defaultValue="0" name='mainMajor' onChange={this.handleChange}>
                                                     {/* <option value="0">Major 1</option>
                                                     <option value="1">Major 2</option>
                                                     <option value="2">Major 3</option>
@@ -159,7 +157,7 @@ export default class RegisterTutor extends Component {
                                             </div>
                                             <a>Choose your current educational level:</a>
                                             <div className="form-group">
-                                                <select class="form-control" defaultValue="0" name='levelTeaching'>
+                                                <select className="form-control" defaultValue="0" name='levelTeaching' onChange={this.handleChange}>
                                                     <option value="0">Undergraduate</option>
                                                     <option value="1">Bachelor</option>
                                                     <option value="2">Master</option>
@@ -167,9 +165,10 @@ export default class RegisterTutor extends Component {
                                                     <option value="5">Professor</option>
                                                 </select>
                                             </div>
-                                            <a href="login.html" className="btn btn-primary btn-user btn-block font-weight-bold font-20">
+                                            {this.generateNotice()}
+                                            <button className="btn btn-primary btn-user btn-block font-weight-bold font-20">
                                                 Register Account
-                                            </a>
+                                            </button>
                                         </form>
                                         <hr />
                                         <div className="text-center">

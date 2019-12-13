@@ -20,6 +20,8 @@ function normalLogin(user) {
     return fetch(`${ApiUrl}/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
+            console.log("login:");
+            console.log(user);
             if (user !== false) {
                 localStorage.setItem('user', JSON.stringify(user));
             }
@@ -65,8 +67,6 @@ function googleLogin(user) {
 }
 
 function registerStudent(user) {
-    user.name = user.username;
-
     const requestOption = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -77,9 +77,7 @@ function registerStudent(user) {
         .then(handleResponse);
 }
 
-function registerTutor(user) {
-    user.name = user.username;
-
+function registerTutor(user) {  
     const requestOption = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

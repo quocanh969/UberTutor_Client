@@ -4,7 +4,7 @@ export const ActionStudentRegister = (user) => {
     return dispatch => {
 
         dispatch(request(user));
-
+        console.log(user);
         us.registerStudent(user)
             .then(
                 res => {

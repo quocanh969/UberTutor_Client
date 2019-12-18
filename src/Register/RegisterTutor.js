@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
-import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 import { maj } from '../Services/MajorService';
 
 export default class RegisterTutor extends Component {
@@ -106,7 +105,6 @@ export default class RegisterTutor extends Component {
 
         return (
             <div>
-                <div><SecondaryNavBar /></div>
                 <div className="container my-0">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">
@@ -140,18 +138,33 @@ export default class RegisterTutor extends Component {
                                                     <input type="password" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" onChange={this.handleChange} />
                                                 </div>
                                             </div>
+                                            <div className="form-group">
+                                                <input type="text" onChange={this.handleChange} className="form-control" id="address" name="address" placeholder="Address" />
+                                            </div>
+                                            <div className="form-group">
+                                                <input type="tel" required onChange={this.handleChange} className="form-control" id="phone" name="phone" placeholder="Phone number" />
+                                            </div>
+                                            <div className="form-group row py-auto">
+                                                <div className="col-6 mb-3 mb-sm-0">
+                                                    <input type="number" required onChange={this.handleChange} className="form-control" id="yob" name="yob" min="1980" placeholder="Years Of Birth" />
+                                                </div>
+                                                <select className="form-select col-6"
+                                                    name="gender"
+                                                    id="gender"
+                                                    onChange={this.handleChange}
+                                                    defaultValue={0}>
+                                                    <option value={0}>Male</option>
+                                                    <option value={1}>Female</option>
+                                                </select>
+                                            </div>
                                             <hr />
                                             <div className="text-center">
                                                 <h1 className="h5 text-gray-900 mb-4">Professional information</h1>
                                             </div>
-                                            {/* <a>Major:</a> */}
+
                                             <div className="form-group">
                                                 <select className="form-control" defaultValue="0" name='mainMajor' onChange={this.handleChange}>
-                                                    {/* <option value="0">Major 1</option>
-                                                    <option value="1">Major 2</option>
-                                                    <option value="2">Major 3</option>
-                                                    <option value="4">Major 4</option>
-                                                    <option value="5">Major 5</option> */}
+                                                    
                                                     {this.GenerateMajorsList()}
                                                 </select>
                                             </div>

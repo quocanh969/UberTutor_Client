@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { NavLink } from 'react-router-dom'
-import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 
 class Register extends Component {
 
@@ -81,7 +80,6 @@ class Register extends Component {
     render() {
         return (
             <div>
-                <div><SecondaryNavBar /></div>
                 <div className="container my-0">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">
@@ -93,7 +91,7 @@ class Register extends Component {
                                         <div className="text-center">
                                             <h1 className="h4 text-gray-900 mb-4">Create an Account!</h1>
                                         </div>
-                                        {this.generateNotice()}
+                                        
                                         <form ref="registerForm" className="user" onSubmit={this.handleSubmit}>
                                             <div className="form-group">
                                                 <input type="text" required onChange={this.handleChange} className="form-control form-control-user" id="name" name="name" placeholder="Name" />
@@ -110,7 +108,7 @@ class Register extends Component {
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <input type="text" onChange={this.handleChange} className="form-control form-control-user" id="address" name="address" placeholder="Address" />
+                                                <input type="text" required onChange={this.handleChange} className="form-control form-control-user" id="address" name="address" placeholder="Address" />
                                             </div>
                                             <div className="form-group">
                                                 <input type="tel" required onChange={this.handleChange} className="form-control form-control-user" id="phone" name="phone" placeholder="Phone number" />
@@ -128,9 +126,10 @@ class Register extends Component {
                                                     <option value={1}>Female</option>
                                                 </select>
                                             </div>
+                                            {this.generateNotice()}
                                             <button type="submit" className="btn btn-primary btn-user btn-block font-weight-bold font-20">
                                                 Register Account
-                                                    </button>
+                                            </button>
                                         </form>
                                         <hr />
                                         <div className="text-center">

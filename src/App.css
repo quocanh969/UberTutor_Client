@@ -32,6 +32,7 @@ body{
   font-size: 20px  !important;
 }
 
+
 .align-center{
   text-align: center;
 }
@@ -58,7 +59,7 @@ body{
 
 .cat-bar {
   background-color:#ffff;
-  margin-top: 55px;
+  margin-top: 57px;
 }
 
 .float-center {
@@ -104,4 +105,15 @@ body{
 
 .font-size-20px {
   font-size: 25px;
+}
+
+.border-top {
+  border-width: 5px !important;
+}
+
+.carousel-item {
+  height: 500px;
+
+  background-color: rgba(0,0,0,0.5);
+  
 }

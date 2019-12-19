@@ -114,7 +114,7 @@ export default class SecondaryNavBar extends Component {
                     </div> */}
                     <div className="form-inline w-50 text-center">
                         <div className="input-group w-100">
-                            <input type="text" className="form-control" placeholder="Class search ..."/>
+                            <input type="text" className="form-control" placeholder="Find tutor ..."/>
                             <div className="input-group-append width-size-75px">
                                 <button className="btn btn-primary w-100" type="button">
                                     <i className="fa fa-search text-white"></i>

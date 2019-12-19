@@ -9,8 +9,8 @@ export default class CategoriesList extends Component {
         let content = [];
         for (let i of this.props.majorList) {
             content.push(
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{i.name}</a>
+                <li className="nav-item">
+                    <a className="nav-link text-white font-weight-bold" href="#">{i.name}</a>
                 </li>
             )
         }
@@ -19,8 +19,8 @@ export default class CategoriesList extends Component {
 
     render() {
         return (
-            <div>
-                <ul class="nav justify-content-center">
+            <div className="bg-dark border-top border-light">
+                <ul className="nav justify-content-center">
                     {this.GenerateMajorsList()}
                 </ul>
             </div>

@@ -13,6 +13,7 @@ import Homepage from './GuestUser/Homepage';
 
 import { PrivateRoute } from './CustomRoutes/PrivateRoute';
 import { history } from './Helpers/History';
+import ChangePassword from './ChangePassword/ChangePassword';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" exact component={Homepage}></Route>
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
+          <Route path="/change-password" exact component={ChangePassword}></Route>
           <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
           <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
           <Redirect to='/login' />

@@ -22,17 +22,16 @@ export default class Homepage extends Component {
         let content = [];
         for (let i of this.state.majorList) {
             content.push(
-                <div class="col-4 my-4">
-                    <div class="card card-size border-0 m-auto">
+                <div className="col-4 my-4">
+                    <div className="card card-size border-0 m-auto">
                         <img src={i.icoUrl} height={300} width={300} class="card-img-top" />
-                        <div class="card-body bg-light">
+                        <div className="card-body bg-light">
                             <a href="#" class="btn btn-light">{i.name}</a>
                         </div>
                     </div>
                 </div>
             )
         }
-        console.log(content);
         return content;
     }
 
@@ -43,74 +42,64 @@ export default class Homepage extends Component {
                 <div className="cat-bar">
                     <CategoriesList majorList={this.state.majorList}/>
                 </div>
-                <div id="carouselExampleCaptions" class="carousel slide border-danger container-fluid" data-ride="carousel">
-                    <ol class="carousel-indicators">
+                
+                <div id="carouselExampleCaptions" className="carousel slide container-fluid mx-0 px-0" data-ride="carousel">
+                    {/*Carousel*/}
+                    <ol className="carousel-indicators">
                         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                         <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block w-75 m-auto" alt="public\logo512.png" />
-                            <div class="carousel-caption d-none d-md-block bg-secondary">
+
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block m-auto" alt="public\logo512.png"
+                                    />
+                            <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>First slide label</h5>
                                 <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" class="d-block w-75 m-auto" alt="public\logo512.png" />
-                            <div class="carousel-caption d-none d-md-block bg-secondary">
+                        <div className="carousel-item">
+                            <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" class="d-block m-auto" alt="public\logo512.png" />
+                            <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>Second slide label</h5>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block w-75 m-auto" alt="public\logo512.png" />
-                            <div class="carousel-caption d-none d-md-block bg-secondary">
+                        <div className="carousel-item">
+                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block m-auto" alt="public\logo512.png" />
+                            <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>Third slide label</h5>
                                 <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
                             </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+
+                    <a className="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+
+                    <a className="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
                     </a>
+
                 </div>
-                <div class="container justify-items-center text-center">
-                    <div class="row py-4">
-                        {/* <div class="col">
-                            <div class="card card-size m-auto">
-                                <img src="" class="card-img-top" />
-                                <div class="card-body bg-light">
-                                    <a href="#" class="btn btn-light">Math</a>
-                                </div>
-                            </div>
-                        </div> */}
+                
+
+
+                <div className="container">                    
+                    <div className="pl-4 pt-4 mb-0 pb-1 text-white font-weight-bold">
+                        Find your major or subject ...
+                    </div>
+                    <div className="row pb-4 mt-0 pt-0 justify-items-center text-center"> 
                         {this.GenerateMajorCards()}
-                        {/* <div class="col">
-                            <div class="card card-size m-auto">
-                                <img src="" class="card-img-top" />
-                                <div class="card-body bg-light">
-                                    <a href="#" class="btn btn-light">Physics</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                        <div class="col">
-                            <div class="card card-size m-auto">
-                                <img src="" class="card-img-top" />
-                                <div class="card-body bg-light">
-                                    <a href="#" class="btn btn-light">Chemistry</a>
-                                </div>
-                            </div>
-                        </div> */}
-
+                    </div>
+                    <div className="pl-4 py-4 text-white font-weight-bold text-center">
+                        Don't you see what you're looking for? &nbsp;
+                        <a className="text-warning" href="#">See all subject</a>
                     </div>
                 </div>
 

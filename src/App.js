@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import FacebookLoginComponent from './Login/Components/FacebookLoginComponent';
-import GoogleLoginComponent from './Login/Components/GoogleLoginComponent';
+import FacebookLoginComponent from './Login/Login/Components/FacebookLoginComponent';
+import GoogleLoginComponent from './Login/Login/Components/GoogleLoginComponent';
 
 
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
-import LoginContainer from './Login/Login.container';
+import LoginContainer from './Login/Login/Login.container';
 import RegisterContainer from './Register/Register.container';
 import DashboardContainer from './Dashboard/Dashboard.container';
 import RegisterTutorContainer from './Register/RegisterTutor.container';
@@ -13,7 +13,8 @@ import Homepage from './GuestUser/Homepage';
 
 import { PrivateRoute } from './CustomRoutes/PrivateRoute';
 import { history } from './Helpers/History';
-import ChangePassword from './ChangePassword/ChangePassword';
+import ForgotPassword from './Login/ForgotPassword/ForgotPassword';
+import ChangePasswordContainer from './Login/ChangePassword/ChangePassword.container';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/" exact component={Homepage}></Route>
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
-          <Route path="/change-password" exact component={ChangePassword}></Route>
+          <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
+          <Route path="/forgot-password" exact component={ForgotPassword}></Route>
           <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
           <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
           <Redirect to='/login' />

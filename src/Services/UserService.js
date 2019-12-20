@@ -4,9 +4,10 @@ const ApiUrl = "http://localhost:8081";
 export const us = {
     normalLogin,
     facebookLogin,
-    googleLogin,
+    googleLogin,    
     registerStudent,
     registerTutor,
+    changePassword,
 }
 
 
@@ -86,6 +87,27 @@ function registerTutor(user) {
 
     return fetch(`${ApiUrl}/register-tutor`, requestOption)
         .then(handleResponse);
+}
+
+function changePassword(changePassForm) {
+    if(changePassForm.newPass === '123')
+    {
+        return {
+            code: 1,
+            info: {
+                message: "Success",
+            }
+        };
+    }
+    else
+    {
+        return {
+            code: 0,
+            info: {
+                message: 'Failure',
+            }
+        }
+    }
 }
 
 function handleResponse(response) {

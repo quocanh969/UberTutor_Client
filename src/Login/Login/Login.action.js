@@ -1,5 +1,5 @@
-import { us } from '../Services/UserService';
-import { history } from '../Helpers/History';
+import { us } from '../../Services/UserService';
+import { history } from '../../Helpers/History';
 
 export const ActionNormalLogIn = (user) => {
     return dispatch => {

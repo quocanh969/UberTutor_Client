@@ -28,6 +28,18 @@ body{
   background-size: cover;
 }
 
+.bg-forgot-password-image{
+  background:url(https://www.insidehighered.com/sites/default/server_files/media/engineering-tutors-hold-a-meeting-in-the-staff-room-picture-id996189200_0.jpg);
+  background-position:center;
+  background-size:cover;
+}
+
+.bg-change-password-image{
+  background:url(http://www.youniqueminds.com/uploads/8/5/0/3/85036322/img-6027_orig.jpg);
+  background-position:center;
+  background-size:cover;
+}
+
 .font-20{
   font-size: 20px  !important;
 }

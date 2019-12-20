@@ -4,34 +4,34 @@ const initState = {
     loading: false,
 }
 
-const LoginReducer = (state = {}, action) => {
+const ChangePasswordReducer = (state = initState, action) => {
     switch (action.type) {
-        case 'LOG_IN_REQUEST':
+        case 'CHANGE_PASSWORD_REQUEST':
             return {
                 ...state,
                 status: 0,
                 message: '',
                 loading: true,
             };
-        case 'LOG_IN_SUCCESS':
+        case 'CHANGE_PASSWORD_SUCCESS':
             return {
                 ...state,
                 status: 1,
                 message: action.message,
                 loading: false,
             };
-        case 'LOG_IN_FAILURE':
+        case 'CHANGE_PASSWORD_FAILURE':
             return {
                 ...state,
                 status: -1,
                 message: action.message,
                 loading: false,
             };
-        case 'REFRESH_LOGIN':
+        case 'REFRESH_CHANGE_PASSWORD':
             return initState;
         default:
             return state
     }
 }
 
-export default LoginReducer;
+export default ChangePasswordReducer;

@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 
-import LoginReducer from '../Login/Login.reducer';
+import LoginReducer from '../Login/Login/Login.reducer';
 import RegisterReducer from '../Register/Register.reducer';
 import DashboardReducer from '../Dashboard/Dashboard.reducer';
 import RegisterTutorReducer from '../Register/RegisterTutor.reducer';
+import ChangePasswordReducer from '../Login/ChangePassword/ChangePassword.reducer';
 
 const reducer = combineReducers(
     {
@@ -11,6 +12,7 @@ const reducer = combineReducers(
         RegisterReducer,
         DashboardReducer,
         RegisterTutorReducer,
+        ChangePasswordReducer,
     }
 )
 

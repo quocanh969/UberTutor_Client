@@ -38,7 +38,6 @@ export default class Homepage extends Component {
     render() {
         return (
             <div>
-                <div><SecondaryNavBar /></div>
                 <div className="cat-bar">
                     <CategoriesList majorList={this.state.majorList}/>
                 </div>

@@ -5,33 +5,21 @@ export const ActionForgotPass = (email) => {
     return dispatch => {
         dispatch(request());
         
-        // us.normalLogin(user)
-        //     .then(
-        //         (res) => {
-        //             if (res.info.code === 0 || res.info.code === 1 || res.info.code === 2) 
-        //             {
-        //                 dispatch(failure(res.info.message));
-        //             }
-        //             else {
-        //                 dispatch(success(res.info.message));
-        //                 history.push('/dashboard');
-        //             }
-        //         },
-        //         (error) => {
-        //             dispatch(failure('Can not connect to server'));
-        //         }
-        //     );
-        console.log("request");
-        let changeRes = us.forgotPassword(email);
-        if(changeRes.code === 0)
-        {
-            console.log('failure');
-            dispatch(failure(changeRes.info.message));            
-        }
-        else
-        {
-            dispatch(success(changeRes.info.message));
-        }
+        us.forgotPassword(email)
+            .then(
+                (res) => {
+                    if (res.info.code === 0) 
+                    {
+                        dispatch(failure(res.info.message));
+                    }
+                    else {
+                        dispatch(success(res.info.message));
+                    }
+                },
+                (error) => {
+                    dispatch(failure('Can not connect to server'));
+                }
+            );
     };
 
     function request() {

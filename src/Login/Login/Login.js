@@ -9,12 +9,11 @@ import SecondaryNavBar from '../../Utilities/Components/SecondaryNavBar'
 export default class Login extends Component {
     role = 0;
     user = {
-        username:'',
-        password:'',
+        username: '',
+        password: '',
     }
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this); // handle submit
@@ -22,46 +21,40 @@ export default class Login extends Component {
         this.handleRoleChange = this.handleRoleChange.bind(this);
     }
 
-    
-    handleChange(e)
-    {
+
+    handleChange(e) {
         this.user[e.target.name] = e.target.value;
     }
 
-    handleRoleChange(e)
-    {
+    handleRoleChange(e) {
         this.role = e.target.value;
     }
 
-    handleSubmit(e)
-    {
+    handleSubmit(e) {
         e.preventDefault();
-        
 
-        let { onNormalLogin } = this.props;        
+
+        let { onNormalLogin } = this.props;
         onNormalLogin({
             username: this.user.username,
             password: this.user.password,
             role: this.role,
-        });        
-        
+        });
+
     }
 
-    generateNotice()
-    {
+    generateNotice() {
         let { status, message, loading } = this.props.LoginReducer;
 
-        if(status === -1)
-        {// Thất bại
-            return(
+        if (status === -1) {// Thất bại
+            return (
                 <div className="alert alert-danger mb-3">
                     {message}
                 </div>
             );
         }
-        else if( loading === true)
-        {
-            return(
+        else if (loading === true) {
+            return (
                 <div className="d-flex justify-content-center">
                     <div className="spinner-border text-primary" role="status">
                         <span className="sr-only">Loading...</span>
@@ -69,16 +62,15 @@ export default class Login extends Component {
                 </div>
             );
         }
-        else
-        {
-            return ;
+        else {
+            return;
         }
     }
 
     render() {
-        let {onFacebookLogin,onGoogleLogin} = this.props;
+        let { onFacebookLogin, onGoogleLogin } = this.props;
         return (
-            <div>                
+            <div>
                 <div className="container">
                     {/* Outer Row */}
                     <div className="row justify-content-center">
@@ -114,16 +106,19 @@ export default class Login extends Component {
                                                     </button>
                                                     <hr />
                                                     <div className="align-center">
-                                                        <div className="btn btn-sm w-100"><FacebookLoginComponent FacebookLogin={onFacebookLogin} role={this.role}/></div>
-                                                        <div className="btn btn-sm w-100"><GoogleLoginComponent GoogleLoginFunc={onGoogleLogin} role={this.role}/></div>
+                                                        <div className="btn btn-sm w-100"><FacebookLoginComponent FacebookLogin={onFacebookLogin} role={this.role} /></div>
+                                                        <div className="btn btn-sm w-100"><GoogleLoginComponent GoogleLoginFunc={onGoogleLogin} role={this.role} /></div>
                                                     </div>
                                                 </form>
-                                                <hr />                                                
+                                                <hr />
                                                 <div className="text-center">
                                                     <NavLink className="small" to="/register">Sign up as a learner!</NavLink>
                                                 </div>
                                                 <div className="text-center">
                                                     <NavLink className="small" to="/tutorRegister">Sign up as a tutor!</NavLink>
+                                                </div>
+                                                <div className="text-center">
+                                                    <NavLink className="small" to="/forgot-password">Forgot password?</NavLink>
                                                 </div>
                                             </div>
                                         </div>

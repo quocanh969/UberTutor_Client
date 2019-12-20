@@ -4,11 +4,12 @@ const ApiUrl = "http://localhost:8081";
 export const us = {
     normalLogin,
     facebookLogin,
-    googleLogin,    
+    googleLogin,
     registerStudent,
     registerTutor,
     changePassword,
     forgotPassword,
+    recoverPassword,
 }
 
 
@@ -79,7 +80,7 @@ function registerStudent(user) {
         .then(handleResponse);
 }
 
-function registerTutor(user) {  
+function registerTutor(user) {
     const requestOption = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -91,8 +92,7 @@ function registerTutor(user) {
 }
 
 function changePassword(changePassForm) {
-    if(changePassForm.newPass === '123')
-    {
+    if (changePassForm.newPass === '123') {
         return {
             code: 1,
             info: {
@@ -100,8 +100,7 @@ function changePassword(changePassForm) {
             }
         };
     }
-    else
-    {
+    else {
         return {
             code: 0,
             info: {
@@ -112,24 +111,25 @@ function changePassword(changePassForm) {
 }
 
 function forgotPassword(email) {
-    if(email === "hello@gmail.com")
-    {
-        return {
-            code: 1,
-            info: {
-                message: "Success",
-            }
-        };
-    }
-    else
-    {
-        return {
-            code: 0,
-            info: {
-                message: 'Failure',
-            }
-        }
-    }
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+    };
+
+    return fetch(`${ApiUrl}/recoverPassword`, requestOption)
+        .then(handleResponse);
+}
+
+function recoverPassword(id, newPassword) {
+    const requestOption = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, newPassword }),
+    };
+
+    return fetch(`${ApiUrl}/getNewPassword`, requestOption)
+        .then(handleResponse);
 }
 
 function handleResponse(response) {

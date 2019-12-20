@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
         onChangePassword: changePassForm => {            
             dispatch(ActionChangePass(changePassForm));
         },
-        onRefreshLogin: () => {
+        onRefreshChangePassword: () => {
             dispatch({
                 type:'REFRESH_CHANGE_PASSWORD',
             });

@@ -13,8 +13,8 @@ import Homepage from './GuestUser/Homepage';
 
 import { PrivateRoute } from './CustomRoutes/PrivateRoute';
 import { history } from './Helpers/History';
-import ForgotPassword from './Login/ForgotPassword/ForgotPassword';
 import ChangePasswordContainer from './Login/ChangePassword/ChangePassword.container';
+import ForgotPasswordContainer from './Login/ForgotPassword/ForgotPassword.container';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Route path="/login" exact component={LoginContainer}></Route>
           <Route path="/register" exact component={RegisterContainer}></Route>
           <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
-          <Route path="/forgot-password" exact component={ForgotPassword}></Route>
+          <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
           <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
           <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
           <Redirect to='/login' />

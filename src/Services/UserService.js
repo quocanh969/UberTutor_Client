@@ -8,6 +8,7 @@ export const us = {
     registerStudent,
     registerTutor,
     changePassword,
+    forgotPassword,
 }
 
 
@@ -91,6 +92,27 @@ function registerTutor(user) {
 
 function changePassword(changePassForm) {
     if(changePassForm.newPass === '123')
+    {
+        return {
+            code: 1,
+            info: {
+                message: "Success",
+            }
+        };
+    }
+    else
+    {
+        return {
+            code: 0,
+            info: {
+                message: 'Failure',
+            }
+        }
+    }
+}
+
+function forgotPassword(email) {
+    if(email === "hello@gmail.com")
     {
         return {
             code: 1,

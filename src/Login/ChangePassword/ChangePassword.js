@@ -14,6 +14,12 @@ export default class ChangePassword extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillMount()
+    {
+        let { onRefreshChangePassword } = this.props;
+        onRefreshChangePassword();
+    }
+
     handleChange(e)
     {
         this.changePassForm[e.target.name] = e.target.value;

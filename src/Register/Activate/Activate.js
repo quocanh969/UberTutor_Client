@@ -1,36 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { us } from '../../Services/UserService';
+import { NavLink } from 'react-router-dom';
 
-import { us } from '../../Services/UserService'
 
-export default class RecoverPassword extends Component {
-    
-    constructor(props) {
+export default class Activate extends Component {
+
+    constructor(props)
+    {
         super(props);
-        this.state = ({ 
+        this.state = {
             isSuccess: false,
-            newPassword: '' 
-        });
+        }
     }
 
-    componentWillMount() {
-        let token = this.props.match.params.token;
+    componentWillMount()
+    {
         let id = this.props.match.params.id;
 
-        us.recoverPassword(id, token)
-        .then( data => 
-            {
-                this.setState({
-                    isSuccess: true,
-                    newPassword: data.info.data
-                })
-            }
-        )
-        .catch( err => {
+
+        us.activateAccount(id)
+        .then((res)=>{
             this.setState({
-                isSuccess: false,
-                newPassword: '',
+                isSuccess: true,                
             })
         })
+        .catch((err)=>{
+            this.setState({
+                isSuccess: false,
+            })
+        })
+    }
+    
+    componentDidMount()
+    {
+        window.scrollTo(0, 0);
     }
 
     generateNotice()
@@ -38,24 +41,23 @@ export default class RecoverPassword extends Component {
         if(this.state.isSuccess)
         {
             return(
-                <div className="p-5">
-                    <div className="text-center">
-                        <h1 className="h4 text-gray-900 mb-2">Your password has recovered</h1>
-                        <p className="mb-4">Here is your new password. Keep it carefully.</p>
-                    </div>
+                <div className="p-5 text-center">
+                    <div>Your account is activated,<br></br>Now you're member of</div>
+                    <h3 className="text-primary font-weight-bold pt-2">UBER TUTOR</h3>
                     <hr></hr>
-                    <h1 className="font-weight-bold text-center">{this.state.newPassword}</h1>
-                    <hr></hr>
+                    <NavLink to='/login' className='btn btn-primary'>Back to Login !!!</NavLink>
                 </div>
             );
         }
         else
         {
             return(
-                <div className="p-5">
-                    <div className="text-center">There was an error in connect to server, please retry later at</div>
-                    <h3 className="text-primary">UBER TUTOR</h3>
+                <div className="p-5 text-center">
+                    <div>There was an error in connect to server,<br></br>Please retry later</div>
                     <hr></hr>
+                    <h3 className="text-primary font-weight-bold pt-2">UBER TUTOR</h3>
+                    <hr></hr>
+                    <NavLink to='/login' className='btn btn-primary'>Back to Login !!!</NavLink>
                 </div>
             );
         }
@@ -73,7 +75,7 @@ export default class RecoverPassword extends Component {
                         <div className="row">
                             <div className="col-lg-6 d-none d-lg-block bg-forgot-password-image" />
                             <div className="col-lg-6">
-                                {this.generateNotice()}
+                                { this.generateNotice() }
                             </div>
                         </div>
                         </div>

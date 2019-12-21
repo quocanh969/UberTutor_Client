@@ -19,8 +19,12 @@ footer {
   right: 0;
 }
 
+.mt-57 {
+  margin-top: 57px !important;
+}
+
 .mb-400{
-  margin-bottom: 400px;
+  margin-bottom: 400px !important;
 }
 
 .bg-login-image{
@@ -87,7 +91,6 @@ footer {
 
 .cat-bar {
   background-color:#ffff;
-  margin-top: 57px;
 }
 
 .float-center {
@@ -159,4 +162,12 @@ footer {
 
 .bg-2d2b2b {
   background-color: #2d2b2b !important;
+}
+
+.dropdown-item:hover {
+  background-color: transparent !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

@@ -18,6 +18,10 @@ export default class Homepage extends Component {
         })
     }
 
+    componentDidMount() {
+        window.scrollTo(0,0);
+    }
+
     GenerateMajorCards = () => {
         let content = [];
         for (let i of this.state.majorList) {
@@ -57,22 +61,25 @@ export default class Homepage extends Component {
                             <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" className="d-block m-auto" alt="public\logo512.png"
                                     />
                             <div className="carousel-caption d-none d-md-block bg-dark">
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                <h3 className='font-weight-bold'>UBER TUTOR</h3>
+                                <p className='mb-0 pb-1'>Our website will help you connecting to good tutor easier</p>
+                                <h4 className='mt-0 pt-0'>Just by click and join with us.</h4>
                             </div>
                         </div>
                         <div className="carousel-item">
                             <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark">
-                                <h5>Second slide label</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <h3 className='font-weight-bold'>UBER TUTOR</h3>
+                                <p className='mb-0 pb-1'>Our tutor have different skill that will help you solve your problems</p>
+                                <h4 className='mt-0 pt-0'>This is the thing you need.</h4>
                             </div>
                         </div>
                         <div className="carousel-item">
-                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" className="d-block m-auto" alt="public\logo512.png" />
+                            <img src='http://www.iadtvegas.com/wp-content/uploads/2019/04/online-700x500.png' className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark">
-                                <h5>Third slide label</h5>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                                <h3 className='font-weight-bold'>UBER TUTOR</h3>
+                                <p className='mb-0 pb-1'>Our service will have you study with a true tutor just by click</p>
+                                <h4 className='mt-0 pt-0'>That is the most convenient way to find a tutor</h4>
                             </div>
                         </div>
                     </div>
@@ -123,7 +130,7 @@ export default class Homepage extends Component {
                             </div>
                             <div className="col-4 py-5">
                                 <NavLink to="/tutorRegister" className="btn btn-primary w-75">
-                                    <i class="fa fa-chalkboard-teacher"></i>
+                                    <i className="fa fa-chalkboard-teacher"></i>
                                     &nbsp;&nbsp;| JOIN !!!
                                 </NavLink>
                             </div>

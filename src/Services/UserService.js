@@ -10,6 +10,7 @@ export const us = {
     changePassword,
     forgotPassword,
     recoverPassword,
+    activateAccount,
 }
 
 
@@ -129,6 +130,17 @@ function recoverPassword(id, newPassword) {
         .then(handleResponse);
 }
 
+function activateAccount(id) {
+    const requestOption = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, }),
+    };
+
+    return fetch(`${ApiUrl}/activated`, requestOption)
+        .then(handleResponse);
+}
+
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
@@ -145,5 +157,3 @@ function handleResponse(response) {
         return data;
     });
 }
-
-export default us;

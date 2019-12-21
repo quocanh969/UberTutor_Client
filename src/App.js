@@ -19,6 +19,8 @@ import ForgotPasswordContainer from './Login/ForgotPassword/ForgotPassword.conta
 import SecondaryNavBar from './Utilities/Components/SecondaryNavBar';
 import RecoverPassword from './Login/RecoverPassword/RecoverPassword';
 import Footer from './Utilities/Footer';
+import Activate from './Register/Activate/Activate';
+import TutorList from './Tutor/TutorList/TutorList';
 
 function App() {
   return (
@@ -27,14 +29,16 @@ function App() {
       <Router history={history}>
         <SecondaryNavBar/>
 
-        <div className="mb-400">
+        <div className="mt-57 mb-400">
           <Switch>
             <Route path="/" exact component={Homepage}></Route>
             <Route path="/login" exact component={LoginContainer}></Route>
             <Route path="/register" exact component={RegisterContainer}></Route>
             <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
             <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
+            <Route path="/tutor-list" exact component={TutorList}></Route>
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>
+            <Route path={`/activate-account/id=:id`} exact component={Activate}></Route>
             <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
             <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
             <Redirect to='/login' />

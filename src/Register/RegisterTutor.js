@@ -39,6 +39,11 @@ export default class RegisterTutor extends Component {
         onTutorRegisterRefresh();
     }
 
+    componentDidMount()
+    {
+        window.scrollTo(0, 0);
+    }
+
     handleChange(e) {
         this.user[e.target.name] = e.target.value;
     }

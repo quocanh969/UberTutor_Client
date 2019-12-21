@@ -21,6 +21,10 @@ export default class Login extends Component {
         this.handleRoleChange = this.handleRoleChange.bind(this);
     }
 
+    componentDidMount()
+    {
+        document.body.scrollTop = 0;
+    }
 
     handleChange(e) {
         this.user[e.target.name] = e.target.value;

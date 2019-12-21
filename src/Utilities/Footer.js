@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default class Footer extends Component {
     render() {
         return (
-            <footer class="container-fluid bg-dark text-white">
+            <footer className="container-fluid bg-dark text-white">
                 <div className="container">
                     
                     <div className="row pt-4">
@@ -56,13 +56,13 @@ export default class Footer extends Component {
                                 </div>
                                 <div className="row pl-3 my-1">
                                     <div className="col-1">
-                                        <i class="fab fa-instagram"></i>
+                                        <i className="fab fa-instagram"></i>
                                     </div>
                                     <div className="col-10">/inst.ubertutor018175</div>
                                 </div>
                                 <div className="row pl-3 my-1">
                                     <div className="col-1">
-                                        <i class="fab fa-twitter"></i>  
+                                        <i className="fab fa-twitter"></i>  
                                     </div>
                                     <div className="col-10">/ubertutor.twit.018175</div>
                                 </div>

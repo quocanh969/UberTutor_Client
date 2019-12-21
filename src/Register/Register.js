@@ -27,6 +27,11 @@ class Register extends Component {
         onStudentRegisterRefresh();
     }
 
+    componentDidMount()
+    {
+        window.scrollTo(0, 0);
+    }
+
     handleChange(e) {
         this.user[e.target.name] = e.target.value;
     }

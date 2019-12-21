@@ -71,7 +71,7 @@ export default class Login extends Component {
         let { onFacebookLogin, onGoogleLogin } = this.props;
         return (
             <div>
-                <div className="container">
+                <div className="container mt-5">
                     {/* Outer Row */}
                     <div className="row justify-content-center">
                         <div className="col-xl-10 col-lg-12 col-md-9">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class CategoriesList extends Component {
+export default class Menu extends Component {
     constructor(props) {
         super(props);
     }
@@ -9,7 +9,7 @@ export default class CategoriesList extends Component {
         let content = [];
         for (let i of this.props.majorList) {
             content.push(
-                <li className="nav-item">
+                <li className="nav-item" key={i.id}>
                     <a className="nav-link text-white font-weight-bold" href="#">{i.name}</a>
                 </li>
             )

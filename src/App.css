@@ -5,6 +5,22 @@ body{
 
   padding: 0;
   height: auto;
+
+  overflow-x: hidden;
+}
+
+footer {
+  position: absolute;
+
+  height: 350px;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mb-400{
+  margin-bottom: 400px;
 }
 
 .bg-login-image{
@@ -107,6 +123,10 @@ body{
   border-width: 2px;
 }
 
+.border-radius-20px {
+  border-radius: 20px;
+}
+
 .background-transparent {
   background-color: transparent !important;
 }
@@ -119,6 +139,10 @@ body{
   font-size: 25px;
 }
 
+.margin-top-75px {
+  margin-top: 75px;
+}
+
 .border-top {
   border-width: 5px !important;
 }
@@ -127,5 +151,12 @@ body{
   height: 500px;
 
   background-color: rgba(0,0,0,0.5);
-  
+}
+
+.font-size-90 {
+  font-size: 90px;
+}
+
+.bg-2d2b2b {
+  background-color: #2d2b2b !important;
 }

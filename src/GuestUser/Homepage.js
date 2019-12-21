@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 
 import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
-import CategoriesList from '../Utilities/Components/CategoriesList'
 import maj from '../Services/MajorService';
+import Menu from '../Utilities/Menu';
+import TutorList from './Sections/Tutor';
+import { NavLink } from 'react-router-dom';
 
 export default class Homepage extends Component {
     constructor() {
@@ -12,9 +14,7 @@ export default class Homepage extends Component {
         }
 
         maj.getTop().then(data => {
-            console.log(data);
             this.setState({ majorList: data });
-            // console.log(this.majorsSelector);
         })
     }
 
@@ -22,11 +22,11 @@ export default class Homepage extends Component {
         let content = [];
         for (let i of this.state.majorList) {
             content.push(
-                <div className="col-4 my-4">
+                <div className="col-4 my-4" key={i.id}>
                     <div className="card card-size border-0 m-auto">
-                        <img src={i.icoUrl} height={300} width={300} class="card-img-top" />
+                        <img src={i.icoUrl} height={300} width={300} className="card-img-top" />
                         <div className="card-body bg-light">
-                            <a href="#" class="btn btn-light">{i.name}</a>
+                            <a href="#" className="btn btn-light">{i.name}</a>
                         </div>
                     </div>
                 </div>
@@ -39,20 +39,22 @@ export default class Homepage extends Component {
         return (
             <div>
                 <div className="cat-bar">
-                    <CategoriesList majorList={this.state.majorList}/>
+                    <Menu majorList={this.state.majorList}/>
                 </div>
                 
+                
+                {/* Website Intro */}
                 <div id="carouselExampleCaptions" className="carousel slide container-fluid mx-0 px-0" data-ride="carousel">
                     {/*Carousel*/}
                     <ol className="carousel-indicators">
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleCaptions" data-slide-to="0" className="active"></li>
                         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                         <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                     </ol>
 
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block m-auto" alt="public\logo512.png"
+                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" className="d-block m-auto" alt="public\logo512.png"
                                     />
                             <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>First slide label</h5>
@@ -60,14 +62,14 @@ export default class Homepage extends Component {
                             </div>
                         </div>
                         <div className="carousel-item">
-                            <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" class="d-block m-auto" alt="public\logo512.png" />
+                            <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>Second slide label</h5>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             </div>
                         </div>
                         <div className="carousel-item">
-                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" class="d-block m-auto" alt="public\logo512.png" />
+                            <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark">
                                 <h5>Third slide label</h5>
                                 <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -75,33 +77,60 @@ export default class Homepage extends Component {
                         </div>
                     </div>
 
-                    <a className="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="sr-only">Previous</span>
-                    </a>
+                        <a className="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Previous</span>
+                        </a>
 
-                    <a className="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="sr-only">Next</span>
-                    </a>
+                        <a className="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Next</span>
+                        </a>
 
-                </div>
-                
-
-
-                <div className="container">                    
-                    <div className="pl-4 pt-4 mb-0 pb-1 text-white font-weight-bold">
-                        Find your major or subject ...
                     </div>
-                    <div className="row pb-4 mt-0 pt-0 justify-items-center text-center"> 
-                        {this.GenerateMajorCards()}
-                    </div>
-                    <div className="pl-4 py-4 text-white font-weight-bold text-center">
-                        Don't you see what you're looking for? &nbsp;
-                        <a className="text-warning" href="#">See all subject</a>
-                    </div>
-                </div>
+                {/* end of Website Intro */}
 
+                {/* section subject list */}
+                <section className="mb-5 ">
+                    <h1 className="mt-4 text-center text-white">OUR SUBJECTS</h1>
+                    <div className="container">                    
+                        <div className="pl-4 mb-0 pb-1 text-white font-weight-bold">
+                            Find your major or subject ...
+                        </div>
+                        <div className="row pb-4 mt-0 pt-0 justify-items-center text-center"> 
+                            {this.GenerateMajorCards()}
+                        </div>
+                    </div>
+                </section>
+                {/* end section subject list */}
+
+                {/* section tutor list */}
+                <section className="mb-5 ">
+                    <h1 className="text-center text-white mb-4">OUR TUTORS</h1>
+                    <div className="bg-light w-75 px-5 mx-auto border-radius-20px">
+                        <TutorList></TutorList>
+                    </div>                
+                </section>
+                {/* end section tutor list */}
+
+                {/* section apply for tutor */}
+                <section>
+                    <div className="mx-auto w-75 bg-white shadow-lg border-radius-20px">
+                        <div className="row">
+                            <div className="col-8 p-5">
+                                <h3 className="d-inline">Join our system to be come a </h3>
+                                <h2 className="d-inline font-weight-bold"><span className="text-primary">UBER</span> TUTOR</h2>
+                            </div>
+                            <div className="col-4 py-5">
+                                <NavLink to="/tutorRegister" className="btn btn-primary w-75">
+                                    <i class="fa fa-chalkboard-teacher"></i>
+                                    &nbsp;&nbsp;| JOIN !!!
+                                </NavLink>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {/* end section apply for tutor */}
             </div>
         )
     }

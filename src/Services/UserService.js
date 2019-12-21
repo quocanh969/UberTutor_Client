@@ -43,6 +43,7 @@ function facebookLogin(user) {
     return fetch(`${ApiUrl}/login-facebook`, requestOptions)
         .then(handleResponse)
         .then(user => {
+            
             if (user !== false) {
                 localStorage.setItem('user', JSON.stringify(user));
             }
@@ -92,22 +93,18 @@ function registerTutor(user) {
 }
 
 function changePassword(changePassForm) {
-    if (changePassForm.newPass === '123') {
-        return {
-            code: 1,
-            info: {
-                message: "Success",
-            }
-        };
-    }
-    else {
-        return {
-            code: 0,
-            info: {
-                message: 'Failure',
-            }
-        }
-    }
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'PUT',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify(changePassForm),
+    };
+
+    return fetch(`${ApiUrl}/users/changePassword`, requestOption)
+        .then(handleResponse);
 }
 
 function forgotPassword(email) {

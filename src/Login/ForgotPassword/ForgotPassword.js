@@ -40,15 +40,18 @@ export default class ForgotPassword extends Component {
         {
             this.refs.email.value = '';
             return(
-                <div className="alert alert-success mb-3">
-                    {message}
-                </div>
+                <div>
+                    <div className="alert alert-success mb-3">
+                        {message}
+                    </div>
+                    <div className="text-danger mb-3">Go to your email address and click the link to get your password recover</div>
+                </div>                
             );
         }
         else if( loading === true)
         {
             return(
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center my-3">
                     <div className="spinner-border text-primary" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
@@ -63,7 +66,7 @@ export default class ForgotPassword extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container mt-5">
                 {/* Outer Row */}
                 <div className="row justify-content-center">
                     <div className="col-xl-10 col-lg-12 col-md-9">

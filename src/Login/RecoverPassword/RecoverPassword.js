@@ -8,8 +8,6 @@ export default class RecoverPassword extends Component {
     constructor(props) {
         super(props);
         this.state = ({ newPassword: '' });
-        console.log("fafaefa");
-        console.log(this.props);
     }
 
     componentWillMount() {
@@ -19,7 +17,6 @@ export default class RecoverPassword extends Component {
         us.recoverPassword(this.id, this.token)
         .then( data => 
             {
-                console.log(data.info);
                 this.setState({newPassword: data.info.data})
             }
         )
@@ -30,16 +27,33 @@ export default class RecoverPassword extends Component {
         })
     }
 
-    DisplayNewPassword() {
-       return (
-           <div>{this.state.newPassword}</div>
-       )
-    }
-
     render() {
         return (
-            <div>
-                {this.state.newPassword}
+            <div className="container mt-5">
+                {/* Outer Row */}
+                <div className="row justify-content-center">
+                    <div className="col-xl-10 col-lg-12 col-md-9">
+                    <div className="card o-hidden border-0 shadow-lg my-5">
+                        <div className="card-body p-0">
+                        {/* Nested Row within Card Body */}
+                        <div className="row">
+                            <div className="col-lg-6 d-none d-lg-block bg-forgot-password-image" />
+                            <div className="col-lg-6">
+                            <div className="p-5">
+                                <div className="text-center">
+                                    <h1 className="h4 text-gray-900 mb-2">Your password has recovered</h1>
+                                    <p className="mb-4">Here is your new password. Keep it carefully.</p>
+                                </div>
+                                <hr></hr>
+                                <h1 className="font-weight-bold text-center">{this.state.newPassword}</h1>
+                                <hr></hr>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         )
     }

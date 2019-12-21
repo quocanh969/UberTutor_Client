@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 export default class ChangePassword extends Component {
     changePassForm = {
-        oldPass: '',
-        newPass: '',
-        confirmPass: '',
+        id:JSON.parse(localStorage.getItem('user')).user.loginUser.id,
+        oldPassword: '',
+        newPassword: '',
+        reconfirmPassword: '',
     };
     constructor(props)
     {
@@ -57,7 +58,7 @@ export default class ChangePassword extends Component {
         else if( loading === true)
         {
             return(
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center my-3">
                     <div className="spinner-border text-primary" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
@@ -72,7 +73,7 @@ export default class ChangePassword extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container mt-5">
                 {/* Outer Row */}
                 <div className="row justify-content-center">
                     <div className="col-xl-10 col-lg-12 col-md-9">
@@ -89,17 +90,17 @@ export default class ChangePassword extends Component {
                                             </div>
                                             <form className="user" ref="changePassForm" onSubmit={this.handleSubmit}>
                                                 <div className="form-group">
-                                                    <input type="password" required name="oldPass" 
+                                                    <input type="password" required name="oldPassword" 
                                                             className="form-control form-control-user" placeholder="Old Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <input type="password" required name="newPass" 
+                                                    <input type="password" required name="newPassword" 
                                                             className="form-control form-control-user" placeholder="New Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <input type="password" required name="confirmPass" 
+                                                    <input type="password" required name="reconfirmPassword" 
                                                             className="form-control form-control-user" placeholder="Confirm Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>

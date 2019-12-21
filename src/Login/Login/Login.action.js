@@ -50,16 +50,20 @@ export const ActionFacebookLogin = (user) => {
         us.facebookLogin(user)
             .then(
                 (res) => {
+                    
                     if (res.info.code === 0 || res.info.code === 1 || res.info.code === 2) 
                     {
                         dispatch(failure(res.info.message));
                     }
                     else {
+                        console.log("code: ");
+                        console.log(res.info.code);
                         dispatch(success(res.info.message));
                         history.push('/dashboard');
                     }
                 },
                 (error) => {
+                    console.log(error);
                     dispatch(failure('Can not connect to server'));
                 }
             );

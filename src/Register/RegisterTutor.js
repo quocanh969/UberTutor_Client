@@ -104,8 +104,8 @@ export default class RegisterTutor extends Component {
     render() {
 
         return (
-            <div>
-                <div className="container my-0">
+            <div className="margin-top-75px">
+                <div className="container">
                     <div className="card o-hidden border-0 shadow-lg my-5">
                         <div className="card-body p-0">
                             {/* Nested Row within Card Body */}

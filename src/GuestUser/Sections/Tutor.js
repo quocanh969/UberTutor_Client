@@ -61,7 +61,7 @@ export default class TutorList extends Component {
                             <div><span className="text-primary">Subject: </span>{i.major_name}</div>
                             <div><span className="text-primary">Area: </span>{i.area}</div>
                             <div><span className="text-primary">Price: </span>$ {i.price}/h</div>
-                            <NavLink to={`/detail-tutor/id=${i.id}`} className="btn btn-primary w-100 mt-3 px-auto">Get Detail</NavLink>
+                            <NavLink to={`/detail-tutor/id=${i.id}`} className="btn btn-primary w-100 mt-3 px-auto">Find out more</NavLink>
                         </div>
                     </div>
                 )

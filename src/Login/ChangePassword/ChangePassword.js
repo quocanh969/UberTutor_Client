@@ -90,17 +90,17 @@ export default class ChangePassword extends Component {
                                             </div>
                                             <form className="user" ref="changePassForm" onSubmit={this.handleSubmit}>
                                                 <div className="form-group">
-                                                    <input type="password" required name="oldPassword" 
+                                                    <input type="password" minLength="7" required name="oldPassword" 
                                                             className="form-control form-control-user" placeholder="Old Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <input type="password" required name="newPassword" 
+                                                    <input type="password" minLength="7" required name="newPassword" 
                                                             className="form-control form-control-user" placeholder="New Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="form-group">
-                                                    <input type="password" required name="reconfirmPassword" 
+                                                    <input type="password" minLength="7" required name="reconfirmPassword" 
                                                             className="form-control form-control-user" placeholder="Confirm Password" 
                                                             onChange={this.handleChange}/>
                                                 </div>

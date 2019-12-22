@@ -137,23 +137,23 @@ export default class RegisterTutor extends Component {
 
                                             <div className="form-group row">
                                                 <div className="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" required name="password" className="form-control" id="exampleInputPassword" placeholder="Password" onChange={this.handleChange}/>
+                                                    <input type="password" minLength="7" required name="password" className="form-control" id="exampleInputPassword" placeholder="Password" onChange={this.handleChange}/>
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <input type="password" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" onChange={this.handleChange} />
+                                                    <input type="password" minLength="7" required ref="confirm" className="form-control" id="exampleRepeatPassword" placeholder="Repeat Password" onChange={this.handleChange} />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <input type="text" onChange={this.handleChange} className="form-control" id="address" name="address" placeholder="Address" />
+                                                <input type="text" minLength="10" onChange={this.handleChange} className="form-control" id="address" name="address" placeholder="Address" />
                                             </div>
                                             <div className="form-group">
-                                                <input type="tel" required onChange={this.handleChange} className="form-control" id="phone" name="phone" placeholder="Phone number" />
+                                                <input type="tel" pattern="[0-9+]{10,11}" required onChange={this.handleChange} className="form-control" id="phone" name="phone" placeholder="Phone number" />
                                             </div>
                                             <div className="form-group row py-auto">
                                                 <div className="col-6 mb-3 mb-sm-0">
                                                     <input type="number" required onChange={this.handleChange} className="form-control" id="yob" name="yob" min="1980" placeholder="Years Of Birth" />
                                                 </div>
-                                                <select className="form-select col-6"
+                                                <select className="form-control col-6"
                                                     name="gender"
                                                     id="gender"
                                                     onChange={this.handleChange}
@@ -173,14 +173,15 @@ export default class RegisterTutor extends Component {
                                                     {this.GenerateMajorsList()}
                                                 </select>
                                             </div>
-                                            <a>Choose your current educational level:</a>
+                                            <a>Choose your level of teaching:</a>
                                             <div className="form-group">
                                                 <select className="form-control" defaultValue="0" name='levelTeaching' onChange={this.handleChange}>
-                                                    <option value="0">Undergraduate</option>
-                                                    <option value="1">Bachelor</option>
-                                                    <option value="2">Master</option>
-                                                    <option value="4">Doctor</option>
-                                                    <option value="5">Professor</option>
+                                                    <option value="0">Elementary</option>
+                                                    <option value="1">Intermediate</option>
+                                                    <option value="2">Upper-Intermediate</option>
+                                                    <option value="4">Advanced</option>
+                                                    <option value="5">Undergraduate</option>
+                                                    <option value="6">Graduate</option>
                                                 </select>
                                             </div>
                                             {this.generateNotice()}

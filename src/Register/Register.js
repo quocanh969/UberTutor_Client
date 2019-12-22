@@ -99,30 +99,30 @@ class Register extends Component {
                                         
                                         <form ref="registerForm" className="user" onSubmit={this.handleSubmit}>
                                             <div className="form-group">
-                                                <input type="text" required onChange={this.handleChange} className="form-control form-control-user" id="name" name="name" placeholder="Name" />
+                                                <input type="text" required onChange={this.handleChange} className="form-control " id="name" name="name" placeholder="Name" />
                                             </div>
                                             <div className="form-group">
-                                                <input type="email" required onChange={this.handleChange} className="form-control form-control-user" id="email" name="email" placeholder="Email Address" />
+                                                <input type="email" required onChange={this.handleChange} className="form-control " id="email" name="email" placeholder="Email Address" />
                                             </div>
                                             <div className="form-group row">
                                                 <div className="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" required onChange={this.handleChange} className="form-control form-control-user" id="password" name="password" placeholder="Password" />
+                                                    <input type="password" minLength="7" required onChange={this.handleChange} className="form-control " id="password" name="password" placeholder="Password" />
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    <input type="password" required className="form-control form-control-user" id="confirm" ref="confirm" name="confirm" placeholder="Repeat Password" />
+                                                    <input type="password" minLength="7" required className="form-control " id="confirm" ref="confirm" name="confirm" placeholder="Repeat Password" />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <input type="text" required onChange={this.handleChange} className="form-control form-control-user" id="address" name="address" placeholder="Address" />
+                                                <input type="text" minLength="10" required onChange={this.handleChange} className="form-control " id="address" name="address" placeholder="Address" />
                                             </div>
                                             <div className="form-group">
-                                                <input type="tel" required onChange={this.handleChange} className="form-control form-control-user" id="phone" name="phone" placeholder="Phone number" />
+                                                <input type="tel" pattern="[0-9+]{10,11}" required onChange={this.handleChange} className="form-control " id="phone" name="phone" placeholder="Phone number" />
                                             </div>
                                             <div className="form-group row py-auto">
                                                 <div className="col-6 mb-3 mb-sm-0">
-                                                    <input type="number" required onChange={this.handleChange} className="form-control form-control-user" id="yob" name="yob" min="1980" placeholder="Years Of Birth" />
+                                                    <input type="number" required onChange={this.handleChange} className="form-control " id="yob" name="yob" min="1980" placeholder="Years Of Birth" />
                                                 </div>
-                                                <select className="form-select col-6"
+                                                <select className="form-control col-6"
                                                     name="gender"
                                                     id="gender"
                                                     onChange={this.handleChange}

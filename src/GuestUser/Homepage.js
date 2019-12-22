@@ -61,26 +61,26 @@ export default class Homepage extends Component {
                         <div className="carousel-item active">
                             <img src="https://e2.com.vn/wp-content/uploads/2019/08/group-class-recolor.jpg" className="d-block m-auto" alt="public\logo512.png"
                                     />
-                            <div className="carousel-caption d-none d-md-block bg-dark">
+                            <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Our website will help you connecting to good tutor easier</p>
-                                <h4 className='mt-0 pt-0'>Just by click and join with us.</h4>
+                                <p className='mb-0 pb-1'>Connect to those good tutors out there right now at our site</p>
+                                <NavLink className='mt-0 pt-0 h4 text-white' to='/login'>JOIN US TODAY</NavLink>
                             </div>
                         </div>
                         <div className="carousel-item">
                             <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" className="d-block m-auto" alt="public\logo512.png" />
-                            <div className="carousel-caption d-none d-md-block bg-dark">
+                            <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Our tutor have different skill that will help you solve your problems</p>
-                                <h4 className='mt-0 pt-0'>This is the thing you need.</h4>
+                                <p className='mb-0 pb-1'>Our tutors have different skills to meet your needs</p>
+                                <NavLink className='mt-0 pt-0 h4 text-white' to='/subjects'>FIND OUT WHAT YOU NEED</NavLink>
                             </div>
                         </div>
                         <div className="carousel-item">
                             <img src='http://www.iadtvegas.com/wp-content/uploads/2019/04/online-700x500.png' className="d-block m-auto" alt="public\logo512.png" />
-                            <div className="carousel-caption d-none d-md-block bg-dark">
+                            <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Our service will have you study with a true tutor just by click</p>
-                                <h4 className='mt-0 pt-0'>That is the most convenient way to find a tutor</h4>
+                                <p className='mb-0 pb-1'>Matching with a suitable tutor with just one click</p>
+                                <NavLink className='mt-0 pt-0 h4 text-white' to='/tutor-list'>FIND A TUTOR NOW</NavLink>
                             </div>
                         </div>
                     </div>

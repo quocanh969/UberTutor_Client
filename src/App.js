@@ -21,6 +21,7 @@ import RecoverPassword from './Login/RecoverPassword/RecoverPassword';
 import Footer from './Utilities/Footer';
 import Activate from './Register/Activate/Activate';
 import TutorList from './Tutor/TutorList/TutorList';
+import DetailTutor from './Tutor/DetailTutor/DetailTutor';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
             <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
             <Route path="/tutor-list" exact component={TutorList}></Route>
+            <Route path="/detail-tutor/id=:id" exact component={DetailTutor}></Route>
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>
             <Route path={`/activate-account/id=:id`} exact component={Activate}></Route>
             <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>

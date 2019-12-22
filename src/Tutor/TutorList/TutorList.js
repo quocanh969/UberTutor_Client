@@ -16,41 +16,41 @@ export default class TutorList extends Component {
                     {/* Filter */}
                     <div className="w-75 mx-auto mb-4">
                         <div className="row">
-                            <div className="col-3 px-3">
-                                <select className="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose area ...</option>
+                            <div className="col-2 px-1">
+                                <select className="custom-select" id="inputGroupSelect01" value='0'>
+                                    <option value='0'>Choose area ...</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
                             </div>
-                            <div className="col-3 px-3">
-                                <select className="custom-select" id="inputGroupSelect02">
-                                    <option selected>Choose price ...</option>
+                            <div className="col-2 px-1">
+                                <select className="custom-select" id="inputGroupSelect02" value='0'>
+                                    <option value='0'>Choose price ...</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
                             </div>
-                            <div className="col-3 px-3">
-                                <select className="custom-select" id="inputGroupSelect03">
-                                    <option selected>Choose subject ...</option>
+                            <div className="col-2 px-1">
+                                <select className="custom-select" id="inputGroupSelect03" value='0'>
+                                    <option value='0'>Choose subject ...</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
                             </div>
-                            <div className="col-3 px-3">
+                            <div className="col-4 px-1">
                                 <div className="form-inline w-100 text-center">
                                     <div className="input-group w-100">
-                                        <input type="text" className="form-control" placeholder="Find tutor ..."/>
-                                        <div className="input-group-append">
-                                            <button className="btn btn-primary" type="button">
-                                                <i className="fa fa-search text-white"></i>
-                                            </button>
-                                        </div>
+                                        <input type="text" className="form-control" placeholder="Find tutor ..."/>                                        
                                     </div>
                                 </div>
+                            </div>
+                            <div className="col-2">
+                                <button className="btn btn-primary w-100" type="button">
+                                    <i className="fa fa-search text-white"></i>&nbsp;&nbsp;| Filter
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -75,15 +75,51 @@ export default class TutorList extends Component {
                                     alt="tutor avatar" className="w-100 m-1"></img>
                             </div>
                             <div className="col-6">
-                                <div>Name: </div>
-                                <div>Subject: </div>
-                                <div>Tag: </div>
-                                <a>See more</a>
+                            <div className='row'>
+                                    <span className='col-2 text-primary'>Name:</span>
+                                    <span className='col-10'>&nbsp;Rey Mysterio</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Subject:</span>
+                                    <span className='col-10'>&nbsp;Math</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Area:</span>
+                                    <span className='col-10'>&nbsp;Quận 5</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Email:</span>
+                                    <span className='col-10'>&nbsp;rey619@gmail.com</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Phone:</span>
+                                    <span className='col-10'>&nbsp;0123456789</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Tag:</span>
+                                    <div className='text-wrap word-wrap-break col-10'>
+                                        <span className="text-primary p-1"><u>English</u></span>,
+                                        <span className="text-primary p-1"><u>Dynamic</u></span>,
+                                        <span className="text-primary p-1"><u>Pedagogica</u></span>,
+                                        <span className="text-primary p-1"><u>Algebra</u></span>,
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                    </div>
+                                </div>
+                                <div className='text-right pt-2'>
+                                    <NavLink className='text-secondary cursor-pointer' to='/detail-tutor/id=1'>See more ...</NavLink>
+                                </div>
                             </div>
                             <div className="col-4">
-                                <div>Evaluation: </div>
-                                <div>Price: </div>
-                                <button className='btn btn-primary w-100'>Enroll</button>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Evaluation:</span>
+                                    <span className='col-9'>&nbsp;9.5/10 <i className="fa fa-star text-warning"></i></span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Price:</span>
+                                    <span className='col-9'>&nbsp;$ 1000/h</span>
+                                </div>
+                                <button className='btn btn-primary w-100 mt-5'>Enroll</button>
                             </div>
                         </div>
                     
@@ -94,15 +130,51 @@ export default class TutorList extends Component {
                                     alt="tutor avatar" className="w-100 m-1"></img>
                             </div>
                             <div className="col-6">
-                                <div>Name: </div>
-                                <div>Subject: </div>
-                                <div>Tag: </div>
-                                <a>See more</a>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Name:</span>
+                                    <span className='col-10'>&nbsp;Rey Mysterio</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Subject:</span>
+                                    <span className='col-10'>&nbsp;Math</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Area:</span>
+                                    <span className='col-10'>&nbsp;Quận 5</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Email:</span>
+                                    <span className='col-10'>&nbsp;rey619@gmail.com</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Phone:</span>
+                                    <span className='col-10'>&nbsp;0123456789</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Tag:</span>
+                                    <div className='text-wrap word-wrap-break col-10'>
+                                        <span className="text-primary p-1"><u>English</u></span>,
+                                        <span className="text-primary p-1"><u>Dynamic</u></span>,
+                                        <span className="text-primary p-1"><u>Pedagogica</u></span>,
+                                        <span className="text-primary p-1"><u>Algebra</u></span>,
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                    </div>
+                                </div>
+                                <div className='text-right pt-2'>
+                                    <NavLink className='text-secondary cursor-pointer' to='/detail-tutor/id=2'>See more ...</NavLink>
+                                </div>
                             </div>
                             <div className="col-4">
-                                <div>Evaluation: </div>
-                                <div>Price: </div>
-                                <button className='btn btn-primary w-100'>Enroll</button>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Evaluation:</span>
+                                    <span className='col-9'>&nbsp;9.5/10 <i className="fa fa-star text-warning"></i></span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Price:</span>
+                                    <span className='col-9'>&nbsp;$ 1000/h</span>
+                                </div>
+                                <button className='btn btn-primary w-100 mt-5'>Enroll</button>
                             </div>
                         </div>
                     
@@ -113,15 +185,51 @@ export default class TutorList extends Component {
                                     alt="tutor avatar" className="w-100 m-1"></img>
                             </div>
                             <div className="col-6">
-                                <div>Name: </div>
-                                <div>Subject: </div>
-                                <div>Tag: </div>
-                                <a>See more</a>
+                            <div className='row'>
+                                    <span className='col-2 text-primary'>Name:</span>
+                                    <span className='col-10'>&nbsp;Rey Mysterio</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Subject:</span>
+                                    <span className='col-10'>&nbsp;Math</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Area:</span>
+                                    <span className='col-10'>&nbsp;Quận 5</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Email:</span>
+                                    <span className='col-10'>&nbsp;rey619@gmail.com</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Phone:</span>
+                                    <span className='col-10'>&nbsp;0123456789</span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-2 text-primary'>Tag:</span>
+                                    <div className='text-wrap word-wrap-break col-10'>
+                                        <span className="text-primary p-1"><u>English</u></span>,
+                                        <span className="text-primary p-1"><u>Dynamic</u></span>,
+                                        <span className="text-primary p-1"><u>Pedagogica</u></span>,
+                                        <span className="text-primary p-1"><u>Algebra</u></span>,
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                        <span className="text-primary p-1"><u>Geometry</u></span>
+                                    </div>
+                                </div>
+                                <div className='text-right pt-2'>
+                                    <NavLink className='text-secondary cursor-pointer' to='/detail-tutor/id=3'>See more ...</NavLink>
+                                </div>
                             </div>
                             <div className="col-4">
-                                <div>Evaluation: </div>
-                                <div>Price: </div>
-                                <button className='btn btn-primary w-100'>Enroll</button>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Evaluation:</span>
+                                    <span className='col-9'>&nbsp;9.5/10 <i className="fa fa-star text-warning"></i></span>
+                                </div>
+                                <div className='row'>
+                                    <span className='col-3 text-primary'>Price:</span>
+                                    <span className='col-9'>&nbsp;$ 1000/h</span>
+                                </div>
+                                <button className='btn btn-primary w-100 mt-5'>Enroll</button>
                             </div>
                         </div>
                     
@@ -132,7 +240,7 @@ export default class TutorList extends Component {
                     <nav className="w-75 mx-auto mb-4">
                         <ul className="pagination justify-content-end">
                             <li className="page-item disabled">
-                                <a className="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <a className="page-link" href="#" tabIndex="-1" aria-disabled="true">Previous</a>
                             </li>
                             <li className="page-item active"><a className="page-link" href="#">1</a></li>
                             <li className="page-item"><a className="page-link" href="#">2</a></li>

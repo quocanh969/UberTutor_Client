@@ -171,3 +171,7 @@ footer {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.word-wrap-break {
+  word-wrap: break-word;
+}

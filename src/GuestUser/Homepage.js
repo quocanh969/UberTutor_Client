@@ -18,8 +18,9 @@ export default class Homepage extends Component {
         })
     }
 
-    componentDidMount() {
-        window.scrollTo(0,0);
+    componentDidMount()
+    {
+        window.scrollTo(0, 0);
     }
 
     GenerateMajorCards = () => {

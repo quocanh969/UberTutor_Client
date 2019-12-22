@@ -91,6 +91,9 @@ export default class SecondaryNavBar extends Component {
                             <a className="dropdown-item label px-2" href="/register">
                                 <i className="fa fa-info-circle mr-2"></i>Your Account
                             </a>
+                            <NavLink className="dropdown-item label px-2" to="/change-password">
+                                <i className="fa fa-file-signature mr-2"></i>Change Password
+                            </NavLink>
                             <hr className="my-0 mx-1"/>
                             <a className="dropdown-item label px-2" href="/tutorRegister">
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out

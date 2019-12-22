@@ -78,7 +78,7 @@ export default class Footer extends Component {
                     </div>
                     <br></br>
                     <div className='text-white text-center'>
-                        <div>Our website is on developping phase, so if you have any complain or idea for this website.</div>
+                        <div>Our website is on developping phase, so if you have any complains or ideas for this website.</div>
                         <h3>Please contact us.</h3>
                     </div>  
                     {/* <hr className="border-light"></hr> */}

@@ -69,7 +69,7 @@ export default class DetailTutor extends Component {
         .then(res => {
             this.setState({
                 contracts: res.info.data,
-                totalPage: Math.fround(Number.parseInt(res.info.total) / 2),
+                totalPage: Math.fround(Number.parseInt(res.info.total) / 4),
             })
         })
         .catch(err => {
@@ -285,7 +285,7 @@ export default class DetailTutor extends Component {
                                             <label>Gender</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.gender}</p>
+                                            <p>{this.state.tutor.gender === 0 ? "Male" : "Female"}</p>
                                         </div>
                                     </div>
                                 </div>

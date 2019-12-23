@@ -95,7 +95,7 @@ export default class SecondaryNavBar extends Component {
                                 <i className="fa fa-file-signature mr-2"></i>Change Password
                             </NavLink>
                             <hr className="my-0 mx-1"/>
-                            <a className="dropdown-item label px-2" href="/tutorRegister">
+                            <a className="dropdown-item label px-2" onClick={() => {localStorage.clear()}}>
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
                             </a>
                         </div>

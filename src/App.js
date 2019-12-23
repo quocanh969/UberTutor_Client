@@ -22,6 +22,7 @@ import Footer from './Utilities/Footer';
 import Activate from './Register/Activate/Activate';
 import TutorList from './Tutor/TutorList/TutorList';
 import DetailTutor from './Tutor/DetailTutor/DetailTutor';
+import TutorListContainer from './Tutor/TutorList/TutorList.container';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
             <Route path="/register" exact component={RegisterContainer}></Route>
             <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
             <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
-            <Route path="/tutor-list" exact component={TutorList}></Route>
+
+            <Route path={`/tutor-list`} exact component={TutorListContainer}></Route>
             <Route path="/detail-tutor/id=:id" exact component={DetailTutor}></Route>
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>
             <Route path={`/activate-account/id=:id`} exact component={Activate}></Route>

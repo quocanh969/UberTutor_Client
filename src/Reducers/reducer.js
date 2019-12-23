@@ -6,6 +6,7 @@ import DashboardReducer from '../Dashboard/Dashboard.reducer';
 import RegisterTutorReducer from '../Register/RegisterTutor.reducer';
 import ChangePasswordReducer from '../Login/ChangePassword/ChangePassword.reducer';
 import ForgotPasswordReducer from '../Login/ForgotPassword/ForgotPassword.reducer';
+import TutorListReducer from '../Tutor/TutorList/TutorList.reducer';
 
 const reducer = combineReducers(
     {
@@ -15,6 +16,7 @@ const reducer = combineReducers(
         RegisterTutorReducer,
         ChangePasswordReducer,
         ForgotPasswordReducer,
+        TutorListReducer,
     }
 )
 

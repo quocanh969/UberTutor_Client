@@ -13,7 +13,7 @@ export default class Menu extends Component {
                 // <li className="nav-item" key={i.id}>
                 //     <a className="nav-link text-white font-weight-bold" href="#">{i.name}</a>
                 // </li>
-                <NavLink className="dropdown-item text-white font-weight-bold" key={i.id} to={`/subject/idSubject=${i.id}`}>{i.name}</NavLink>
+                <NavLink className="dropdown-item text-white font-weight-bold" key={i.id} to={`/tutor-list`}>{i.name}</NavLink>
             )
         }
         return content;

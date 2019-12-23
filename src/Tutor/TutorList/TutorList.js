@@ -4,25 +4,13 @@ import { ts } from '../../Services/TutorService';
 
 export default class TutorList extends Component {
 
+    areaFilter = '';
+    subjectFilter = '';
+    priceFilter = 0;
+    searchStr = '';
+
     constructor(props) {
         super(props);
-
-        this.state = {
-            isSuccess: false,
-            tutorList: [],
-            areaList: [],
-            priceList: [],
-            subjectList: [],
-            areaASC: null,
-            priceASC: null,
-            subjectASC: null,
-            areaFilter: '',
-            priceFilter: 0,
-            subjectFilter: '',
-            searchStr: '',
-            totalPage: 0,
-            page: 0,
-        }
 
         let option = {
             area: '',
@@ -31,69 +19,24 @@ export default class TutorList extends Component {
             name: '',
             page: 0,
         };
-        
-        this.loadAreaData();
-        this.loadSubjectData();
-        this.loadTutorsCount();
-        this.loadData(option);        
+
+        console.log(this.props);
+
+        let { onLoadAreaList, onLoadSubjectList, onLoadTotalPage, onLoadTutorList } = this.props;
+        onLoadAreaList();
+        onLoadSubjectList();
+        onLoadTotalPage();
+        onLoadTutorList(option);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
     }
 
-    loadAreaData() {
-        ts.getAreaList()
-        .then(res => {
-            this.setState({
-                areaList: res,
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
-    loadSubjectData() {
-        ts.getMajorList()
-        .then(res => {
-            this.setState({
-                subjectList: res,
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
-    loadTutorsCount() {
-        ts.getTutorsCount()
-        .then(res => {            
-            this.setState({
-                totalPage: Math.fround(Number.parseInt(res.info.data[0].count) / 5),
-            })
-        })
-    }
-
-    loadData(option) {
-        ts.getTutorList(option)
-            .then(res => {
-                this.setState({
-                    isSuccess: true,
-                    tutorList: res.info.data,
-                })
-            })
-            .catch(err => {
-                this.setState({
-                    isSuccess: false,
-                    tutorList: [],
-                })
-            });
-    }
-
     generateAreaSelect() {
         let content = [];
-        for(let e of this.state.areaList)
+        let { areaList } = this.props.TutorListReducer;
+        for(let e of areaList)
         {
             content.push(
                 <option value={e.area} key={e.id_area}>{e.area}</option>
@@ -104,7 +47,8 @@ export default class TutorList extends Component {
 
     generateSubjectSelect() {
         let content = [];
-        for(let e of this.state.subjectList)
+        let { subjectList } = this.props.TutorListReducer;
+        for(let e of subjectList)
         {
             content.push(
                 <option value={e.name} key={e.id}>{e.name}</option>
@@ -115,9 +59,10 @@ export default class TutorList extends Component {
 
     generateTutorList() {
         let content = [];
-        if (this.state.isSuccess) {
+        let { isSuccess, tutorList } = this.props.TutorListReducer;
+        if (isSuccess) {
             let imgSrc = '';
-            for (let e of this.state.tutorList) {
+            for (let e of tutorList) {
                 if (e.avatarLink === null || e.avatarLink === '') {
                     imgSrc = `https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`;
                 }
@@ -195,225 +140,209 @@ export default class TutorList extends Component {
     }
 
     onPagi(pageNavigate) {
-        if(pageNavigate !== this.state.page && pageNavigate >= 0 && pageNavigate < this.state.totalPage)
+        let { page, totalPage } = this.props.TutorListReducer;
+        if(pageNavigate !== page && pageNavigate >= 0 && pageNavigate < totalPage)
         {
-            this.setState({
-                page: pageNavigate,
-            })
+            let { onSetPage, onLoadTutorList } = this.props;
+            let { areaFilter, priceFilter, subjectFilter, searchStr } = this.props.TutorListReducer;
+
+            onSetPage(pageNavigate);
+
             let option = {
-                area: this.state.areaFilter,
-                price: this.state.priceFilter,
-                major: this.state.subjectFilter,
-                name: this.state.searchStr,
+                area: areaFilter,
+                price: priceFilter,
+                major: subjectFilter,
+                name: searchStr,
                 page: pageNavigate,
             };
     
-            this.loadData(option);
+            onLoadTutorList(option);
         }
     }
     
     onAreaFilterChange(e)
     {
-        this.setState({
-            areaFilter: e.target.value,
-        })
+        this.areaFilter = e.target.value;
     }
 
     onPriceFilterChange(e)
     {
-        this.setState({
-            priceFilter: Number.parseInt(e.target.value),
-        })
+        this.priceFilter = Number.parseInt(e.target.value);
     }
 
     onSubjectFilterChange(e)
     {
-        this.setState({
-            subjectFilter: e.target.value,
-        })
+        this.subjectFilter = e.target.value;
     }
 
     onSearchChange(e) {
-        this.setState({
-            searchStr: e.target.value,
-        })
+        this.searchStr = e.target.value;
     }
 
     onFilterClick()
     {
+        let { onLoadTutorList } = this.props;
         let option = {
-            area: this.state.areaFilter,
-            price: this.state.priceFilter,
-            major: this.state.subjectFilter,
-            name: this.state.searchStr,
+            area: this.areaFilter,
+            price: this.priceFilter,
+            major: this.subjectFilter,
+            name: this.searchStr,
             page: 0,
         };
 
-        this.loadData(option);
+        onLoadTutorList(option);
     }
 
     onAreaSort(event, sortKey, isASC) {        
-        const data = this.state.tutorList;
+        // const data = this.state.tutorList;
 
-        if(isASC === false)
-        { // Sắp tăng dần
-            data.sort((a,b) => a[sortKey].localeCompare(b[sortKey]))                            
-            this.setState({
-                areaASC: true,
-                tutorList: data,
-            })
-        }
-        else
-        {
-            data.sort((a,b) => b[sortKey].localeCompare(a[sortKey]))                            
-            this.setState({
-                areaASC: false,
-                tutorList: data,
-            })
-        }
+        // if(isASC === false)
+        // { // Sắp tăng dần
+        //     data.sort((a,b) => a[sortKey].localeCompare(b[sortKey]))                            
+        //     this.setState({
+        //         areaASC: true,
+        //         tutorList: data,
+        //     })
+        // }
+        // else
+        // {
+        //     data.sort((a,b) => b[sortKey].localeCompare(a[sortKey]))                            
+        //     this.setState({
+        //         areaASC: false,
+        //         tutorList: data,
+        //     })
+        // }
         
     }
 
     onPriceSort(event, sortKey, isASC) {        
-        const data = this.state.tutorList;
+        // const data = this.state.tutorList;
 
-        if(isASC === false)
-        { // Sắp tăng dần
-            data.sort((a,b) => a[sortKey] - b[sortKey])                            
-            this.setState({
-                priceASC: true,
-                tutorList: data,
-            })
-        }
-        else
-        {
-            data.sort((a,b) => b[sortKey] - a[sortKey])                            
-            this.setState({
-                priceASC: false,
-                tutorList: data,
-            })
-        }
+        // if(isASC === false)
+        // { // Sắp tăng dần
+        //     data.sort((a,b) => a[sortKey] - b[sortKey])                            
+        //     this.setState({
+        //         priceASC: true,
+        //         tutorList: data,
+        //     })
+        // }
+        // else
+        // {
+        //     data.sort((a,b) => b[sortKey] - a[sortKey])                            
+        //     this.setState({
+        //         priceASC: false,
+        //         tutorList: data,
+        //     })
+        // }
         
     }
 
     onSubjectSort(event, sortKey, isASC) {        
-        const data = this.state.tutorList;
+        // const data = this.state.tutorList;
 
-        if(isASC === false)
-        { // Sắp tăng dần
-            data.sort((a,b) => a[sortKey].localeCompare(b[sortKey]))                            
-            this.setState({
-                subjectASC: true,
-                tutorList: data,
-            })
-        }
-        else
-        {
-            data.sort((a,b) => b[sortKey].localeCompare(a[sortKey]))                            
-            this.setState({
-                subjectASC: false,
-                tutorList: data,
-            })
-        }
+        // if(isASC === false)
+        // { // Sắp tăng dần
+        //     data.sort((a,b) => a[sortKey].localeCompare(b[sortKey]))                            
+        //     this.setState({
+        //         subjectASC: true,
+        //         tutorList: data,
+        //     })
+        // }
+        // else
+        // {
+        //     data.sort((a,b) => b[sortKey].localeCompare(a[sortKey]))                            
+        //     this.setState({
+        //         subjectASC: false,
+        //         tutorList: data,
+        //     })
+        // }
         
     }
 
     generateAreaSortButton() {
-        if (this.state.areaASC === null) {
-            return (
-                <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
-                        onClick={e => this.onAreaSort(e, 'area', false)}>
-                    Area &uarr;
-                </span>
-            );
-        }
-        else if (this.state.areaASC) {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
-                        onClick={e => this.onAreaSort(e, 'area', true)}>
-                    Area &uarr;
-                </span>
-            );
-        }
-        else {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
-                        onClick={e => this.onAreaSort(e, 'area', false)}>
-                    Area &darr;
-                </span>
-            );
-        }
+        // if (this.state.areaASC === null) {
+        //     return (
+        //         <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
+        //                 onClick={e => this.onAreaSort(e, 'area', false)}>
+        //             Area &uarr;
+        //         </span>
+        //     );
+        // }
+        // else if (this.state.areaASC) {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
+        //                 onClick={e => this.onAreaSort(e, 'area', true)}>
+        //             Area &uarr;
+        //         </span>
+        //     );
+        // }
+        // else {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
+        //                 onClick={e => this.onAreaSort(e, 'area', false)}>
+        //             Area &darr;
+        //         </span>
+        //     );
+        // }
     }
 
     generatePriceSortButton() {
-        if (this.state.priceASC === null) {
-            return (
-                <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
-                        onClick={e => this.onPriceSort(e, 'price', false)}>
-                    Price &uarr;
-                </span>
-            );
-        }
-        else if (this.state.priceASC) {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
-                        onClick={e => this.onPriceSort(e, 'price', true)}>
-                    Price &uarr;
-                </span>
-            );
-        }
-        else {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
-                        onClick={e => this.onPriceSort(e, 'price', false)}>
-                    Price &darr;
-                </span>
-            );
-        }
+        // if (this.state.priceASC === null) {
+        //     return (
+        //         <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
+        //                 onClick={e => this.onPriceSort(e, 'price', false)}>
+        //             Price &uarr;
+        //         </span>
+        //     );
+        // }
+        // else if (this.state.priceASC) {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
+        //                 onClick={e => this.onPriceSort(e, 'price', true)}>
+        //             Price &uarr;
+        //         </span>
+        //     );
+        // }
+        // else {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
+        //                 onClick={e => this.onPriceSort(e, 'price', false)}>
+        //             Price &darr;
+        //         </span>
+        //     );
+        // }
     }
 
     generateSubjectSortButton() {
-        if (this.state.subjectASC === null) {
-            return (
-                <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
-                        onClick={e => this.onSubjectSort(e, 'major_name', false)}>
-                    Subject &uarr;
-                </span>
-            );
-        }
-        else if (this.state.subjectASC) {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
-                        onClick={e => this.onSubjectSort(e, 'major_name', true)}>
-                    Subject &uarr;
-                </span>
-            );
-        }
-        else {
-            return (
-                <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
-                        onClick={e => this.onSubjectSort(e, 'major_name', false)}>
-                    Subject &darr;
-                </span>
-            );
-        }
+        // if (this.state.subjectASC === null) {
+        //     return (
+        //         <span className="bg-light py-3 px-5 font-weight-bold cursor-pointer" 
+        //                 onClick={e => this.onSubjectSort(e, 'major_name', false)}>
+        //             Subject &uarr;
+        //         </span>
+        //     );
+        // }
+        // else if (this.state.subjectASC) {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-success text-white"
+        //                 onClick={e => this.onSubjectSort(e, 'major_name', true)}>
+        //             Subject &uarr;
+        //         </span>
+        //     );
+        // }
+        // else {
+        //     return (
+        //         <span className="py-3 px-5 font-weight-bold cursor-pointer bg-danger text-white" 
+        //                 onClick={e => this.onSubjectSort(e, 'major_name', false)}>
+        //             Subject &darr;
+        //         </span>
+        //     );
+        // }
     }
 
     onReset() {
-        this.setState({
-            isSuccess: false,
-            tutorList: [],
-            areaList: [],
-            priceList: [],
-            subjectList: [],
-            areaASC: null,
-            priceASC: null,
-            subjectASC: null,
-            areaFilter: '',
-            priceFilter: 0,
-            subjectFilter: '',
-            searchStr: '',
-        });
+        let { onReset, onLoadTutorList } = this.props;
+        onReset();
 
         let option = {
             area: '',
@@ -423,7 +352,7 @@ export default class TutorList extends Component {
             page: 0,
         };
 
-        this.loadData(option);
+        onLoadTutorList(option);
     }
 
     render() {
@@ -500,7 +429,7 @@ export default class TutorList extends Component {
                     {/* End tutor data */}
 
                     {/* Pagination */}
-                    <nav className="w-75 mx-auto mb-4">
+                    {/* <nav className="w-75 mx-auto mb-4">
                         <ul className="pagination justify-content-end">
                             <li className="page-item" onClick={()=>this.onPagi(0)}>
                                 <a className="page-link cursor-pointer">&lt;&lt;</a>
@@ -510,7 +439,7 @@ export default class TutorList extends Component {
                             </li>
                             <li className="page-item">
                                 <a className="page-link cursor-pointer">
-                                    {this.state.page + 1} / {this.state.totalPage}
+                                    {this.state.page + 1} / {this.state.totalPage} 
                                 </a>
                             </li>
                             <li className="page-item" onClick={()=>this.onPagi(this.state.page + 1)}>
@@ -520,7 +449,7 @@ export default class TutorList extends Component {
                                 <a className="page-link cursor-pointer">&gt;&gt;</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> */}
                     {/* End pagination */}
 
                     {/* section apply for tutor */}

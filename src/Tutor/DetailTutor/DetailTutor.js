@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './DetailTutor.css';
+import { ts } from '../../Services/TutorService';
+import { history } from '../../Helpers/History';
 
 export default class DetailTutor extends Component {
 
@@ -10,58 +12,139 @@ export default class DetailTutor extends Component {
 
         this.state = {
             tab: 1,
-            user: {
-                name: 'John Cena',
-                avatarLink: '',
-                id: id,
+            page: 0,
+            totalPage: 0,
+            contracts: [],
+            tutor: {
+                id: 0,
+                name: '',
                 role: 1,
-                email: 'johncena@gmail.com',
-                phone: '0325489125',
+                address: '',
+                email: "",
+                phone: "",
                 gender: 0,
-                major: 0,
+                yob: null,
+                avatarLink: null,
                 price: 0,
-                levelTeaching: 0,
-                area: 'Quận 4',
+                levelTeaching: "0",
+                major: 0,
+                evaluation: 0,
                 successRate: 0,
-                introduction: 'Tháng 2-1930, Đảng Cộng sản Việt Nam ra đời trong hoàn cảnh đất nước đang trong đêm đen nô lệ, nhân dân phải chịu cảnh một cổ đôi tròng, bị bần cùng hóa đến cao độ. Phong trào cách mạng trải nhiều khó khăn, thử thách và có lúc thoái trào. Nhưng ở tuổi mười lăm, Đảng đã lãnh đạo nhân dân cả nước làm cuộc Cách mạng tháng Tám thành công, lập nên nhà nước dân chủ nhân dân đầu tiên ở Đông Nam Á.',
+                areaCode: 0,
+                area: "",
             },
+            skills: [],
         }
 
-
-        //this.initData(id, role);
+        this.loadHistoryData(0);
+        this.initData(id);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
     }
 
-    initData(id, role) {
-        // us.loadUserDetail({ id: id, role: role })
-        //     .then(res => {
-        //         console.log(res);
-        //         this.setState({ user: res.info.data });
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     })
+    initData(id) {
+        ts.getTutorDetail(id)
+        .then(res => {
+            this.setState({
+                tutor: res.info.data,
+                skills: res.info.skills,
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Sorry but this tutor is not exist');
+            //history.push('/');
+        })
+    }
+
+    loadHistoryData(page) {        
+        let option = {
+            id: Number.parseInt(this.props.match.params.id),
+            key: 1,
+            page,
+        }
+        ts.getContracts(option)
+        .then(res => {
+            this.setState({
+                contracts: res.info.data,
+                totalPage: Math.fround(Number.parseInt(res.info.total) / 2),
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Sorry but our connection to server is not available now');
+            //history.push('/');
+        })
     }
 
     generateTagSkillBox() {
-        if (this.state.user.role === 1) {
-            return (
-                <div className="profile-work rounded w-75 mt-0 mx-auto text-wrap">
-                    <div className="text-center font-weight-bold">TAGs</div>
-                    <hr />
-                    <span className="text-primary p-1"><u>English</u></span>,
-                    <span className="text-primary p-1"><u>Dynamic</u></span>,
-                    <span className="text-primary p-1"><u>Pedagogica</u></span>,
-                    <span className="text-primary p-1"><u>Algebra</u></span>,
-                    <span className="text-primary p-1"><u>Geometry</u></span>
+        
+        let content = [];
+        for(let e of this.state.skills)
+        {
+            content.push(
+                <span key={e.skill_code}><span className="text-primary p-1"><u>{e.skill_tag}</u></span>,</span>
+            );
+        }
+
+        return (
+            <div className="profile-work rounded w-75 mt-0 mx-auto text-wrap">
+                <div className="text-center font-weight-bold">TAGs</div>
+                <hr />
+                {content}
+            </div>
+        );
+    }
+
+    generateComments() {
+        let content = [];
+        let imgSrc = '';
+        for(let e of this.state.contracts)
+        {
+            if (e.avatarLink === null || e.avatarLink === '') {
+                imgSrc = `https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`;
+            }
+            else {
+                imgSrc = e.avatarLink;
+            }
+            content.push(
+                <div className="row p-4">
+                    <div className="col-2">
+                        <img src={imgSrc} alt="learner avatar" className="w-100 m-1"></img>
+                    </div>
+                    <div className="col-10">
+                        <div className="row">
+                            <div className='col-6'><span className='text-primary font-weight-bold'>Name:</span> {e.learner}</div>
+                            <div className='col-6'><span className='text-primary font-weight-bold'>Subject:</span> {e.major_name}</div>
+                        </div>
+                        <div>
+                            <span className='text-primary font-weight-bold'>Evaluation:</span> {e.rating}/10 <i className="fa fa-star text-warning"></i>
+                        </div>
+                        <div className="row">
+                            <div className='col-6'><span className='text-primary font-weight-bold'>Date start:</span> {e.StartDate}</div>
+                            <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> {e.EndDate}</div>
+                        </div>
+                        <div className="history-comment text-wrap">
+                            <span className='text-primary font-weight-bold'>Comment: </span>
+                            {e.feedback}
+                        </div>
+                    </div>
                 </div>
             );
         }
-        else {
-            return null;
+        return content;        
+    }
+
+    onPagi(pageNavigate) {
+        if(pageNavigate !== this.state.page && pageNavigate >= 0 && pageNavigate < this.state.totalPage)
+        {
+            this.setState({
+                page: pageNavigate,
+            })
+
+            this.loadHistoryData(pageNavigate);
         }
     }
 
@@ -72,37 +155,15 @@ export default class DetailTutor extends Component {
         var accountInfoBtn = "";
         var proInfoBtn = "";
         var historyInfoBtn = '';
-        console.log('render:');
-        console.log(this.state.user);
-        let ImgSrc = this.state.user.avatarLink;
-        if (ImgSrc === null || ImgSrc === '') {
+        let ImgSrc = '';        
+        if (this.state.tutor.avatarLink === null || this.state.tutor.avatarLink === '') {
             ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
         }
-
-        let RoleStr = '';
-        switch (this.state.user.levelTeaching) {
-            case 0:
-                {
-                    RoleStr = 'PRIMARY TUTOR';
-                    break;
-                }
-            case 1:
-                {
-                    RoleStr = 'SECONDARY TUTOR';
-                    break;
-                }
-            case 2:
-                {
-                    RoleStr = 'HIGH SCHOOL TUTOR';
-                    break;
-                }
-            case 3:
-                {
-                    RoleStr = 'COLLEAGE TUTOR';
-                    break;
-                }
-            default: break;
+        else
+        {
+            ImgSrc = this.state.tutor.avatarLink;
         }
+
 
         if (this.state.tab === 1) {
             accountInfoBtn = 'nav-link active cursor-pointer';
@@ -144,14 +205,23 @@ export default class DetailTutor extends Component {
 
                         <div className="col-8">
                             <div className="profile-head">
-                                <h5>
-                                    {this.state.user.name.toUpperCase()}
-                                </h5>
-                                <h6 className="font-weight-bold">
-                                    {RoleStr}
-                                </h6>
+                                <div className='row'>
+                                    <div className='col-8'>
+                                        <h5>
+                                            {this.state.tutor.name.toUpperCase()}
+                                        </h5>
+                                        <h6 className="font-weight-bold">
+                                            {this.state.tutor.levelTeaching.toUpperCase()}
+                                        </h6>
+                                    </div>
+                                    <div className='col-4'>
+                                        <button className='btn btn-primary h-100 w-100 font-weight-bold'>
+                                            <i className="fa fa-sign-in-alt"></i>&nbsp;| Enroll !!!
+                                        </button>
+                                    </div>
+                                </div>                                
 
-                                <p className="proile-rating">EVALUATION : <span>8/10</span>&nbsp;<i className="fa fa-star text-warning"></i></p>
+                                <p className="proile-rating">EVALUATION : <span>{this.state.tutor.evaluation}/10</span>&nbsp;<i className="fa fa-star text-warning"></i></p>
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item">
                                         <div className={accountInfoBtn} id="home-tab" data-toggle="tab"
@@ -180,10 +250,10 @@ export default class DetailTutor extends Component {
                                 <div className={accountInfoClass} id="home" role="tabpanel" aria-labelledby="home-tab">
                                     <div className="row">
                                         <div className="col-3">
-                                            <label>User Id</label>
+                                            <label>Tutor Id</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.id}</p>
+                                            <p>{this.state.tutor.id}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -191,7 +261,7 @@ export default class DetailTutor extends Component {
                                             <label>Name</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.name}</p>
+                                            <p>{this.state.tutor.name}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -199,7 +269,7 @@ export default class DetailTutor extends Component {
                                             <label>Email</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.email}</p>
+                                            <p>{this.state.tutor.email}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -207,7 +277,7 @@ export default class DetailTutor extends Component {
                                             <label>Phone</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.phone}</p>
+                                            <p>{this.state.tutor.phone}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -215,7 +285,7 @@ export default class DetailTutor extends Component {
                                             <label>Gender</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.gender}</p>
+                                            <p>{this.state.tutor.gender}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +296,7 @@ export default class DetailTutor extends Component {
                                             <label>Major</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.major}</p>
+                                            <p>{this.state.tutor.major}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -234,7 +304,7 @@ export default class DetailTutor extends Component {
                                             <label>Hourly Rate</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>$ {this.state.user.price}/h</p>
+                                            <p>$ {this.state.tutor.price}/h</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -242,7 +312,7 @@ export default class DetailTutor extends Component {
                                             <label>Area</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.area}</p>
+                                            <p>{this.state.tutor.area}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -250,7 +320,7 @@ export default class DetailTutor extends Component {
                                             <label>Success Rate</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.successRate}%</p>
+                                            <p>{this.state.tutor.successRate}%</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -258,95 +328,39 @@ export default class DetailTutor extends Component {
                                             <label>Introduction</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.user.introduction}</p>
+                                            <p>{this.state.tutor.introduction}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className={historyInfoClass} id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div className={historyInfoClass} id="history" role="tabpanel" aria-labelledby="profile-tab">
 
 
                                     {/* user comment */}
                                     <div className="bg-light mx-auto mb-2">
 
-                                        <div className="row p-4">
-                                            <div className="col-2">
-                                                <img src={`https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`}
-                                                    alt="tutor avatar" className="w-100 m-1"></img>
-                                            </div>
-                                            <div className="col-10">
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Name:</span> Triple H</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Subject:</span> Math</div>
-                                                </div>
-                                                <div>
-                                                    <span className='text-primary font-weight-bold'>Evaluation:</span> 9.5/10 <i className="fa fa-star text-warning"></i>
-                                                </div>
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date start:</span> 26/10/2019</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> 26/11/2019</div>
-                                                </div>
-                                                <div className="history-comment text-wrap">
-                                                    <span className='text-primary font-weight-bold'>Comment: </span>Tháng 2-1930, Đảng Cộng sản Việt Nam ra đời trong hoàn cảnh đất nước đang trong đêm đen nô lệ, nhân dân phải chịu cảnh một cổ đôi tròng, bị bần cùng hóa đến cao độ. Phong trào cách mạng trải nhiều khó khăn, thử thách và có lúc thoái trào. Nhưng ở tuổi mười lăm, Đảng đã lãnh đạo nhân dân cả nước làm cuộc Cách mạng tháng Tám thành công, lập nên nhà nước dân chủ nhân dân đầu tiên ở Đông Nam Á.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row p-4">
-                                            <div className="col-2">
-                                                <img src={`https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`}
-                                                    alt="tutor avatar" className="w-100 m-1"></img>
-                                            </div>
-                                            <div className="col-10">
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Name:</span> Triple H</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Subject:</span> Math</div>
-                                                </div>
-                                                <div>
-                                                    <span className='text-primary font-weight-bold'>Evaluation:</span> 9.5/10 <i className="fa fa-star text-warning"></i>
-                                                </div>
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date start:</span> 26/10/2019</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> 26/11/2019</div>
-                                                </div>
-                                                <div className="history-comment text-wrap">
-                                                    <span className='text-primary font-weight-bold'>Comment: </span>Tháng 2-1930, Đảng Cộng sản Việt Nam ra đời trong hoàn cảnh đất nước đang trong đêm đen nô lệ
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row p-4">
-                                            <div className="col-2">
-                                                <img src={`https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`}
-                                                    alt="tutor avatar" className="w-100 m-1"></img>
-                                            </div>
-                                            <div className="col-10">
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Name:</span> Triple H</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Subject:</span> Math</div>
-                                                </div>
-                                                <div>
-                                                    <span className='text-primary font-weight-bold'>Evaluation:</span> 9.5/10 <i className="fa fa-star text-warning"></i>
-                                                </div>
-                                                <div className="row">
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date start:</span> 26/10/2019</div>
-                                                    <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> 26/11/2019</div>
-                                                </div>
-                                                <div className="history-comment text-wrap">
-                                                    <span className='text-primary font-weight-bold'>Comment: </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    {this.generateComments()}
+                                        
                                     </div>
                                     {/* pagination */}
-                                    <nav className="mx-auto mb-4">
+                                    <nav className="w-75 mx-auto mb-4">
                                         <ul className="pagination justify-content-end">
-                                            <li className="page-item disabled">
-                                                <a className="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            <li className="page-item" onClick={()=>this.onPagi(0)}>
+                                                <a className="page-link cursor-pointer">&lt;&lt;</a>
                                             </li>
-                                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                            <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                            <li className="page-item" onClick={()=>this.onPagi(this.state.page - 1)}>
+                                                <a className="page-link cursor-pointer">&lt;</a>
+                                            </li>
                                             <li className="page-item">
-                                                <a className="page-link" href="#">Next</a>
+                                                <a className="page-link cursor-pointer">
+                                                    {this.state.page + 1} / {this.state.totalPage}
+                                                </a>
+                                            </li>
+                                            <li className="page-item" onClick={()=>this.onPagi(this.state.page + 1)}>
+                                                <a className="page-link cursor-pointer">&gt;</a>
+                                            </li>
+                                            <li className="page-item" onClick={()=>this.onPagi(this.state.totalPage - 1)}>
+                                                <a className="page-link cursor-pointer">&gt;&gt;</a>
                                             </li>
                                         </ul>
                                     </nav>

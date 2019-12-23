@@ -6,6 +6,8 @@ export const ts = {
     getAreaList,
     getMajorList,
     getTutorsCount,
+    getTutorDetail,
+    getContracts,
 }
 
 function getTopTutor() {
@@ -56,6 +58,28 @@ function getTutorsCount() {
     };
 
     return fetch(`${ApiUrl}/getTutorsCount`, requestOption)
+        .then(handleResponse);
+}
+
+function getTutorDetail(id) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id}),
+    };
+
+    return fetch(`${ApiUrl}/getTutorDetail`, requestOption)
+        .then(handleResponse);
+}
+
+function getContracts(option) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(option),
+    };
+
+    return fetch(`${ApiUrl}/getContracts`, requestOption)
         .then(handleResponse);
 }
 

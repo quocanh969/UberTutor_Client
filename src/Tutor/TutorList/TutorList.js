@@ -70,7 +70,7 @@ export default class TutorList extends Component {
         ts.getTutorsCount()
         .then(res => {            
             this.setState({
-                totalPage: Math.round(Number.parseInt(res.info.data[0].count) / 5) + 1,
+                totalPage: Math.fround(Number.parseInt(res.info.data[0].count) / 5),
             })
         })
     }
@@ -118,7 +118,7 @@ export default class TutorList extends Component {
         if (this.state.isSuccess) {
             let imgSrc = '';
             for (let e of this.state.tutorList) {
-                if (e.avatarLink || e.avatarLink === null || e.avatarLink === '') {
+                if (e.avatarLink === null || e.avatarLink === '') {
                     imgSrc = `https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`;
                 }
                 else {
@@ -157,7 +157,7 @@ export default class TutorList extends Component {
                                 </div>
                             </div>
                             <div className='pl-5 mt-4'>
-                                <NavLink className='btn btn-secondary cursor-pointer' to='/detail-tutor/id=1'>See more</NavLink>
+                                <NavLink className='btn btn-secondary cursor-pointer' to={`/detail-tutor/id=${e.id}`}>See more</NavLink>
                             </div>
                         </div>
                         <div className="col-4">
@@ -195,7 +195,6 @@ export default class TutorList extends Component {
     }
 
     onPagi(pageNavigate) {
-        console.log(this.state);
         if(pageNavigate !== this.state.page && pageNavigate >= 0 && pageNavigate < this.state.totalPage)
         {
             this.setState({

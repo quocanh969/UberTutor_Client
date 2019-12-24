@@ -1,6 +1,6 @@
 .emp-profile{
     padding: 3%;
-    margin-top: 80px;
+    margin-top: 100px;
     margin-bottom: 3%;
     border-radius: 0.5rem;
     background: #fff;
@@ -12,6 +12,19 @@
     object-fit: cover;
     height: 200px;
     width: 200px;
+}
+.profile-img .file {
+    position: relative;
+
+    bottom: 35px;
+        
+    width: 240px;
+    
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: #212529b8;
+    cursor: pointer;
 }
 
 .profile-head h5{
@@ -63,9 +76,4 @@
 .profile-tab p{
     font-weight: 600;
     color: #0062cc;
-}
-
-.history-comment {
-    word-wrap: break-word;
-    overflow-y: auto;
 }

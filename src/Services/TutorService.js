@@ -2,10 +2,7 @@ const ApiUrl = "http://localhost:8081";
 
 export const ts = {
     getTopTutor,
-    getTutorList,
-    getAreaList,
-    getMajorList,
-    getTutorsCount,
+    getTutorList,   
     getTutorDetail,
     getContracts,
 }
@@ -28,36 +25,6 @@ function getTutorList(option) {
     };
 
     return fetch(`${ApiUrl}/getTutorList`, requestOption)
-        .then(handleResponse);
-}
-
-function getAreaList() {
-    const requestOption = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    };
-
-    return fetch(`${ApiUrl}/getAreas`, requestOption)
-        .then(handleResponse);
-}
-
-function getMajorList() {
-    const requestOption = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    };
-
-    return fetch(`${ApiUrl}/getMajors`, requestOption)
-        .then(handleResponse);
-}
-
-function getTutorsCount() {
-    const requestOption = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    };
-
-    return fetch(`${ApiUrl}/getTutorsCount`, requestOption)
         .then(handleResponse);
 }
 

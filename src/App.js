@@ -12,7 +12,7 @@ import DashboardContainer from './Dashboard/Dashboard.container';
 import RegisterTutorContainer from './Register/RegisterTutor.container';
 import Homepage from './GuestUser/Homepage';
 
-import { PrivateRoute } from './CustomRoutes/PrivateRoute';
+import { PrivateRoute, ProfileRoute } from './CustomRoutes/PrivateRoute';
 import { history } from './Helpers/History';
 import ChangePasswordContainer from './Login/ChangePassword/ChangePassword.container';
 import ForgotPasswordContainer from './Login/ForgotPassword/ForgotPassword.container';
@@ -38,6 +38,10 @@ function App() {
             <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
             <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
             <Route path="/tutor-list" exact component={TutorList}></Route>
+            <Route path="/tutor-list/area=:area" exact component={TutorList}></Route>
+            <Route path="/tutor-list/price=:price" exact component={TutorList}></Route>
+            <Route path="/tutor-list/subject=:subject" exact component={TutorList}></Route>
+            <ProfileRoute path="/profile"></ProfileRoute>
             <Route path="/detail-tutor/id=:id" exact component={DetailTutor}></Route>
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>
             <Route path={`/activate-account/id=:id`} exact component={Activate}></Route>

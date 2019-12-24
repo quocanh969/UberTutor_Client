@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { history } from '../../Helpers/History';
 
 export default class SecondaryNavBar extends Component {
 
@@ -88,16 +89,16 @@ export default class SecondaryNavBar extends Component {
                             <img src={ImgSrc} width={30} height={30}></img>
                         </button>                    
                         <div className="dropdown-menu dropdown-menu-right">
-                            <a className="dropdown-item label px-2" href="/register">
+                            <div className="dropdown-item label px-2 text-black cursor-pointer" onClick={() => {history.push('/profile');}}>
                                 <i className="fa fa-info-circle mr-2"></i>Your Account
-                            </a>
-                            <NavLink className="dropdown-item label px-2" to="/change-password">
+                            </div>
+                            <div className="dropdown-item label px-2 text-black cursor-pointer" onClick={() => {history.push('/change-password');}}>
                                 <i className="fa fa-file-signature mr-2"></i>Change Password
-                            </NavLink>
+                            </div>
                             <hr className="my-0 mx-1"/>
-                            <a className="dropdown-item label px-2" onClick={() => {localStorage.clear()}}>
+                            <div className="dropdown-item label px-2 text-black cursor-pointer" onClick={() => {localStorage.clear();window.location.href = './';}}>
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
-                            </a>
+                            </div>
                         </div>
                     </div>                    
                 </div>

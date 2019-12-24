@@ -1,72 +1,57 @@
 import React, { Component } from 'react';
-import '../../Detail.css';
+import { ls } from '../../Services/LearnerService';
 import { ts } from '../../Services/TutorService';
-import { history } from '../../Helpers/History';
+import '../../Detail.css';
 
-export default class DetailTutor extends Component {
-
+export default class LearnerProfile extends Component {
     constructor(props) {
         super(props);
-
-        let id = this.props.match.params.id;        
-
+        let id = JSON.parse(localStorage.getItem('user')).user.loginUser.id;
         this.state = {
             tab: 1,
-            page: 0,
-            totalPage: 0,
             contracts: [],
-            tutor: {
-                id: 0,
+            user: {
+                id: 1,
                 name: '',
-                role: 1,
                 address: '',
-                email: "",
-                phone: "",
-                gender: 0,
-                yob: null,
-                avatarLink: null,
-                price: 0,
-                levelTeaching: "0",
-                major: 0,
-                evaluation: 0,
-                successRate: 0,
-                areaCode: 0,
-                area: "",
+                email: '',
+                phone: '',
+                gender: 0,                
+                yob:null,
+                avatarLink: '',
+                isEditting: false,
             },
-            skills: [],
+            totalPage: 0,
+            page: 0,
         }
-
-        this.loadHistoryData(0);
+        
         this.initData(id);
-    }
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
+        this.loadHistoryData(0);
     }
 
     initData(id) {
-        ts.getTutorDetail(id)
-        .then(res => {
-            this.setState({
-                tutor: res.info.data,
-                skills: res.info.skills,
+        ls.getLearnerDetail(id)
+            .then(res => {
+                console.log(res);
+                this.setState({ user: res.info.data[0] });
+                console.log(this.state);
             })
-        })
-        .catch(err => {
-            console.log(err);
-            alert('Sorry but this tutor is not exist');
-            //history.push('/');
-        })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     loadHistoryData(page) {        
         let option = {
-            id: Number.parseInt(this.props.match.params.id),
-            key: 1,
+            id: JSON.parse(localStorage.getItem('user')).user.loginUser.id,
+            key: 0,
             page,
         }
+        console.log('option');
+        console.log(option);
         ts.getContracts(option)
         .then(res => {
+            console.log(res);
             let total = Math.ceil(Number.parseInt(res.info.total) / 4);
             if(total === 0) total = 1;
             this.setState({
@@ -81,25 +66,6 @@ export default class DetailTutor extends Component {
         })
     }
 
-    generateTagSkillBox() {
-        
-        let content = [];
-        for(let e of this.state.skills)
-        {
-            content.push(
-                <span key={e.skill_code}><span className="text-primary p-1"><u>{e.skill_tag}</u></span>,</span>
-            );
-        }
-
-        return (
-            <div className="profile-work rounded w-75 mt-0 mx-auto text-wrap">
-                <div className="text-center font-weight-bold">TAGs</div>
-                <hr />
-                {content}
-            </div>
-        );
-    }
-
     generateComments() {
         let content = [];
         let imgSrc = '';
@@ -112,7 +78,7 @@ export default class DetailTutor extends Component {
                 imgSrc = e.avatarLink;
             }
             content.push(
-                <div className="row p-4">
+                <div className="row p-4" key={e.id}>
                     <div className="col-2">
                         <img src={imgSrc} alt="learner avatar" className="w-100 m-1"></img>
                     </div>
@@ -139,56 +105,26 @@ export default class DetailTutor extends Component {
         return content;        
     }
 
-    onPagi(pageNavigate) {
-        if(pageNavigate !== this.state.page && pageNavigate >= 0 && pageNavigate < this.state.totalPage)
-        {
-            this.setState({
-                page: pageNavigate,
-            })
-
-            this.loadHistoryData(pageNavigate);
-        }
-    }
-
     render() {
         var accountInfoClass = "";
-        var proInfoClass = "";
-        var historyInfoClass = '';
+        var historyInfoClass = "";
         var accountInfoBtn = "";
-        var proInfoBtn = "";
-        var historyInfoBtn = '';
-        let ImgSrc = '';        
-        if (this.state.tutor.avatarLink === null || this.state.tutor.avatarLink === '') {
+        var historyInfoBtn = "";
+        let ImgSrc = this.state.user.avatarLink;
+        if (ImgSrc === null || ImgSrc === '') {
             ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
         }
-        else
-        {
-            ImgSrc = this.state.tutor.avatarLink;
-        }
-
-
+        
         if (this.state.tab === 1) {
             accountInfoBtn = 'nav-link active cursor-pointer';
             accountInfoClass = 'tab-pane fade show active';
-            proInfoBtn = 'nav-link cursor-pointer';
-            proInfoClass = 'tab-pane fade';
-            historyInfoBtn = 'nav-link cursor-pointer';
-            historyInfoClass = 'tab-pane fade';
-        }
-        else if (this.state.tab === 2) {
-            accountInfoBtn = 'nav-link cursor-pointer';
-            accountInfoClass = 'tab-pane fade';
-            proInfoBtn = 'nav-link cursor-pointer  active';
-            proInfoClass = 'tab-pane fade show active';
             historyInfoBtn = 'nav-link cursor-pointer';
             historyInfoClass = 'tab-pane fade';
         }
         else {
             accountInfoBtn = 'nav-link cursor-pointer';
             accountInfoClass = 'tab-pane fade';
-            proInfoBtn = 'nav-link cursor-pointer';
-            proInfoClass = 'tab-pane fade';
-            historyInfoBtn = 'nav-link cursor-pointer active';
+            historyInfoBtn = 'nav-link cursor-pointer  active';
             historyInfoClass = 'tab-pane fade show active';
         }
 
@@ -196,34 +132,38 @@ export default class DetailTutor extends Component {
             <div className="container emp-profile">
                 <form method="post">
                     <div className="row">
-                        <div className="col-4">
+                        
+                        <div className="col-md-4">
                             <div className="profile-img mb-5">
                                 <img src={ImgSrc}
                                     alt="avatar-user" />
                                 <input type="file" name="file" ref="imgInput" className="d-none" />
+                                <div className="file btn btn-lg btn-primary cursor-pointer"
+                                    onClick={() => { this.refs.imgInput.click() }}>
+                                    Change Photo
+                                </div>
                             </div>
-                            {this.generateTagSkillBox()}
                         </div>
-
-                        <div className="col-8">
+                        
+                        <div className="col-md-8">
                             <div className="profile-head">
                                 <div className='row'>
                                     <div className='col-8'>
                                         <h5>
-                                            {this.state.tutor.name.toUpperCase()}
+                                            {this.state.user.name.toUpperCase()}
                                         </h5>
                                         <h6 className="font-weight-bold">
-                                            {this.state.tutor.levelTeaching.toUpperCase()}
+                                            {this.state.user.email}
                                         </h6>
                                     </div>
                                     <div className='col-4'>
                                         <button className='btn btn-primary h-100 w-100 font-weight-bold'>
-                                            <i className="fa fa-sign-in-alt"></i>&nbsp;| Enroll !!!
+                                            <i className="fa fa-pencil-alt"></i>&nbsp;| Edit Profile !!!
                                         </button>
                                     </div>
-                                </div>                                
+                                </div>
+                                
 
-                                <p className="proile-rating">EVALUATION : <span>{this.state.tutor.evaluation}/10</span>&nbsp;<i className="fa fa-star text-warning"></i></p>
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item">
                                         <div className={accountInfoBtn} id="home-tab" data-toggle="tab"
@@ -232,30 +172,23 @@ export default class DetailTutor extends Component {
                                         >Account</div>
                                     </li>
                                     <li className="nav-item">
-                                        <div className={proInfoBtn} id="profile-tab" data-toggle="tab"
-                                            aria-controls="profile" aria-selected="false"
-                                            onClick={() => { this.setState({ tab: 2 }) }}
-                                        >Profession</div>
-                                    </li>
-                                    <li className="nav-item">
                                         <div className={historyInfoBtn} id="profile-tab" data-toggle="tab"
                                             aria-controls="profile" aria-selected="false"
-                                            onClick={() => { this.setState({ tab: 3 }) }}
+                                            onClick={() => { this.setState({ tab: 2 }) }}
                                         >History</div>
                                     </li>
                                 </ul>
                             </div>
-
-
+                        
                             <div className="tab-content profile-tab" id="myTabContent">
-
+                                
                                 <div className={accountInfoClass} id="home" role="tabpanel" aria-labelledby="home-tab">
                                     <div className="row">
                                         <div className="col-3">
-                                            <label>Tutor Id</label>
+                                            <label>User Id</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.id}</p>
+                                            <p>{this.state.user.id}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -263,7 +196,7 @@ export default class DetailTutor extends Component {
                                             <label>Name</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.name}</p>
+                                            <p>{this.state.user.name}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -271,7 +204,15 @@ export default class DetailTutor extends Component {
                                             <label>Email</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.email}</p>
+                                            <p>{this.state.user.email}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-3">
+                                            <label>Year of Birth</label>
+                                        </div>
+                                        <div className="col-9">
+                                            <p>{this.state.user.yob ? this.state.user.yob : 1980}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -279,7 +220,7 @@ export default class DetailTutor extends Component {
                                             <label>Phone</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.phone}</p>
+                                            <p>{this.state.user.phone}</p>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -287,54 +228,11 @@ export default class DetailTutor extends Component {
                                             <label>Gender</label>
                                         </div>
                                         <div className="col-9">
-                                            <p>{this.state.tutor.gender === 0 ? "Male" : "Female"}</p>
-                                        </div>
+                                            <p>{this.state.user.gender === 0 ? "Male" : "Female"}</p>
+                                        </div>                                        
                                     </div>
                                 </div>
-
-                                <div className={proInfoClass} id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Major</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>{this.state.tutor.major}</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Hourly Rate</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>$ {this.state.tutor.price}/h</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Area</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>{this.state.tutor.area}</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Success Rate</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>{this.state.tutor.successRate}%</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Introduction</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>{this.state.tutor.introduction}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                
                                 <div className={historyInfoClass} id="history" role="tabpanel" aria-labelledby="profile-tab">
 
 
@@ -369,8 +267,8 @@ export default class DetailTutor extends Component {
                                 </div>
 
                             </div>
+                       
                         </div>
-
                     </div>
                 </form>
             </div>

@@ -180,3 +180,10 @@ footer {
   word-wrap: break-word;
 }
 
+.min-height-200 {
+  min-height: 200px;
+}
+
+.text-black {
+  color: black !important;
+}

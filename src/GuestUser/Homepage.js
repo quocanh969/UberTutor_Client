@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import SecondaryNavBar from '../Utilities/Components/SecondaryNavBar'
 import maj from '../Services/MajorService';
+import {as} from '../Services/AreaService';
 import Menu from '../Utilities/Menu';
 import TutorList from './Sections/Tutor';
 import { NavLink } from 'react-router-dom';
@@ -11,10 +11,16 @@ export default class Homepage extends Component {
         super();
         this.state = {
             majorList: [],
+            areaList: [],
         }
 
         maj.getTop().then(data => {
             this.setState({ majorList: data });
+        })
+
+        as.getAreaList()
+        .then(data=>{
+            this.setState({areaList: data});
         })
     }
 
@@ -44,7 +50,7 @@ export default class Homepage extends Component {
         return (
             <div>
                 <div className="cat-bar">
-                    <Menu majorList={this.state.majorList}/>
+                    <Menu majorList={this.state.majorList} areaList={this.state.areaList}/>
                 </div>
                 
                 

@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { history } from '../../Helpers/History';
 import { ts } from '../../Services/TutorService';
+import { as } from '../../Services/AreaService';
+import { maj } from '../../Services/MajorService';
 
 export default class TutorList extends Component {
+
+    area = '';
+    price = 0;
+    subject = '';
 
     constructor(props) {
         super(props);
@@ -23,18 +30,30 @@ export default class TutorList extends Component {
             totalPage: 0,
             page: 0,
         }
+        console.log(this.props);
+        if(this.props.match.params.area)
+        {
+            this.area = this.props.match.params.area;
+        }
+        if(this.props.match.params.subject)
+        {
+            this.subject = this.props.match.params.subject;
+        }
+        if(this.props.match.params.price)
+        {
+            this.price = Number.parseInt(this.props.match.params.price);
+        }
 
         let option = {
-            area: '',
-            price: 0,
-            major: '',
+            area: this.area,
+            price: this.price,
+            major: this.subject,
             name: '',
             page: 0,
         };
         
         this.loadAreaData();
         this.loadSubjectData();
-        this.loadTutorsCount();
         this.loadData(option);        
     }
 
@@ -43,7 +62,7 @@ export default class TutorList extends Component {
     }
 
     loadAreaData() {
-        ts.getAreaList()
+        as.getAreaList()
         .then(res => {
             this.setState({
                 areaList: res,
@@ -55,7 +74,7 @@ export default class TutorList extends Component {
     }
 
     loadSubjectData() {
-        ts.getMajorList()
+        maj.getList()
         .then(res => {
             this.setState({
                 subjectList: res,
@@ -66,25 +85,20 @@ export default class TutorList extends Component {
         })
     }
 
-    loadTutorsCount() {
-        ts.getTutorsCount()
-        .then(res => {            
-            this.setState({
-                totalPage: Math.fround(Number.parseInt(res.info.data[0].count) / 5),
-            })
-        })
-    }
-
     loadData(option) {
         ts.getTutorList(option)
             .then(res => {
+                let total = Math.ceil(Number.parseInt(res.info.total)/5);
+                if(total === 0) total = 1;
                 this.setState({
+                    totalPage: total,
                     isSuccess: true,
                     tutorList: res.info.data,
                 })
             })
             .catch(err => {
                 this.setState({
+                    totalPage: 1,
                     isSuccess: false,
                     tutorList: [],
                 })
@@ -167,7 +181,7 @@ export default class TutorList extends Component {
                             </div>
                             <div className='row'>
                                 <span className='col-3 text-primary'>Price:</span>
-                                <span className='col-9'>&nbsp;$ {e.price}/h</span>
+                                <span className='col-9'>&nbsp;$ {e.price}</span>
                             </div>
                             <button className='btn btn-primary w-100 mt-5'>Enroll</button>
                         </div>
@@ -248,7 +262,6 @@ export default class TutorList extends Component {
             name: this.state.searchStr,
             page: 0,
         };
-
         this.loadData(option);
     }
 
@@ -402,10 +415,7 @@ export default class TutorList extends Component {
     onReset() {
         this.setState({
             isSuccess: false,
-            tutorList: [],
-            areaList: [],
-            priceList: [],
-            subjectList: [],
+            tutorList: [],            
             areaASC: null,
             priceASC: null,
             subjectASC: null,
@@ -413,6 +423,8 @@ export default class TutorList extends Component {
             priceFilter: 0,
             subjectFilter: '',
             searchStr: '',
+            totalPage: 0,
+            page: 0,
         });
 
         let option = {
@@ -422,8 +434,12 @@ export default class TutorList extends Component {
             name: '',
             page: 0,
         };
-
+        this.refs.AreaSelector.value = '';
+        this.refs.PriceSelector.value = 0;
+        this.refs.SubjectSelector.value = '';
+        this.refs.NameSeach.value = '';
         this.loadData(option);
+        //history.push('/tutor-list');
     }
 
     render() {
@@ -436,32 +452,32 @@ export default class TutorList extends Component {
                     <div className="w-75 mx-auto mb-4">
                         <div className="row">
                             <div className="col-2 px-1">
-                                <select className="custom-select" id="inputGroupSelect01" defaultValue='0'
+                                <select className="custom-select" ref='AreaSelector' id="inputGroupSelect01" defaultValue={this.area}
                                         onChange={e=>this.onAreaFilterChange(e)}>
-                                    <option value='0'>Choose area ...</option>
+                                    <option value={''}>Choose area ...</option>
                                     {this.generateAreaSelect()}
                                 </select>
                             </div>
                             <div className="col-2 px-1">
-                                <select className="custom-select" id="inputGroupSelect02" defaultValue='0'
+                                <select className="custom-select" ref='PriceSelector' id="inputGroupSelect02" defaultValue={this.price}
                                         onChange={e=>this.onPriceFilterChange(e)}>
-                                    <option value='0'>Choose price ...</option>
+                                    <option value={0}>Choose price ...</option>
                                     <option value='20000'>&lt; $ 20000</option>
                                     <option value='40000'>&lt; $ 40000</option>
                                     <option value='60000'>&lt; $ 60000</option>
                                 </select>
                             </div>
                             <div className="col-2 px-1">
-                                <select className="custom-select" id="inputGroupSelect03" defaultValue='0'
+                                <select className="custom-select" ref='SubjectSelector' id="inputGroupSelect03" defaultValue={this.subject}
                                         onChange={e=>this.onSubjectFilterChange(e)}>
-                                    <option value='0'>Choose subject ...</option>
+                                    <option value={''}>Choose subject ...</option>
                                     {this.generateSubjectSelect()}
                                 </select>
                             </div>
                             <div className="col-3 px-1">
                                 <div className="form-inline w-100 text-center">
                                     <div className="input-group w-100">
-                                        <input type="text" className="form-control" placeholder="Find tutor ..." 
+                                        <input type="text" ref="NameSeach" className="form-control" placeholder="Find tutor name ..." 
                                             onChange={e=>this.onSearchChange(e)}/>
                                     </div>
                                 </div>
@@ -492,7 +508,7 @@ export default class TutorList extends Component {
                     </div>
                     {/* End sorter */}
                     {/* Tutor data */}
-                    <div className="bg-light w-75 mx-auto mb-2">
+                    <div className="bg-light w-75 mx-auto mb-2 min-height-200">
 
                         {this.generateTutorList()}
 

@@ -3,6 +3,7 @@ const ApiUrl = "http://localhost:8081";
 
 export const ls = {
     getLearnerDetail,
+    updateLearnerDetail,
 }
 
 
@@ -21,6 +22,20 @@ function getLearnerDetail(id) {
         .then(handleResponse);
 }
 
+function updateLearnerDetail(user) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify(user),
+    };
+
+    return fetch(`${ApiUrl}/users/editPersonalInfo`, requestOption)
+        .then(handleResponse);
+}
 
 function handleResponse(response) {
     return response.text().then(text => {

@@ -72,8 +72,33 @@
 
 .profile-tab label{
     font-weight: 600;
-}
-.profile-tab p{
-    font-weight: 600;
     color: #0062cc;
+}
+.profile-tab input,p,select{
+    font-weight: 600;
+    color: #6c757d;
+}
+
+/* input style */
+input,select {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 2px;;
+
+    padding: 5px 20px;
+}
+  
+input:disabled {
+    background-color: transparent;
+    border-width: 0;
+
+    padding: 5px 0px;
+}
+
+select:disabled {
+    background-color: transparent;
+    border-width: 0;    
+    appearance: none;
+
+    padding: 5px 0px;
 }

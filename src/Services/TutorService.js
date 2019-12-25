@@ -5,6 +5,9 @@ export const ts = {
     getTutorList,   
     getTutorDetail,
     getContracts,
+    updateTutorProfess,
+    updateTutorSkill,
+    clearTutorSkill,
 }
 
 function getTopTutor() {
@@ -36,6 +39,51 @@ function getTutorDetail(id) {
     };
 
     return fetch(`${ApiUrl}/getTutorDetail`, requestOption)
+        .then(handleResponse);
+}
+
+function updateTutorProfess(tutorSkill) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify(tutorSkill),
+    };
+
+    return fetch(`${ApiUrl}/users/editProfessionalInfo`, requestOption)
+        .then(handleResponse);
+}
+
+function updateTutorSkill(id, id_skill) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id, id_skill, type: 1,}),
+    };
+
+    return fetch(`${ApiUrl}/users/editSkill`, requestOption)
+        .then(handleResponse);
+}
+
+function clearTutorSkill(id) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id}),
+    };
+
+    return fetch(`${ApiUrl}/users/clearSkill`, requestOption)
         .then(handleResponse);
 }
 

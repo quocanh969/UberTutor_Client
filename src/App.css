@@ -187,3 +187,49 @@ footer {
 .text-black {
   color: black !important;
 }
+
+.w-49 {
+  width: 49%;
+}
+
+.theme_text__1ns  {
+  padding-right: 22px !important;
+}
+
+.theme_dropdown__28o {
+  height: 150px !important;
+  overflow-y: auto;
+}
+
+.tag-pill {
+  color: black;  
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 4px;
+}
+
+.react-tags__selected {
+  margin-bottom: 10px;
+
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.react-tags__search-input input {
+  width: 100% !important;
+}
+
+.react-tags__suggestions {
+  padding: 10px;
+  background-color: white;
+}
+
+.react-tags__suggestions ul li{  
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.react-tags__suggestions ul li:hover {
+  background-color: orange;
+}

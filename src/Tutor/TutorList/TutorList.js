@@ -4,6 +4,9 @@ import { history } from '../../Helpers/History';
 import { ts } from '../../Services/TutorService';
 import { as } from '../../Services/AreaService';
 import { maj } from '../../Services/MajorService';
+import { ls } from '../../Services/LearnerService';
+import Popup from "reactjs-popup";
+import Contract from '../../Contract/Contract';
 
 export default class TutorList extends Component {
 
@@ -183,7 +186,23 @@ export default class TutorList extends Component {
                                 <span className='col-3 text-primary'>Price:</span>
                                 <span className='col-9'>&nbsp;$ {e.price}</span>
                             </div>
-                            <button className='btn btn-primary w-100 mt-5'>Enroll</button>
+                            
+                            <Popup trigger={
+                                        <div className='btn btn-primary w-100 mt-5 cursor-pointer'>Enroll</div>} 
+                                        modal>
+                                        {close => (
+                                            <Contract tutorName={e.name} 
+                                                    learnerName={JSON.parse(localStorage.getItem('user')).user.loginUser.name}
+                                                    idTutor={e.id} 
+                                                    email={e.email}
+                                                    idLearner={JSON.parse(localStorage.getItem('user')).user.loginUser.id} 
+                                                    major={e.major_name} 
+                                                    majorCode={e.id_major}                                                    
+                                                    price={e.price}
+                                                    onClose={close}>
+                                        </Contract>
+                                        )}
+                                    </Popup>
                         </div>
                     </div>
                 );

@@ -34,12 +34,12 @@ export default class Homepage extends Component {
         for (let i of this.state.majorList) {
             content.push(
                 <div className="col-4 my-4" key={i.id}>
-                    <div className="card card-size border-0 m-auto">
+                    <NavLink className="card card-size border-0 m-auto cursor-pointer" to={`/tutor-list/subject=${i.name}`}>
                         <img src={i.icoUrl} height={300} width={300} className="card-img-top" />
                         <div className="card-body bg-light">
-                            <a href="#" className="btn btn-light">{i.name}</a>
+                            <div className="btn btn-light">{i.name}</div>
                         </div>
-                    </div>
+                    </NavLink>
                 </div>
             )
         }

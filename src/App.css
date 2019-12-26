@@ -209,6 +209,7 @@ footer {
   padding-right: 4px;
 }
 
+/* tag */
 .react-tags__selected {
   margin-bottom: 10px;
 
@@ -232,4 +233,10 @@ footer {
 
 .react-tags__suggestions ul li:hover {
   background-color: orange;
+}
+
+.description {
+  min-height: 100px;
+  max-height: 200px;
+  overflow-y: auto;
 }

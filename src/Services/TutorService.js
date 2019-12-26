@@ -5,6 +5,7 @@ export const ts = {
     getTutorList,   
     getTutorDetail,
     getContracts,
+    getActiveContracts,
     updateTutorProfess,
     updateTutorSkill,
     clearTutorSkill,
@@ -95,6 +96,17 @@ function getContracts(option) {
     };
 
     return fetch(`${ApiUrl}/getContracts`, requestOption)
+        .then(handleResponse);
+}
+
+function getActiveContracts(option) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(option),
+    };
+
+    return fetch(`${ApiUrl}/getActiveContracts`, requestOption)
         .then(handleResponse);
 }
 

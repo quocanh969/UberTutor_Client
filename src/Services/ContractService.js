@@ -1,29 +1,54 @@
 const ApiUrl = "http://localhost:8081";
 
 
-export const ls = {
-    getLearnerDetail,
-    updateLearnerDetail,
-    enrollClass,
+export const cs = {
+    agreeContract,
+    rejectContract,
+    getContractDetail,
+    noticeContract,
+    payContract,
 }
 
-
-function getLearnerDetail(id) {
-    let token = JSON.parse(localStorage.getItem('user')).token;
+function agreeContract(id_contract) {
     const requestOption = {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id_contract}),
+    };
+
+    return fetch(`${ApiUrl}/agree`, requestOption)
+        .then(handleResponse);
+}
+
+function rejectContract(id_contract) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id_contract}),
+    };
+
+    return fetch(`${ApiUrl}/reject`, requestOption)
+        .then(handleResponse);
+}
+
+function getContractDetail(id) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({id}),
     };
 
-    return fetch(`${ApiUrl}/users/getLearnerDetail`, requestOption)
+    return fetch(`${ApiUrl}/getContractDetail`, requestOption)
         .then(handleResponse);
 }
 
-function updateLearnerDetail(user) {
+function noticeContract(contractInfo) {
     let token = JSON.parse(localStorage.getItem('user')).token;
     const requestOption = {
         method: 'POST',
@@ -31,14 +56,14 @@ function updateLearnerDetail(user) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+ token,
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(contractInfo),
     };
 
-    return fetch(`${ApiUrl}/users/editPersonalInfo`, requestOption)
+    return fetch(`${ApiUrl}/users/contractNotice`, requestOption)
         .then(handleResponse);
 }
 
-function enrollClass(contractForm) {
+function payContract(contractInfo) {
     let token = JSON.parse(localStorage.getItem('user')).token;
     const requestOption = {
         method: 'POST',
@@ -46,10 +71,10 @@ function enrollClass(contractForm) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+ token,
         },
-        body: JSON.stringify(contractForm),
+        body: JSON.stringify(contractInfo),
     };
 
-    return fetch(`${ApiUrl}/users/newContract`, requestOption)
+    return fetch(`${ApiUrl}/users/endContract`, requestOption)
         .then(handleResponse);
 }
 

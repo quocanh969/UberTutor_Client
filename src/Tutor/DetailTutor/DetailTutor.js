@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../../Detail.css';
 import { ts } from '../../Services/TutorService';
 import { history } from '../../Helpers/History';
+import Popup from "reactjs-popup";
+import Contract from '../../Contract/Contract';
 
 export default class DetailTutor extends Component {
 
@@ -28,6 +30,7 @@ export default class DetailTutor extends Component {
                 price: 0,
                 levelTeaching: "0",
                 major: 0,
+                major_name:'',
                 evaluation: 0,
                 successRate: 0,
                 areaCode: 0,
@@ -217,9 +220,26 @@ export default class DetailTutor extends Component {
                                         </h6>
                                     </div>
                                     <div className='col-4'>
-                                        <button className='btn btn-primary h-100 w-100 font-weight-bold'>
+                                    <Popup trigger={
+                                        <div className='btn btn-primary py-auto w-100 font-weight-bold cursor-pointer'>
                                             <i className="fa fa-sign-in-alt"></i>&nbsp;| Enroll !!!
-                                        </button>
+                                        </div>} 
+                                        modal>
+                                        {close => (
+                                            <Contract tutorName={this.state.tutor.name} 
+                                                    learnerName={JSON.parse(localStorage.getItem('user')).user.loginUser.name}
+                                                    idTutor={this.state.tutor.id} 
+                                                    email={this.state.tutor.email}
+                                                    idLearner={JSON.parse(localStorage.getItem('user')).user.loginUser.id} 
+                                                    major={this.state.tutor.major_name} 
+                                                    majorCode={this.state.tutor.major}                                                    
+                                                    price={this.state.tutor.price}
+                                                    onClose={close}>
+                                        </Contract>
+                                        )}
+                                    </Popup>
+
+                                        
                                     </div>
                                 </div>                                
 

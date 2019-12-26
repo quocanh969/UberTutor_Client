@@ -22,6 +22,9 @@ import Footer from './Utilities/Footer';
 import Activate from './Register/Activate/Activate';
 import TutorList from './Tutor/TutorList/TutorList';
 import DetailTutor from './Tutor/DetailTutor/DetailTutor';
+import ContractDetail from './Contract/ContractDetail';
+import ContractReply from './Contract/ContractReply';
+import ContractDetailLearner from './Contract/ContractDetailLearner';
 
 function App() {
   return (
@@ -41,6 +44,10 @@ function App() {
             <Route path="/tutor-list/area=:area" exact component={TutorList}></Route>
             <Route path="/tutor-list/price=:price" exact component={TutorList}></Route>
             <Route path="/tutor-list/subject=:subject" exact component={TutorList}></Route>
+            
+            <Route path={`/replyContract/id=:id&reply=:reply`} exact component={ContractReply}></Route>
+            <Route path="/contract-details/id=:id" exact component={ContractDetail}></Route>
+            <Route path="/contract-details-for-learner/id=:id" exact component={ContractDetailLearner}></Route>
             <ProfileRoute path="/profile"></ProfileRoute>
             <Route path="/detail-tutor/id=:id" exact component={DetailTutor}></Route>
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>

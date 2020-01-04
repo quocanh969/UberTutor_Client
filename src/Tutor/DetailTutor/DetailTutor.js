@@ -39,6 +39,7 @@ export default class DetailTutor extends Component {
             skills: [],
         }
 
+        console.log(id);
         this.loadHistoryData(0);
         this.initData(id);
     }

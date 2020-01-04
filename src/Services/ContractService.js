@@ -7,6 +7,9 @@ export const cs = {
     getContractDetail,
     noticeContract,
     payContract,
+    cancelContract,
+    updateContract,
+    complainContract,
 }
 
 function agreeContract(id_contract) {
@@ -75,6 +78,51 @@ function payContract(contractInfo) {
     };
 
     return fetch(`${ApiUrl}/users/endContract`, requestOption)
+        .then(handleResponse);
+}
+
+function cancelContract(id) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id: id}),
+    };
+
+    return fetch(`${ApiUrl}/users/cancelContract`, requestOption)
+        .then(handleResponse);
+}
+
+function updateContract(id, description, rating, feedback) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id: id, description: description, rating: rating, feedback: feedback}),
+    };
+
+    return fetch(`${ApiUrl}/users/updateContract`, requestOption)
+        .then(handleResponse);
+}
+
+function complainContract(id, complain) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id: id, complain: complain,}),
+    };
+
+    return fetch(`${ApiUrl}/users/complainContract`, requestOption)
         .then(handleResponse);
 }
 

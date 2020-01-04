@@ -69,7 +69,7 @@ export default class Homepage extends Component {
                                     />
                             <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Connect to those good tutors out there right now at our site</p>
+                                <p className='mb-0 pb-1 text-white'>Connect to those good tutors out there right now at our site</p>
                                 <NavLink className='mt-0 pt-0 h4 text-white' to='/login'>JOIN US TODAY</NavLink>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ export default class Homepage extends Component {
                             <img src="https://s3-eu-west-1.amazonaws.com/resources.firsttutors.com/1/ecd1886fad9f0b06a5e35dd1344fe3f3.jpg" className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Our tutors have different skills to meet your needs</p>
+                                <p className='mb-0 pb-1 text-white'>Our tutors have different skills to meet your needs</p>
                                 <NavLink className='mt-0 pt-0 h4 text-white' to='/subjects'>FIND OUT WHAT YOU NEED</NavLink>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ export default class Homepage extends Component {
                             <img src='http://www.iadtvegas.com/wp-content/uploads/2019/04/online-700x500.png' className="d-block m-auto" alt="public\logo512.png" />
                             <div className="carousel-caption d-none d-md-block bg-dark w-50 mx-auto">
                                 <h3 className='font-weight-bold'>UBER TUTOR</h3>
-                                <p className='mb-0 pb-1'>Matching with a suitable tutor with just one click</p>
+                                <p className='mb-0 pb-1 text-white'>Matching with a suitable tutor with just one click</p>
                                 <NavLink className='mt-0 pt-0 h4 text-white' to='/tutor-list'>FIND A TUTOR NOW</NavLink>
                             </div>
                         </div>

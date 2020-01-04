@@ -160,12 +160,12 @@ export default class LearnerProfile extends Component {
                         </div>
                         <div className='col-6 row'>
                             <span className='text-primary font-weight-bold col-4'>Bill:</span>
-                            <span className='col-8'>${e.totalPrice} /day</span>
+                            <span className='col-8'>$&nbsp;{e.totalPrice} /day</span>
                         </div>
                     </div>
                     <div className="history-comment text-wrap mt-2">
                         <span className='text-primary font-weight-bold'>Description: </span>
-                        <span className='description ml-5 p-2'>{e.description}</span>
+                        <span className='ml-5 p-2'>{e.description}</span>
                     </div>
                 </div>
             );
@@ -230,7 +230,7 @@ export default class LearnerProfile extends Component {
                     </div>
                     <div className="history-comment text-wrap mt-2">
                         <span className='text-primary font-weight-bold'>Description: </span>
-                        <span className='description ml-5 p-2'>{e.description}</span>
+                        <span className='ml-5 p-2'>{e.description}</span>
                     </div>
                 </div>
             );

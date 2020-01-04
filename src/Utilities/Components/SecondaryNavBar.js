@@ -10,7 +10,7 @@ export default class SecondaryNavBar extends Component {
         if(!user || user.user === null || user.user === false)
         {
             return(
-                <div className="btn-group">
+                <div className="btn-group pr-5">
                     <NavLink to="/login" className="btn btn-outline-light border-width-2px font-weight-bold">
                         <i className="fa fa-user mr-2"></i>LOG IN
                     </NavLink>                                            
@@ -25,7 +25,7 @@ export default class SecondaryNavBar extends Component {
                 ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
             }
             return(
-                <div className="btn-group d-flex justify-content-around">
+                <div className="btn-group pr-5 d-flex justify-content-around">
                     
                     {/* Messages */}
                     <div className="nav-item dropdown no-arrow mx-2">
@@ -110,7 +110,7 @@ export default class SecondaryNavBar extends Component {
         return (
             <div>
                 <nav className="navbar fixed-top navbar-dark bg-dark">
-                    <a className="navbar-brand font-weight-bold" href="/">UBER TUTOR</a>
+                    <a className="navbar-brand font-weight-bold pl-5" href="/">UBER TUTOR</a>
                     {/* <div className="text-right">
                         <a className="navbar-brand" href="/">UBER TUTOR</a>
                         <a className="navbar-brand" href="/">UBER TUTOR</a>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { cs } from '../Services/ContractService';
+import ComplainContract from './ComplainContract';
+import Popup from 'reactjs-popup';
 
 export default class ContractDetailLearner extends Component {
     contract;
@@ -64,11 +66,64 @@ export default class ContractDetailLearner extends Component {
             feedback: this.state.contract.feedback,
         })
         .then(res=>{
-            alert('Giao dịch thành công');
+            if(res.code === 1)
+            {
+                this.contract.status = 2;
+                this.setState({contract: this.contract});
+                alert('Giao dịch thành công');
+            }
+            else
+            {
+                console.log(res.info.message);
+                alert('Giao dịch thất bại');
+            }
+            
         })
         .catch(err=>{
-            alert('Giao dịch thất bại');
             console.log(err);
+            alert('Giao dịch thất bại');            
+        })
+    }
+
+    cancelContract() {
+        cs.cancelContract(this.state.contract.id)
+        .then(res=>{
+            if(res.code === 1)
+            {
+                this.contract.status = 0;
+                this.setState({contract: this.contract});
+                alert('Hủy giao dịch thành công');
+            }
+            else
+            {
+                alert('Hủy giao dịch thất bại');
+            }
+            
+        })
+        .catch(err=>{
+            alert('Hủy giao dịch thất bại');
+            console.log(err);
+        })
+    }
+
+    updateContract() {
+        cs.updateContract(this.state.contract.id, this.state.contract.description, this.state.contract.rating, this.state.contract.feedback)
+        .then(res=>{
+            if(res.code === 1)
+            {
+                this.setState({contract: this.contract});
+                alert('Cập nhật giao dịch thành công');
+            }
+            else
+            {
+                console.log(res.info);
+                alert('Cập nhật giao dịch thất bại');
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            alert('Cập nhật giao dịch thất bại');
+            
         })
     }
 
@@ -162,7 +217,7 @@ export default class ContractDetailLearner extends Component {
                         Bill:
                     </div>
                     <div className='col-10 pl-0 ml-0'>
-                        {this.state.contract.totalPrice} /day
+                        $&nbsp;{this.state.contract.totalPrice} /day
                     </div>
                 </div>
                 <hr></hr>
@@ -172,7 +227,7 @@ export default class ContractDetailLearner extends Component {
                     </div>
                     <textarea className='col-10  pt-1 ml-0 feedback' 
                             disabled={disable}
-                            name='feedback' required minlength={3}
+                            name='feedback' required minLength={3} onChange={this.handleChange}
                             defaultValue={this.state.contract.feedback}></textarea>
                 </div>
                 <hr></hr>
@@ -193,7 +248,7 @@ export default class ContractDetailLearner extends Component {
                             </div>
                             <div className='col-4'>
                                 { this.state.contract.status === 1 ? 
-                                <div className='btn btn-secondary cursor-pointer'>Cancel contract</div>
+                                <div className='btn btn-secondary cursor-pointer' onClick={()=>{this.cancelContract()}}>Cancel contract</div>
                                 : ''
                                 }
                             </div>
@@ -209,7 +264,7 @@ export default class ContractDetailLearner extends Component {
                                 <input ref='ratingSlider' type="range" min="0" max="10" 
                                         required disabled={disable}
                                         value={this.state.contract.rating}
-                                        className="slider mt-auto" name='rating'
+                                        className="slider mt-auto px-0" name='rating'
                                         onChange={this.handleChange}/>
                                 :''}
                                 <span>&nbsp;&nbsp;{this.state.contract.rating}&nbsp;<i className="fa fa-star text-warning"></i></span>
@@ -223,8 +278,8 @@ export default class ContractDetailLearner extends Component {
                         Description:
                     </div>
                     <textarea className='col-10 pt-1 ml-0 text-wrap word-wrap-break description'
-                            name='description' required minlength={3}
-                            disabled={disable}
+                            name='description' required minLength={3}
+                            disabled={disable} onChange={this.handleChange}
                             defaultValue={this.state.contract.description}>
                     </textarea>
                 </div>
@@ -236,14 +291,23 @@ export default class ContractDetailLearner extends Component {
                         </div>
                     </div>
                     <div className='col-4 text-center'>
-                        <div className='btn btn-success cursor-pointer font-weight-bold'>
+                        <div className='btn btn-success cursor-pointer font-weight-bold' onClick={()=>{this.updateContract()}}>
                             UPDATE CONTRACT INFO
                         </div>
                     </div>
                     <div className='col-4 text-center'>
-                        <div className='btn btn-danger cursor-pointer font-weight-bold'>
-                            GIVE COMPLAIN
-                        </div>
+                        <Popup trigger={
+                            <div className='btn btn-danger cursor-pointer font-weight-bold'>
+                                GIVE COMPLAIN
+                            </div>} 
+                            modal>
+                            {close => (
+                                <ComplainContract
+                                    id={this.state.contract.id}
+                                    onClose={close}
+                                ></ComplainContract>
+                            )}
+                        </Popup>
                     </div>                    
                 </div>
                 :''}

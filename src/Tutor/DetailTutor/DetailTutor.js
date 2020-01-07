@@ -3,7 +3,7 @@ import '../../Detail.css';
 import { ts } from '../../Services/TutorService';
 import { history } from '../../Helpers/History';
 import Popup from "reactjs-popup";
-import Contract from '../../Contract/Contract';
+import Contract from '../../Contract/ContractPopup/Contract';
 
 export default class DetailTutor extends Component {
 

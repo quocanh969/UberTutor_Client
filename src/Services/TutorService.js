@@ -5,6 +5,8 @@ export const ts = {
     getTutorList,   
     getTutorDetail,
     getContracts,
+    getPendingContracts,
+    getExpiredContracts,
     getActiveContracts,
     updateTutorProfess,
     updateTutorSkill,
@@ -96,6 +98,28 @@ function getContracts(option) {
     };
 
     return fetch(`${ApiUrl}/getContracts`, requestOption)
+        .then(handleResponse);
+}
+
+function getPendingContracts(option) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(option),
+    };
+
+    return fetch(`${ApiUrl}/getPendingContracts`, requestOption)
+        .then(handleResponse);
+}
+
+function getExpiredContracts(option) {
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(option),
+    };
+
+    return fetch(`${ApiUrl}/getExpiredContracts`, requestOption)
         .then(handleResponse);
 }
 

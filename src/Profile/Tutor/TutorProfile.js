@@ -7,6 +7,8 @@ import { ls } from '../../Services/LearnerService';
 import { skillSer } from '../../Services/SkillService';
 import ReactTags from 'react-tag-autocomplete';
 import maj from '../../Services/MajorService';
+import { NavLink } from 'react-router-dom';
+import ContractList from '../ContractList';
 
 export default class TutorProfile extends Component {
     tempTutor = {
@@ -23,7 +25,6 @@ export default class TutorProfile extends Component {
         let id = JSON.parse(localStorage.getItem('user')).user.loginUser.id;
         this.state = {
             tab: 1,
-            contracts: [],
             areaList: [],
             majorList: [],
             skillList:  [],
@@ -46,12 +47,10 @@ export default class TutorProfile extends Component {
                 introduction: '',
             },
             skills:[],
-            totalPage: 0,
-            page: 0,
+            
         }
 
-        this.initData(id);
-        this.loadHistoryData(0);
+        this.initData(id);        
 
         as.getAreaList()
         .then(data=>{
@@ -78,15 +77,11 @@ export default class TutorProfile extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
-
-        
+        this.handleChangeAvatar = this.handleChangeAvatar.bind(this);        
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
-        
-        
     }
 
     componentDidUpdate() {
@@ -125,68 +120,6 @@ export default class TutorProfile extends Component {
         })
     }
 
-    loadHistoryData(page) {        
-        let option = {
-            id: JSON.parse(localStorage.getItem('user')).user.loginUser.id,
-            key: 1,
-            page,
-        }
-        ts.getContracts(option)
-        .then(res => {
-            console.log(res);
-            let total = Math.ceil(Number.parseInt(res.info.total) / 4);
-            if(total === 0) total = 1;
-            this.setState({
-                contracts: res.info.data,
-                totalPage: total,
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            alert('Sorry but our connection to server is not available now');
-            history.push('/');
-        })
-    }
-
-    generateComments() {
-        let content = [];
-        let imgSrc = '';
-        for(let e of this.state.contracts)
-        {
-            if (e.avatarLink === null || e.avatarLink === '') {
-                imgSrc = `https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`;
-            }
-            else {
-                imgSrc = e.avatarLink;
-            }
-            content.push(
-                <div className="row p-4" key={e.id}>
-                    <div className="col-2">
-                        <img src={imgSrc} alt="learner avatar" className="w-100 m-1"></img>
-                    </div>
-                    <div className="col-10">
-                        <div className="row">
-                            <div className='col-6'><span className='text-primary font-weight-bold'>Name:</span> {e.learner}</div>
-                            <div className='col-6'><span className='text-primary font-weight-bold'>Subject:</span> {e.major_name}</div>
-                        </div>
-                        <div>
-                            <span className='text-primary font-weight-bold'>Evaluation:</span> {e.rating}/10 <i className="fa fa-star text-warning"></i>
-                        </div>
-                        <div className="row">
-                            <div className='col-6'><span className='text-primary font-weight-bold'>Date start:</span> {e.StartDate}</div>
-                            <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> {e.EndDate}</div>
-                        </div>
-                        <div className="history-comment text-wrap">
-                            <span className='text-primary font-weight-bold'>Comment: </span>
-                            {e.feedback}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-        return content;        
-    }
-
     generateTagSkillBox() {
         
         let content = [];
@@ -209,7 +142,7 @@ export default class TutorProfile extends Component {
                 {this.state.tutor.isEditting ?
                 <ReactTags
                     tags={this.state.skills}
-                    minQueryLength={1}         
+                    minQueryLength={1}    
                     autofocus={false}
                     placeholder='Add Skill Tag'           
                     suggestions={this.state.skillList}
@@ -250,6 +183,7 @@ export default class TutorProfile extends Component {
     }
 
     handleDelete(i) {
+        console.log('hello');
         const tags = this.state.skills;
         tags.splice(i, 1)
         this.setState({ skills: tags })
@@ -345,12 +279,11 @@ export default class TutorProfile extends Component {
     render() {
         var accountInfoClass = "";        
         var accountInfoBtn = "";
-        var historyInfoClass = "";
-        var historyInfoBtn = "";
-        var contractInfoClass = "";
         var contractInfoBtn = "";
+        var contractInfoClass = '';
         var professionInfoClass = "";
         var professionInfoBtn = '';
+        
 
         let ImgSrc = this.state.tutor.avatarLink;
         if (ImgSrc === null || ImgSrc === '') {
@@ -360,19 +293,6 @@ export default class TutorProfile extends Component {
         if (this.state.tab === 1) {
             accountInfoBtn = 'nav-link active cursor-pointer';
             accountInfoClass = 'tab-pane fade show active';
-            historyInfoBtn = 'nav-link cursor-pointer';
-            historyInfoClass = 'tab-pane fade';
-            contractInfoBtn = 'nav-link cursor-pointer';
-            contractInfoClass = 'tab-pane fade';
-            professionInfoBtn = 'nav-link cursor-pointer';
-            professionInfoClass = 'tab-pane fade';
-        }
-        else if(this.state.tab === 2)
-        {
-            accountInfoBtn = 'nav-link cursor-pointer';
-            accountInfoClass = 'tab-pane fade';
-            historyInfoBtn = 'nav-link cursor-pointer  active';
-            historyInfoClass = 'tab-pane fade show active';
             contractInfoBtn = 'nav-link cursor-pointer';
             contractInfoClass = 'tab-pane fade';
             professionInfoBtn = 'nav-link cursor-pointer';
@@ -381,8 +301,6 @@ export default class TutorProfile extends Component {
         else if(this.state.tab === 3) {
             accountInfoBtn = 'nav-link cursor-pointer';
             accountInfoClass = 'tab-pane fade';
-            historyInfoBtn = 'nav-link cursor-pointer';
-            historyInfoClass = 'tab-pane fade';
             contractInfoBtn = 'nav-link cursor-pointer  active';
             contractInfoClass = 'tab-pane fade show active';
             professionInfoBtn = 'nav-link cursor-pointer';
@@ -392,41 +310,40 @@ export default class TutorProfile extends Component {
         {
             accountInfoBtn = 'nav-link cursor-pointer';
             accountInfoClass = 'tab-pane fade';
-            historyInfoBtn = 'nav-link cursor-pointer';
-            historyInfoClass = 'tab-pane fade';
             contractInfoBtn = 'nav-link cursor-pointer';
             contractInfoClass = 'tab-pane fade';
             professionInfoBtn = 'nav-link cursor-pointer  active';
             professionInfoClass = 'tab-pane fade show active';
         }
 
+        
         let disableVal = true;
         if(this.state.tutor.isEditting) disableVal = false;
         else disableVal = true;
 
         return (
             <div className="container emp-profile">
-                <form ref='editProfileForm' onSubmit={this.handleSubmit}>
-                    <div className="row">
-                        
-                        <div className="col-md-4">
-                            <div className="profile-img mb-5">
-                                <img src={ImgSrc}
-                                    alt="avatar-user" />
-                                <input type="file" name="file" ref="imgInput" className="d-none" onChange={this.handleChangeAvatar}/>
-                                {this.state.tutor.isEditting ?
-                                    <div className="file btn btn-lg btn-primary cursor-pointer"
-                                        onClick={() => { this.refs.imgInput.click() }}>
-                                        Change Photo
-                                    </div>
-                                : ''
-                                }
-                                
-                            </div>
-                            {this.generateTagSkillBox()}
+                
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="profile-img mb-5">
+                            <img src={ImgSrc}
+                                alt="avatar-user" />
+                            <input type="file" name="file" ref="imgInput" className="d-none" onChange={this.handleChangeAvatar}/>
+                            {this.state.tutor.isEditting ?
+                                <div className="file btn btn-lg btn-primary cursor-pointer"
+                                    onClick={() => { this.refs.imgInput.click() }}>
+                                    Change Photo
+                                </div>
+                            : ''
+                            }
+                            
                         </div>
+                        {this.generateTagSkillBox()}
+                    </div>
                         
-                        <div className="col-md-8">
+                    <form ref='editProfileForm' className="col-md-8" onSubmit={this.handleSubmit}>
+                        <div>
                             <div className="profile-head">
                                 <div className='row'>
                                     <div className='col-8'>
@@ -449,12 +366,8 @@ export default class TutorProfile extends Component {
                                                             e.preventDefault();      
                                                             this.tempTutor.isEditting = false;        
                                                             let temp = this.state.tutor;                                                             
-                                                            temp.isEditting = false;     
-                                                            console.log('exit');   
-                                                            console.log(this.tempSkills[0]);                                                    
+                                                            temp.isEditting = false;                                                       
                                                             this.setState({tutor: temp});
-                                                            console.log(this.state.skills[0]);
-                                                            console.log('end exit');
                                                             this.onReset();
                                                         }}>
                                                     <i className="fa fa-times my-auto"></i>&nbsp;&nbsp;| Exit
@@ -479,13 +392,13 @@ export default class TutorProfile extends Component {
                                     <li className="nav-item">
                                         <div className={accountInfoBtn} id="home-tab" data-toggle="tab"
                                             role="tab" aria-controls="home" aria-selected="true"
-                                            onClick={() => { this.setState({ tab: 1 }) }}
+                                            onClick={() => { if(this.state.tab !== 1) this.setState({ tab: 1}) }}
                                         >Account</div>
                                     </li>
                                     <li className="nav-item">
                                         <div className={professionInfoBtn} id="home-tab" data-toggle="tab"
                                             role="tab" aria-controls="home" aria-selected="true"
-                                            onClick={() => { this.setState({ tab: 4 }) }}
+                                            onClick={() => { this.setState({ tab: 2 }) }}
                                         >Profession</div>
                                     </li>
                                     <li className="nav-item">
@@ -493,12 +406,6 @@ export default class TutorProfile extends Component {
                                             aria-controls="profile" aria-selected="false"
                                             onClick={() => { this.setState({ tab: 3 }) }}
                                         >Contract</div>
-                                    </li>
-                                    <li className="nav-item">
-                                        <div className={historyInfoBtn} id="profile-tab" data-toggle="tab"
-                                            aria-controls="profile" aria-selected="false"
-                                            onClick={() => { this.setState({ tab: 2 }) }}
-                                        >History</div>
                                     </li>
                                 </ul>
                             </div>
@@ -634,44 +541,15 @@ export default class TutorProfile extends Component {
                                     </div>
                                 </div>
 
-                                <div className={historyInfoClass} id="history" role="tabpanel" aria-labelledby="profile-tab">
-
-
-                                    {/* user comment */}
-                                    <div className="bg-light mx-auto mb-2">
-
-                                    {this.generateComments()}
-                                        
-                                    </div>
-                                    {/* pagination */}
-                                    <nav className="w-75 mx-auto mb-4">
-                                        <ul className="pagination justify-content-end">
-                                            <li className="page-item" onClick={()=>this.onPagi(0)}>
-                                                <a className="page-link cursor-pointer">&lt;&lt;</a>
-                                            </li>
-                                            <li className="page-item" onClick={()=>this.onPagi(this.state.page - 1)}>
-                                                <a className="page-link cursor-pointer">&lt;</a>
-                                            </li>
-                                            <li className="page-item">
-                                                <a className="page-link cursor-pointer">
-                                                    {this.state.page + 1} / {this.state.totalPage}
-                                                </a>
-                                            </li>
-                                            <li className="page-item" onClick={()=>this.onPagi(this.state.page + 1)}>
-                                                <a className="page-link cursor-pointer">&gt;</a>
-                                            </li>
-                                            <li className="page-item" onClick={()=>this.onPagi(this.state.totalPage - 1)}>
-                                                <a className="page-link cursor-pointer">&gt;&gt;</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                <div className={contractInfoClass} id="history" role="tabpanel" aria-labelledby="profile-tab">
+                                    <ContractList isTutor={true} ></ContractList>
                                 </div>
 
                             </div>
                        
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>                
             </div>
         )
     }

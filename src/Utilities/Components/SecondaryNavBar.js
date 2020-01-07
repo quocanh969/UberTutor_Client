@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { history } from '../../Helpers/History';
+import { cs } from '../../Services/ContractService';
 
 export default class SecondaryNavBar extends Component {
+
+    constructor()
+    {
+        super();
+        cs.dueContract()
+        .then()
+        .catch(err=>{
+            console.log(err);
+            alert('there was problem in connecting to server');
+        })
+    }
 
     generateUser()
     {
@@ -117,10 +129,10 @@ export default class SecondaryNavBar extends Component {
                         <a className="navbar-brand" href="/">UBER TUTOR</a>
                     </div> */}
                     <div className="form-inline w-50 text-center">
-                        <div className="input-group w-100">
-                            <input type="text" className="form-control" placeholder="Find tutor ..."/>
+                        <div className="input-group w-100">                            
+                            <input type="text" className="form-control" ref='tutorName' placeholder="Find tutor ..."/>
                             <div className="input-group-append width-size-75px">
-                                <button className="btn btn-primary w-100" type="button">
+                                <button className="btn btn-primary w-100" type="button" onClick={e=>{e.preventDefault();window.location.href = `/tutor-list/name=${this.refs.tutorName.value}`}}>
                                     <i className="fa fa-search text-white"></i>
                                 </button>
                             </div>

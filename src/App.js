@@ -44,6 +44,7 @@ function App() {
             <Route path="/tutor-list/area=:area" exact component={TutorList}></Route>
             <Route path="/tutor-list/price=:price" exact component={TutorList}></Route>
             <Route path="/tutor-list/subject=:subject" exact component={TutorList}></Route>
+            <Route path="/tutor-list/name=:name" exact component={TutorList}></Route>
             
             <Route path={`/replyContract/id=:id&reply=:reply`} exact component={ContractReply}></Route>
             <Route path="/contract-details/id=:id" exact component={ContractDetail}></Route>

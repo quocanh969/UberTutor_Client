@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { cs } from '../Services/ContractService';
-import ComplainContract from './ComplainContract';
+import ComplainContract from './ContractPopup/ComplainContract';
 import Popup from 'reactjs-popup';
+import ContractPayment from './ContractPopup/ContractPayment';
 
 export default class ContractDetailLearner extends Component {
     contract;
@@ -10,6 +11,7 @@ export default class ContractDetailLearner extends Component {
         super(props);
 
         this.state = {
+            isCancel: false,
             contract: {
                 id: 0,
                 id_learner: 0,
@@ -46,6 +48,10 @@ export default class ContractDetailLearner extends Component {
                 this.contract = this.state.contract;
                 console.log(this.state.contract);
             })
+            .catch(err=>{
+                console.log(err);
+                alert("There was error when loading data from server");
+            })
 
     }
 
@@ -57,79 +63,20 @@ export default class ContractDetailLearner extends Component {
         })
     }
 
-    payContract()
-    {
-        cs.payContract({
-            id_contract: this.state.contract.id,
-            rating: this.state.contract.rating,
-            complain: this.state.contract.complain,
-            feedback: this.state.contract.feedback,
-        })
-        .then(res=>{
-            if(res.code === 1)
-            {
-                this.contract.status = 2;
-                this.setState({contract: this.contract});
-                alert('Giao dịch thành công');
-            }
-            else
-            {
-                console.log(res.info.message);
-                alert('Giao dịch thất bại');
-            }
-            
-        })
-        .catch(err=>{
-            console.log(err);
-            alert('Giao dịch thất bại');            
-        })
-    }
-
     cancelContract() {
-        cs.cancelContract(this.state.contract.id)
-        .then(res=>{
-            if(res.code === 1)
-            {
-                this.contract.status = 0;
-                this.setState({contract: this.contract});
-                alert('Hủy giao dịch thành công');
-            }
-            else
-            {
-                alert('Hủy giao dịch thất bại');
-            }
-            
-        })
-        .catch(err=>{
-            alert('Hủy giao dịch thất bại');
-            console.log(err);
-        })
-    }
-
-    updateContract() {
-        cs.updateContract(this.state.contract.id, this.state.contract.description, this.state.contract.rating, this.state.contract.feedback)
-        .then(res=>{
-            if(res.code === 1)
-            {
-                this.setState({contract: this.contract});
-                alert('Cập nhật giao dịch thành công');
-            }
-            else
-            {
-                console.log(res.info);
-                alert('Cập nhật giao dịch thất bại');
-            }
-        })
-        .catch(err=>{
-            console.log(err);
-            alert('Cập nhật giao dịch thất bại');
-            
-        })
+        var r = window.confirm('Are you sure to cancel this contract ?');
+        if(r === true)
+        {
+            console.log("cancel contract");
+            this.setState({isCancel: true});
+        }
+        else
+        {
+            // do nothing
+        }        
     }
 
     render() {
-        let disable = true;
-        if(this.state.contract.status === 1) disable = false;
         return (
             <div className="container emp-profile">
                 <h2 className='text-center text-primary font-weight-bold'>CONTRACT DETAIL</h2>
@@ -189,6 +136,9 @@ export default class ContractDetailLearner extends Component {
                     </div>
                 </div>
 
+            
+                {this.state.contract.status !== 2 
+                ?
                 <div className='row my-2'>
                     <div className="col-6">
                         <div className="row">
@@ -202,31 +152,70 @@ export default class ContractDetailLearner extends Component {
                     </div>
                     <div className="col-6">
                         <div className="row">
-                            <div className='col-3 text-primary font-weight-bold'>
+                            <div className='col-5 text-primary font-weight-bold'>
+                                Estimated End Date:
+                            </div>
+                            <div className='col-7 pl-5'>
+                                {this.state.contract.EstimatedEndDate}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                :
+                <div className='row my-2'>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-5 text-primary font-weight-bold'>
+                                Start Date:
+                            </div>
+                            <div className='col-7 pl-5'>
+                                {this.state.contract.StartDate}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-6 text-primary font-weight-bold'>
+                                Estimated End Date:
+                            </div>
+                            <div className='col-6 pl-5'>
+                                {this.state.contract.EstimatedEndDate}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-5 text-primary font-weight-bold'>
                                 End Date:
                             </div>
-                            <div className='col-9 pl-5'>
+                            <div className='col-7 pl-5'>
                                 {this.state.contract.EndDate}
                             </div>
                         </div>
                     </div>
                 </div>
-
+                }
+            
+                {this.state.contract.status !== 0
+                ?
                 <div className="row my-2">
                     <div className='col-2 text-primary font-weight-bold'>
                         Bill:
                     </div>
                     <div className='col-10 pl-0 ml-0'>
-                        $&nbsp;{this.state.contract.totalPrice} /day
+                        $&nbsp;{this.state.contract.totalPrice}
                     </div>
                 </div>
+                :
+                ''
+                }
                 <hr></hr>
                 <div className="row my-2">
                     <div className='col-2 text-primary font-weight-bold'>
                         Feedback:
                     </div>
                     <textarea className='col-10  pt-1 ml-0 feedback' 
-                            disabled={disable}
+                            disabled
                             name='feedback' required minLength={3} onChange={this.handleChange}
                             defaultValue={this.state.contract.feedback}></textarea>
                 </div>
@@ -238,17 +227,34 @@ export default class ContractDetailLearner extends Component {
                                 Status:
                             </div>
                             <div className='col-3 pl-5'>
-                                { this.state.contract.status.status === 0 ? 
+                                { this.state.contract.status === 0 ? 
                                 <span className='text-danger font-weight-bold col-8'>Pending</span>
                                 : (this.state.contract.status === 1 ?
                                     <span className='text-success font-weight-bold col-8'>Active</span>
-                                    : <span className='text-dark font-weight-bold col-8'>History</span>
+                                    : (this.state.contract.status === 2 ?
+                                        <span className='text-dark font-weight-bold col-8'>History</span>
+                                        :
+                                        <span className='text-warning font-weight-bold col-8'>Expired</span>
+                                    )
                                 )
                             }
                             </div>
                             <div className='col-4'>
                                 { this.state.contract.status === 1 ? 
-                                <div className='btn btn-secondary cursor-pointer' onClick={()=>{this.cancelContract()}}>Cancel contract</div>
+                                <div>
+                                    <div className='btn btn-secondary cursor-pointer' onClick={()=>{this.cancelContract()}}>Cancel contract</div> 
+                                    <Popup open={this.state.isCancel} 
+                                            onClose={()=>{this.setState({isCancel: false})}}>
+                                        {close => (
+                                            <ContractPayment
+                                                id={this.state.contract.id}
+                                                status={this.state.contract.status}
+                                                onReload={this.initData(this.state.contract.id)}
+                                                onClose={close}
+                                            ></ContractPayment>
+                                        )}
+                                    </Popup>                
+                                </div>
                                 : ''
                                 }
                             </div>
@@ -260,14 +266,14 @@ export default class ContractDetailLearner extends Component {
                                 Rating:
                             </div>
                             <div className='col-9 pl-5 slidecontainer'>
-                                {disable === false ?
+                                {/* {disable === false ?
                                 <input ref='ratingSlider' type="range" min="0" max="10" 
                                         required disabled={disable}
                                         value={this.state.contract.rating}
                                         className="slider mt-auto px-0" name='rating'
                                         onChange={this.handleChange}/>
-                                :''}
-                                <span>&nbsp;&nbsp;{this.state.contract.rating}&nbsp;<i className="fa fa-star text-warning"></i></span>
+                                :''} */}
+                                <span>{this.state.contract.rating}&nbsp;<i className="fa fa-star text-warning"></i></span>
                             </div>
                         </div>
                     </div>
@@ -279,23 +285,30 @@ export default class ContractDetailLearner extends Component {
                     </div>
                     <textarea className='col-10 pt-1 ml-0 text-wrap word-wrap-break description'
                             name='description' required minLength={3}
-                            disabled={disable} onChange={this.handleChange}
+                            disabled onChange={this.handleChange}
                             defaultValue={this.state.contract.description}>
                     </textarea>
                 </div>
                 {this.state.contract.status === 1 ?
-                <div className='row m-5'>
-                    <div className='col-4 text-center'>
-                        <div className='btn btn-primary cursor-pointer font-weight-bold' onClick={()=>{this.payContract()}}>
-                            PAY FOR CONTRACT
-                        </div>
+                <div className='m-5 row'>
+                    <div className='col-6 text-center'>                
+                        
+                        <Popup trigger={
+                            <div className='btn btn-primary cursor-pointer font-weight-bold'>
+                                PAY FOR CONTRACT
+                            </div>} 
+                            modal>
+                            {close => (
+                                <ContractPayment
+                                    id={this.state.contract.id}
+                                    status={this.state.contract.status}
+                                    onReload={this.initData(this.state.contract.id)}
+                                    onClose={close}
+                                ></ContractPayment>
+                            )}
+                        </Popup>     
                     </div>
-                    <div className='col-4 text-center'>
-                        <div className='btn btn-success cursor-pointer font-weight-bold' onClick={()=>{this.updateContract()}}>
-                            UPDATE CONTRACT INFO
-                        </div>
-                    </div>
-                    <div className='col-4 text-center'>
+                    <div className='col-6 text-center'>                
                         <Popup trigger={
                             <div className='btn btn-danger cursor-pointer font-weight-bold'>
                                 GIVE COMPLAIN
@@ -308,9 +321,31 @@ export default class ContractDetailLearner extends Component {
                                 ></ComplainContract>
                             )}
                         </Popup>
-                    </div>                    
+                    </div>
                 </div>
-                :''}
+                :
+                (this.state.contract.status === 3
+                    ?
+                    <div className='m-5 text-center'>
+                        <Popup trigger={
+                            <div className='btn btn-primary cursor-pointer font-weight-bold'>
+                                PAY FOR CONTRACT
+                            </div>} 
+                            modal>
+                            {close => (
+                                <ContractPayment
+                                    id={this.state.contract.id}
+                                    status={this.state.contract.status}
+                                    onReload={this.initData(this.state.contract.id)}
+                                    onClose={close}
+                                ></ContractPayment>
+                            )}
+                        </Popup>     
+                    </div>
+                    :
+                    ''
+                    )
+                }
             </div>
         )
     }

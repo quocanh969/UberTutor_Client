@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { cs } from '../Services/ContractService';
+import { cs } from '../../Services/ContractService';
 
 export default class ComplaintContract extends Component {
     constructor(props)
@@ -37,7 +37,7 @@ export default class ComplaintContract extends Component {
                         <div className="card-body p-0">
                             {/* Nested Row within Card Body */}
                             <div className="text-center">
-                                <h1 className="h4 text-gray-900 mb-4">Tell us what you think!</h1>
+                                <h1 className="h4 text-gray-900 mb-4">Tell us what you think about this tutor!</h1>
                             </div>
                             <form ref="registerForm" onSubmit={this.handleSubmit}>
                                 <div className='row my-2'>

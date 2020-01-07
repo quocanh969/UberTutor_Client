@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { cs } from '../Services/ContractService';
-import './Contract.css';
+import './ContractPopup/Contract.css';
 
 export default class ContractDetail extends Component {
     constructor(props) {
@@ -103,6 +103,8 @@ export default class ContractDetail extends Component {
                     </div>
                 </div>
 
+                {this.state.contract.status !== 2 
+                ?
                 <div className='row my-2'>
                     <div className="col-6">
                         <div className="row">
@@ -116,25 +118,67 @@ export default class ContractDetail extends Component {
                     </div>
                     <div className="col-6">
                         <div className="row">
-                            <div className='col-3 text-primary font-weight-bold'>
+                            <div className='col-5 text-primary font-weight-bold'>
+                                Estimated End Date:
+                            </div>
+                            <div className='col-7 pl-5'>
+                                {this.state.contract.EstimatedEndDate}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                :
+                <div className='row my-2'>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-5 text-primary font-weight-bold'>
+                                Start Date:
+                            </div>
+                            <div className='col-7 pl-5'>
+                                {this.state.contract.StartDate}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-6 text-primary font-weight-bold'>
+                                Estimated End Date:
+                            </div>
+                            <div className='col-6 pl-5'>
+                                {this.state.contract.EstimatedEndDate}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <div className="row">
+                            <div className='col-5 text-primary font-weight-bold'>
                                 End Date:
                             </div>
-                            <div className='col-9 pl-5'>
+                            <div className='col-7 pl-5'>
                                 {this.state.contract.EndDate}
                             </div>
                         </div>
                     </div>
                 </div>
-
+                }
+            
+                {this.state.contract.status !== 0
+                ?
                 <div className="row my-2">
                     <div className='col-2 text-primary font-weight-bold'>
                         Bill:
                     </div>
                     <div className='col-10 pl-0 ml-0'>
-                        {this.state.contract.totalPrice} /day
+                        $&nbsp;{this.state.contract.totalPrice}
                     </div>
                 </div>
+                :
+                ''
+                }
+                
                 <hr></hr>
+                {this.state.contract.status === 2
+                ?
                 <div className="row my-2">
                     <div className='col-2 text-primary font-weight-bold'>
                         Complain:
@@ -143,7 +187,9 @@ export default class ContractDetail extends Component {
                         {this.state.contract.complain}
                     </div>
                 </div>
-                <hr></hr>
+                :
+                ''
+                }
                 <div className="row my-2">
                     <div className='col-2 text-primary font-weight-bold'>
                         Feedback:
@@ -160,11 +206,16 @@ export default class ContractDetail extends Component {
                                 Status:
                             </div>
                             <div className='col-9 pl-5'>
-                            { this.state.contract.status.status === 0 ? 
+                            { this.state.contract.status === 0 ? 
                                 <span className='text-danger font-weight-bold col-8'>Pending</span>
                                 : (this.state.contract.status === 1 ?
                                     <span className='text-success font-weight-bold col-8'>Active</span>
-                                    : <span className='text-dark font-weight-bold col-8'>History</span>
+                                    : 
+                                    (this.state.contract.status === 2 ?
+                                        <span className='text-dark font-weight-bold col-8'>History</span>
+                                        :
+                                        <span className='text-warning font-weight-bold col-8'>Expired</span>
+                                    )
                                 )
                             }
                             </div>
@@ -176,8 +227,7 @@ export default class ContractDetail extends Component {
                                 Rating:
                             </div>
                             <div className='col-9 pl-5 slidecontainer'>
-                                <input ref='ratingSlider' type="range" min="1" max="10" defaultValue={this.state.contract.rating * 10} className="slider mt-auto" />
-                                <span>&nbsp;&nbsp;{this.state.contract.rating}&nbsp;<i className="fa fa-star text-warning"></i></span>
+                                <span>{this.state.contract.rating}&nbsp;<i className="fa fa-star text-warning"></i></span>
                             </div>
                         </div>
                     </div>

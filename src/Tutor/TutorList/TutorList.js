@@ -6,13 +6,14 @@ import { as } from '../../Services/AreaService';
 import { maj } from '../../Services/MajorService';
 import { ls } from '../../Services/LearnerService';
 import Popup from "reactjs-popup";
-import Contract from '../../Contract/Contract';
+import Contract from '../../Contract/ContractPopup/Contract';
 
 export default class TutorList extends Component {
 
     area = '';
     price = 0;
     subject = '';
+    name = '';
 
     constructor(props) {
         super(props);
@@ -46,12 +47,17 @@ export default class TutorList extends Component {
         {
             this.price = Number.parseInt(this.props.match.params.price);
         }
-
+        if(this.props.match.params.name)
+        {
+            this.name = this.props.match.params.name;
+        }
+        console.log(this.name);
+        console.log(this.props);
         let option = {
             area: this.area,
             price: this.price,
             major: this.subject,
-            name: '',
+            name: this.name,
             page: 0,
         };
         

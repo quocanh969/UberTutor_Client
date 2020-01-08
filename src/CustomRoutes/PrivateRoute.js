@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LearnerProfile from '../Profile/Learner/LearnerProfile';
 import TutorProfile from '../Profile/Tutor/TutorProfile';
+import Homepage from '../GuestUser/Homepage';
+import TutorHomePage from '../GuestUser/TutorHomePage';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
@@ -107,6 +109,41 @@ export const ProfileRoute = ({ component: Component, ...rest }) => {
                             }
                         }
                         ></Redirect>
+                    );
+                }
+            }
+        }
+        ></Route>
+    );
+}
+
+export const HomeRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            (props) => {
+                let user = JSON.parse(localStorage.getItem('user'));
+                /*
+                let setupTime = localStorage.getItem('setTimeLogIn');
+                let now = new Date().getTime();
+                */
+                //if (user && user.user !== false && setupTime - now < 6 * 60 * 60 * 1000) {
+                if (user && user.user !== false) {
+                    if(user.user.loginUser.role === 0)
+                    { // learner
+                        return (
+                            <Homepage {...props}></Homepage>
+                        );
+                    }
+                    else
+                    { // tutor
+                        return (
+                            <TutorHomePage {...props}></TutorHomePage>
+                        );
+                    }
+                }
+                else {                    
+                    return (
+                        <Homepage {...props}></Homepage>
                     );
                 }
             }

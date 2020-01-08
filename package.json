@@ -19,7 +19,8 @@
     "react-tag-autocomplete": "^5.11.2",
     "reactjs-popup": "^1.5.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "zingchart-react": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

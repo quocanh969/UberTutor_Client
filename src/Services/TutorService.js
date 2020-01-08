@@ -8,6 +8,9 @@ export const ts = {
     getPendingContracts,
     getExpiredContracts,
     getActiveContracts,
+    getLearnerStudying,
+    getStatisticByYear,
+    getIncomeReport,
     updateTutorProfess,
     updateTutorSkill,
     clearTutorSkill,
@@ -131,6 +134,51 @@ function getActiveContracts(option) {
     };
 
     return fetch(`${ApiUrl}/getActiveContracts`, requestOption)
+        .then(handleResponse);
+}
+
+function getLearnerStudying(id) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id: id}),
+    };
+
+    return fetch(`${ApiUrl}/users/getLearnerStudying`, requestOption)
+        .then(handleResponse);
+}
+
+function getStatisticByYear(id, year) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id_tutor: id, year: year}),
+    };
+
+    return fetch(`${ApiUrl}/users/getStatisticByYear`, requestOption)
+        .then(handleResponse);
+}
+
+function getIncomeReport(id, type) {
+    let token = JSON.parse(localStorage.getItem('user')).token;
+    const requestOption = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token,
+        },
+        body: JSON.stringify({id: id, type: type}),
+    };
+
+    return fetch(`${ApiUrl}/users/getIncomeReport`, requestOption)
         .then(handleResponse);
 }
 

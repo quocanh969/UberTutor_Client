@@ -37,7 +37,7 @@ export default class SecondaryNavBar extends Component {
                 ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
             }
             return(
-                <div className="btn-group pr-5 d-flex justify-content-around">
+                <div className="btn-group pr-2 d-flex justify-content-around">
                     
                     {/* Messages */}
                     <div className="nav-item dropdown no-arrow mx-2">
@@ -112,6 +112,7 @@ export default class SecondaryNavBar extends Component {
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
                             </div>
                         </div>
+                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {JSON.parse(localStorage.getItem('user')).user.loginUser.role === 0 ? 'LEARNER' : 'TUTOR'}</span>
                     </div>                    
                 </div>
             );

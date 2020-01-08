@@ -32,7 +32,6 @@ export default class DetailTutor extends Component {
                 major: 0,
                 major_name:'',
                 evaluation: 0,
-                successRate: 0,
                 areaCode: 0,
                 area: "",
             },
@@ -337,15 +336,7 @@ export default class DetailTutor extends Component {
                                         <div className="col-9">
                                             <p>{this.state.tutor.area}</p>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <label>Success Rate</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p>{this.state.tutor.successRate}%</p>
-                                        </div>
-                                    </div>
+                                    </div>                                    
                                     <div className="row">
                                         <div className="col-3">
                                             <label>Introduction</label>

@@ -43,7 +43,6 @@ export default class TutorProfile extends Component {
                 levelTeaching: '',
                 areaCode: 0,
                 area: '',
-                successRate: 0,
                 introduction: '',
             },
             skills:[],
@@ -519,14 +518,6 @@ export default class TutorProfile extends Component {
                                                 {this.generateAreaSelector()}
                                             </select>
                                                     
-                                        </div>
-                                    </div>
-                                    <div className="row my-3">
-                                        <div className="col-3">
-                                            <label>Success Rate</label>
-                                        </div>
-                                        <div className="col-9">
-                                            <p className='w-75'>{this.state.tutor.successRate}&nbsp;%</p>
                                         </div>
                                     </div>
                                     <div className="row my-2">

@@ -23,6 +23,7 @@ export default class TutorHomePage extends Component {
     loadLearnerStudying() {
         ts.getLearnerStudying(JSON.parse(localStorage.getItem('user')).user.loginUser.id)
         .then(res=>{
+            console.log(res);
             if(res.code === 1)
             {
                 this.setState({learner: res.info.data});
@@ -136,12 +137,12 @@ export default class TutorHomePage extends Component {
                             </div>
                             <div className='text-right'>
                                 <NavLink className='btn btn-success mx-2 font-weight-bold text-center cursor-pointer'
-                                    to={`/contract-details/id=${e.id}`}>
+                                    to={`/replyContract/id=${e.id}&reply=${1}`}>
                                     Accept
                                 </NavLink>
                                 <NavLink className='btn btn-danger mx-2 font-weight-bold text-center cursor-pointer'
-                                    to={`/contract-details/id=${e.id}`}>
-                                    Deny
+                                    to={`/replyContract/id=${e.id}&reply=${0}`}>
+                                    Reject
                                 </NavLink>
                                 <NavLink className='btn btn-primary mx-2 font-weight-bold text-center cursor-pointer'
                                     to={`/contract-details/id=${e.id}`}>

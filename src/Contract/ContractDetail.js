@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { cs } from '../Services/ContractService';
 import './ContractPopup/Contract.css';
+import { NavLink } from 'react-router-dom';
 
 export default class ContractDetail extends Component {
     constructor(props) {
@@ -241,7 +242,25 @@ export default class ContractDetail extends Component {
                         {this.state.contract.description}
                     </div>
                 </div>
-
+                {this.state.contract.status === 0
+                ?
+                <div className='m-5 row'>
+                    <div className='col-6 text-center'>     
+                        <NavLink className='btn btn-primary cursor-pointer font-weight-bold'
+                        to={`/replyContract/id=${this.state.contract.id}&reply=${1}`}>
+                            ACCEPT
+                        </NavLink>    
+                    </div>
+                    <div className='col-6 text-center'>     
+                        <NavLink className='btn btn-danger cursor-pointer font-weight-bold'
+                        to={`/replyContract/id=${this.state.contract.id}&reply=${0}`}>
+                            REJECT
+                        </NavLink>                            
+                    </div>
+                </div>      
+                :
+                ''
+                }   
             </div>
 
         )

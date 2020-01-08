@@ -294,12 +294,12 @@ export default class TutorContract extends Component {
                                 </div>
                                 <div className='col-6 text-right'>
                                     <NavLink className='btn btn-success font-weight-bold mx-2 text-center cursor-pointer'
-                                        to={`/contract-details/id=${e.id}`}>
+                                        to={`/replyContract/id=${e.id}&reply=${1}`}>
                                         Accept
                                     </NavLink>
                                     <NavLink className='btn btn-danger font-weight-bold mx-2 text-center cursor-pointer'
-                                        to={`/contract-details/id=${e.id}`}>
-                                        Cancel
+                                        to={`/replyContract/id=${e.id}&reply=${0}`}>
+                                        Reject
                                     </NavLink>
                                     <NavLink className='btn btn-primary font-weight-bold mx-2 text-center cursor-pointer'
                                         to={`/contract-details/id=${e.id}`}>

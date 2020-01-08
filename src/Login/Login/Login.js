@@ -42,7 +42,9 @@ export default class Login extends Component {
             username: this.user.username,
             password: this.user.password,
             role: this.role,
+            notice: this.props.noticeUserLogin,
         });
+        
 
     }
 

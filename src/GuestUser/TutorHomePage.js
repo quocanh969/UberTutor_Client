@@ -16,6 +16,10 @@ export default class TutorHomePage extends Component {
             pendingPage: 0,
         }
 
+        
+    }
+
+    componentDidMount() {
         this.loadLearnerStudying();
         this.loadPendingData(0);
     }
@@ -36,7 +40,7 @@ export default class TutorHomePage extends Component {
         })
         .catch(err=>{
             console.log(err);
-            alert('There was error when connect to the server');
+            //alert('There was error when connect to the server');
         })
     }
     
@@ -48,12 +52,20 @@ export default class TutorHomePage extends Component {
         }
         ts.getPendingContracts(option)
             .then(res => {
-                let total = Math.ceil(Number.parseInt(res.info.total) / 4);
-                if (total === 0) total = 1;
-                this.setState({
-                    pendingContracts: res.info.data,
-                    totalPendingPage: total,
-                })
+                if(res.code === 1)
+                {
+                    let total = Math.ceil(Number.parseInt(res.info.total) / 4);
+                    if (total === 0) total = 1;
+                    this.setState({
+                        pendingContracts: res.info.data,
+                        totalPendingPage: total,
+                    })
+                }
+                else
+                {
+                    console.log(res.info.message);
+                    alert('Sorry but our connection to server is not available now');
+                }
             })
             .catch(err => {
                 console.log(err);

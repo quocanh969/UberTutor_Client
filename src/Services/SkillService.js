@@ -1,4 +1,5 @@
-const ApiUrl = "http://localhost:8081";
+//const ApiUrl = "http://localhost:8081";
+const ApiUrl = 'https://ut-1612018-1612175-sv-client.herokuapp.com';
 
 export const skillSer = {    
     getSkillList,

@@ -45,7 +45,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     );
 }
 
-export const LoginRoute = ({ component: Component, ...rest }) => {
+export const LoginRoute = ({ component: Component,noticeUserLogin, ...rest }) => {
     return (
         <Route {...rest} render={
             (props) => {                
@@ -60,7 +60,7 @@ export const LoginRoute = ({ component: Component, ...rest }) => {
                                 }
                             }
                             ></Redirect>
-                        : <Component {...props}></Component>
+                        : <Component noticeUserLogin={noticeUserLogin} {...props}></Component>
                 );
             }
         }

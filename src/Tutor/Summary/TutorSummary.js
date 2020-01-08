@@ -174,6 +174,7 @@ export default class TutorSummary extends Component {
     loadIncomeByMonthData(year) {
         ts.getStatisticByYear(JSON.parse(localStorage.getItem('user')).user.loginUser.id, year)
         .then(res=>{
+          console.log(res);
             if(res.code === 1)
             {                
                 for(let e of res.info.data)
@@ -217,13 +218,14 @@ export default class TutorSummary extends Component {
 
     generateIncomeTable() {
       let content = [];
+      let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       for(let i = 0; i<this.state.month.length;i++)
       {
           let e = this.state.month[i];
           content.push(
               <tr key={i}>
                   <th scope="row">{i+1}</th>
-                  <td>{e.m}</td>
+                  <td>{months[i]}</td>
                   <td>$&nbsp;{e.total}</td>                    
               </tr>
           );

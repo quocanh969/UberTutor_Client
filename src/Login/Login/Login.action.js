@@ -15,7 +15,9 @@ export const ActionNormalLogIn = (user) => {
                     }
                     else {
                         dispatch(success(res.info.message));
-                        history.push('/dashboard');
+                        //history.push('/');
+                        window.history.back();
+                        window.location.reload();
                     }
                 },
                 (error) => {

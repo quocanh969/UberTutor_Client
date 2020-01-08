@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 
 import FacebookLoginComponent from './Components/FacebookLoginComponent'
 import GoogleLoginComponent from './Components/GoogleLoginComponent'
-import SecondaryNavBar from '../../Utilities/Components/SecondaryNavBar'
 
 export default class Login extends Component {
     role = 0;

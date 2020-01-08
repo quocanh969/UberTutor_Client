@@ -14,6 +14,7 @@ export default class TutorList extends Component {
     price = 0;
     subject = '';
     name = '';
+    userRole = -1;
 
     constructor(props) {
         super(props);
@@ -34,7 +35,6 @@ export default class TutorList extends Component {
             totalPage: 0,
             page: 0,
         }
-        console.log(this.props);
         if(this.props.match.params.area)
         {
             this.area = this.props.match.params.area;
@@ -51,8 +51,12 @@ export default class TutorList extends Component {
         {
             this.name = this.props.match.params.name;
         }
-        console.log(this.name);
-        console.log(this.props);
+        
+        if(JSON.parse(localStorage.getItem('user')))
+        {
+            this.userRole = JSON.parse(localStorage.getItem('user')).user.loginUser.role;
+        }
+
         let option = {
             area: this.area,
             price: this.price,
@@ -192,7 +196,8 @@ export default class TutorList extends Component {
                                 <span className='col-3 text-primary'>Price:</span>
                                 <span className='col-9'>&nbsp;$ {e.price}</span>
                             </div>
-                            
+                            {this.userRole === 0
+                            ?
                             <Popup trigger={
                                         <div className='btn btn-primary w-100 mt-5 cursor-pointer'>Enroll</div>} 
                                         modal>
@@ -209,6 +214,9 @@ export default class TutorList extends Component {
                                         </Contract>
                                         )}
                                     </Popup>
+                            :
+                            ''    
+                            }
                         </div>
                     </div>
                 );

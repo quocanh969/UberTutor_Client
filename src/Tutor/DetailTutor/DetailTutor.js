@@ -7,6 +7,7 @@ import Contract from '../../Contract/ContractPopup/Contract';
 
 export default class DetailTutor extends Component {
 
+    userRole = -1;
     constructor(props) {
         super(props);
 
@@ -38,7 +39,11 @@ export default class DetailTutor extends Component {
             skills: [],
         }
 
-        console.log(id);
+        if(JSON.parse(localStorage.getItem('user')))
+        {
+            this.userRole = JSON.parse(localStorage.getItem('user')).user.loginUser.role;
+        }        
+
         this.loadHistoryData(0);
         this.initData(id);
     }
@@ -132,7 +137,7 @@ export default class DetailTutor extends Component {
                             <div className='col-6'><span className='text-primary font-weight-bold'>Date end:</span> {e.EndDate}</div>
                         </div>
                         <div className="history-comment text-wrap">
-                            <span className='text-primary font-weight-bold'>Comment: </span>
+                            <span className='text-primary font-weight-bold'>Feedback: </span>
                             {e.feedback}
                         </div>
                     </div>
@@ -220,6 +225,8 @@ export default class DetailTutor extends Component {
                                         </h6>
                                     </div>
                                     <div className='col-4'>
+                                    {this.userRole === 0
+                                    ?
                                     <Popup trigger={
                                         <div className='btn btn-primary py-auto w-100 font-weight-bold cursor-pointer'>
                                             <i className="fa fa-sign-in-alt"></i>&nbsp;| Enroll !!!
@@ -238,8 +245,9 @@ export default class DetailTutor extends Component {
                                         </Contract>
                                         )}
                                     </Popup>
-
-                                        
+                                    :
+                                    ''
+                                    }
                                     </div>
                                 </div>                                
 

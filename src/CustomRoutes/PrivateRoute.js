@@ -53,7 +53,7 @@ export const LoginRoute = ({ component: Component, ...rest }) => {
                     localStorage.getItem('user')
                         ? <Redirect to={
                                 {
-                                    pathname: '/dashboard',
+                                    pathname: '/',
                                     state: {
                                         from: props.location,
                                     }
@@ -144,6 +144,143 @@ export const HomeRoute = ({ component: Component, ...rest }) => {
                 else {                    
                     return (
                         <Homepage {...props}></Homepage>
+                    );
+                }
+            }
+        }
+        ></Route>
+    );
+}
+
+export const TutorRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            (props) => {
+                let user = JSON.parse(localStorage.getItem('user'));
+                /*
+                let setupTime = localStorage.getItem('setTimeLogIn');
+                let now = new Date().getTime();
+                */
+                //if (user && user.user !== false && setupTime - now < 6 * 60 * 60 * 1000) {
+                if (user && user.user !== false) {
+                    if(user.user.loginUser.role === 0)
+                    { // learner
+                        
+                        return (
+                            <Redirect to={
+                                {
+                                    pathname: '/',
+                                    state: {
+                                        from: props.location,
+                                    }
+                                }
+                            }
+                            ></Redirect>
+                        );
+                    }
+                    else
+                    { // tutor
+                        return (
+                            <Component {...props}></Component>
+                        );
+                    }
+                }
+                else {                    
+                    return (
+                        <Redirect to={
+                            {
+                                pathname: '/',
+                                state: {
+                                    from: props.location,
+                                }
+                            }
+                        }
+                        ></Redirect>
+                    );
+                }
+            }
+        }
+        ></Route>
+    );
+}
+
+export const TutorReplyRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            (props) => {
+                let user = JSON.parse(localStorage.getItem('user'));
+                /*
+                let setupTime = localStorage.getItem('setTimeLogIn');
+                let now = new Date().getTime();
+                */
+                //if (user && user.user !== false && setupTime - now < 6 * 60 * 60 * 1000) {
+                if (user && user.user !== false) {
+                    if(user.user.loginUser.role === 0)
+                    { // learner
+                        alert('You have to log in as tutor to accept this link');
+                        return '';
+                    }
+                    else
+                    { // tutor
+                        return (
+                            <Component {...props}></Component>
+                        );
+                    }
+                }
+                else {                    
+                    alert('You have to log in as tutor to accept this link');
+                    return '';
+                }
+            }
+        }
+        ></Route>
+    );
+}
+
+export const LearnerRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest} render={
+            (props) => {
+                let user = JSON.parse(localStorage.getItem('user'));
+                /*
+                let setupTime = localStorage.getItem('setTimeLogIn');
+                let now = new Date().getTime();
+                */
+                //if (user && user.user !== false && setupTime - now < 6 * 60 * 60 * 1000) {
+                if (user && user.user !== false) {
+                    if(user.user.loginUser.role === 0)
+                    { // learner
+                        
+                        return (
+                            <Component {...props}></Component>
+                        );
+                    }
+                    else
+                    { // tutor
+                        return (                            
+                            <Redirect to={
+                                {
+                                    pathname: '/',
+                                    state: {
+                                        from: props.location,
+                                    }
+                                }
+                            }
+                            ></Redirect>
+                        );
+                    }
+                }
+                else {                    
+                    return (
+                        <Redirect to={
+                            {
+                                pathname: '/',
+                                state: {
+                                    from: props.location,
+                                }
+                            }
+                        }
+                        ></Redirect>
                     );
                 }
             }

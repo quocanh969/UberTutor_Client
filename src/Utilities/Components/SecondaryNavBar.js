@@ -16,15 +16,21 @@ export default class SecondaryNavBar extends Component {
         })
     }
 
+
+
     generateUser()
     {
         let user =  JSON.parse(localStorage.getItem('user'));
+        console.log("hello"); 
         if(!user || user.user === null || user.user === false)
         {
             return(
                 <div className="btn-group pr-5">
                     <NavLink to="/login" className="btn btn-outline-light border-width-2px font-weight-bold">
                         <i className="fa fa-user mr-2"></i>LOG IN
+                    </NavLink> 
+                    <NavLink to="/register" className="btn btn-outline-light border-width-2px font-weight-bold">
+                        <i className="fa fa-key mr-2"></i>REGISTER
                     </NavLink>                                            
                 </div>
             );

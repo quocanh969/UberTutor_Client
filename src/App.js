@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
 import './style.css'
-import FacebookLoginComponent from './Login/Login/Components/FacebookLoginComponent';
-import GoogleLoginComponent from './Login/Login/Components/GoogleLoginComponent';
-
 
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import LoginContainer from './Login/Login/Login.container';
 import RegisterContainer from './Register/Register.container';
-import DashboardContainer from './Dashboard/Dashboard.container';
 import RegisterTutorContainer from './Register/RegisterTutor.container';
 import Homepage from './GuestUser/Homepage';
 
-import { PrivateRoute, ProfileRoute, HomeRoute } from './CustomRoutes/PrivateRoute';
+import { ProfileRoute, HomeRoute, LoginRoute, TutorRoute, LearnerRoute, TutorReplyRoute } from './CustomRoutes/PrivateRoute';
 import { history } from './Helpers/History';
 import ChangePasswordContainer from './Login/ChangePassword/ChangePassword.container';
 import ForgotPasswordContainer from './Login/ForgotPassword/ForgotPassword.container';
@@ -39,10 +35,11 @@ function App() {
           <Switch>
             <HomeRoute path="/" exact component={Homepage}></HomeRoute>
 
-            <Route path="/login" exact component={LoginContainer}></Route>
-            <Route path="/register" exact component={RegisterContainer}></Route>
+            <LoginRoute path="/login" exact component={LoginContainer}></LoginRoute>
+            <LoginRoute path="/register" exact component={RegisterContainer}></LoginRoute>
             <Route path="/change-password" exact component={ChangePasswordContainer}></Route>
-            <Route path="/forgot-password" exact component={ForgotPasswordContainer}></Route>
+            <LoginRoute path="/forgot-password" exact component={ForgotPasswordContainer}></LoginRoute>
+            <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
             
             <Route path="/tutor-list" exact component={TutorList}></Route>
             <Route path="/tutor-list/area=:area" exact component={TutorList}></Route>
@@ -50,12 +47,13 @@ function App() {
             <Route path="/tutor-list/subject=:subject" exact component={TutorList}></Route>
             <Route path="/tutor-list/name=:name" exact component={TutorList}></Route>
             
-            <Route path="/tutor-contract" exact component={TutorContract}></Route>
-            <Route path="/tutor-summary" exact component={TutorSummary}></Route>
+            <TutorRoute path="/tutor-contract" exact component={TutorContract}></TutorRoute>
+            <TutorRoute path="/tutor-summary" exact component={TutorSummary}></TutorRoute>
 
-            <Route path={`/replyContract/id=:id&reply=:reply`} exact component={ContractReply}></Route>
-            <Route path="/contract-details/id=:id" exact component={ContractDetail}></Route>
-            <Route path="/contract-details-for-learner/id=:id" exact component={ContractDetailLearner}></Route>
+            <TutorReplyRoute path={`/replyContract/id=:id&reply=:reply`} exact component={ContractReply}></TutorReplyRoute>
+
+            <TutorRoute path="/contract-details/id=:id" exact component={ContractDetail}></TutorRoute>
+            <LearnerRoute path="/contract-details-for-learner/id=:id" exact component={ContractDetailLearner}></LearnerRoute>
 
             <ProfileRoute path="/profile"></ProfileRoute>
 
@@ -63,9 +61,8 @@ function App() {
 
             <Route path={`/recover-password/token=:token&id=:id`} exact component={RecoverPassword}></Route>
             <Route path={`/activate-account/id=:id`} exact component={Activate}></Route>
-            <PrivateRoute path="/dashboard" exact component={DashboardContainer}></PrivateRoute>
-            <Route path="/tutorRegister" exact component={RegisterTutorContainer}></Route>
-            <Redirect to='/login' />
+            
+            <Redirect to='/' />
           </Switch>
         </div>
         

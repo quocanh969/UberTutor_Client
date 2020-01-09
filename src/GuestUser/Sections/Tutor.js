@@ -44,7 +44,7 @@ export default class TutorList extends Component {
             let imgSrc = '';
             //
             for (let i of this.state.tutorList) {
-                if(i.avatarLink || i.avatarLink === null || i.avatarLink === '' )
+                if(i.avatarLink || i.avatarLink === null || i.avatarLink === '' || i.avatarLink === undefined)
                 {
                     imgSrc = `https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8`;
                 }

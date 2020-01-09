@@ -16,7 +16,7 @@ export const ActionNormalLogIn = (user) => {
                     else {
                         dispatch(success(res.info.message));
                         user.notice();
-                        history.goBack();
+                        history.push('/');
                         //history.push('/');
                         //window.history.back();
                         //window.location.reload();

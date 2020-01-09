@@ -43,7 +43,7 @@ export default class SecondaryNavBar extends Component {
             .then(res=>{
                 if(res.code === 1)
                 {
-                    this.setState({user: res.info.data});
+                    this.setState({user: res.info.data[0]});
                 }
                 else
                 {
@@ -190,7 +190,7 @@ export default class SecondaryNavBar extends Component {
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
                             </div>
                         </div>
-                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user[0].role === 0 ? 'LEARNER' : 'TUTOR'}</span>
+                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user.role === 0 ? 'LEARNER' : 'TUTOR'}</span>
                     </div>                    
                 </div>
             );
@@ -223,7 +223,7 @@ export default class SecondaryNavBar extends Component {
                 </nav>
                 
                 <div style={{paddingTop:57}}>
-                    {this.state.user[0].role === 0
+                    {this.state.user.role === 0
                     ?
                     <Menu></Menu>
                     :

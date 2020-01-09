@@ -37,7 +37,7 @@ export default class SecondaryNavBar extends Component {
     }
 
     componentDidMount() {
-        if(JSON.parse(localStorage.getItem('user')))
+        if(JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).user !== false)
         {
             ls.getLearnerDetail(JSON.parse(localStorage.getItem('user')).user.loginUser.id)
             .then(res=>{

@@ -17,7 +17,7 @@ export default class Contract extends Component {
             id: this.props.idLearner,
             id_tutor: this.props.idTutor,
             major: this.props.majorCode,
-            estimatedEndDate: this.refs.estimatedEndDate.value,
+            estimatedEndDate: this.refs.endDate.value,
             description: this.refs.description.value,
         })
         .then(res=>{

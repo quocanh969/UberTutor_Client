@@ -13,15 +13,22 @@ export default class Contract extends Component {
     handleSubmit(e)
     {
         e.preventDefault();
+        console.log({
+            id: this.props.idLearner,
+            id_tutor: this.props.idTutor,
+            major: this.props.majorCode,
+            estimatedEndDate: this.refs.endDate.value.toString(),
+            description: this.refs.description.value,
+        });
         ls.enrollClass({
             id: this.props.idLearner,
             id_tutor: this.props.idTutor,
             major: this.props.majorCode,
-            estimatedEndDate: this.refs.endDate.value,
+            estimatedEndDate: this.refs.endDate.value.toString(),
             description: this.refs.description.value,
         })
         .then(res=>{
-            
+            console.log(res);
             cs.noticeContract({
                 id_contract: res.info.data.insertId,
                 email: this.props.email,

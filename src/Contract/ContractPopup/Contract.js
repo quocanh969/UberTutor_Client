@@ -13,13 +13,6 @@ export default class Contract extends Component {
     handleSubmit(e)
     {
         e.preventDefault();
-        console.log({
-            id: this.props.idLearner,
-            id_tutor: this.props.idTutor,
-            major: this.props.majorCode,
-            estimatedEndDate: this.refs.endDate.value.toString(),
-            description: this.refs.description.value,
-        });
         ls.enrollClass({
             id: this.props.idLearner,
             id_tutor: this.props.idTutor,
@@ -36,7 +29,11 @@ export default class Contract extends Component {
             .then(res2=>{
                 //console.log(res2.info.message);
                 console.log('success');
+                alert('Create contract successfully');
                 this.props.onClose();
+            })
+            .catch(err=>{
+                alert('Create contract failed');
             })
             
         })

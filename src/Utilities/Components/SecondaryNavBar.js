@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { history } from '../../Helpers/History';
 import { cs } from '../../Services/ContractService';
+import Menu from '../Menu';
+import TutorMenu from '../TutorMenu';
+import { ls } from '../../Services/LearnerService';
 
 export default class SecondaryNavBar extends Component {
 
@@ -11,9 +14,15 @@ export default class SecondaryNavBar extends Component {
 
         this.state = {
             user: {
-                user: null,
-                token: '',
-                info: null,
+                id: -1,
+                name: '',
+                address: '',
+                email: '',
+                phone: '',
+                role: 0,
+                gender: 0,
+                yob: null,
+                avatarLink: '',
             },
         }
 
@@ -30,42 +39,116 @@ export default class SecondaryNavBar extends Component {
     componentDidMount() {
         if(JSON.parse(localStorage.getItem('user')))
         {
-            this.setState({user: JSON.parse(localStorage.getItem('user'))});
-            console.log(this.state.user);
+            ls.getLearnerDetail(JSON.parse(localStorage.getItem('user')).user.loginUser.id)
+            .then(res=>{
+                if(res.code === 1)
+                {
+                    this.setState({user: res.info.data});
+                }
+                else
+                {
+                    this.setState({user: {
+                        id: -1,
+                        name: '',
+                        address: '',
+                        email: '',
+                        phone: '',
+                        role: 0,
+                        gender: 0,
+                        yob: null,
+                        avatarLink: '',
+                    },});
+                }
+            })
+            .catch(err=>{
+                this.setState({user: {
+                    id: -1,
+                    name: '',
+                    address: '',
+                    email: '',
+                    phone: '',
+                    role: 0,
+                    gender: 0,
+                    yob: null,
+                    avatarLink: '',
+                },});
+            })
         }
         else
         {
             this.setState({user: {
-                user: null,
-                token: '',
-                info: null,
+                id: -1,
+                name: '',
+                address: '',
+                email: '',
+                phone: '',
+                role: 0,
+                gender: 0,
+                yob: null,
+                avatarLink: '',
             },});
         }
     }
 
     componentWillReceiveProps() {
-        console.log("hello");
         let user = JSON.parse(localStorage.getItem('user'));
-        console.log(user);
         if(user !== null)
         {
-            this.setState({user: user});
+            ls.getLearnerDetail(JSON.parse(localStorage.getItem('user')).user.loginUser.id)
+            .then(res=>{
+                if(res.code === 1)
+                {
+                    this.setState({user: res.info.data[0]});
+                }
+                else
+                {
+                    this.setState({user: {
+                        id: -1,
+                        name: '',
+                        address: '',
+                        email: '',
+                        phone: '',
+                        role: 0,
+                        gender: 0,
+                        yob: null,
+                        avatarLink: '',
+                    },});
+                }
+            })
+            .catch(err=>{
+                this.setState({user: {
+                    id: -1,
+                    name: '',
+                    address: '',
+                    email: '',
+                    phone: '',
+                    role: 0,
+                    gender: 0,
+                    yob: null,
+                    avatarLink: '',
+                },});
+            })
         }
         else
         {
             this.setState({user: {
-                user: null,
-                token: '',
-                info: null,
+                id: -1,
+                name: '',
+                address: '',
+                email: '',
+                phone: '',
+                role: 0,
+                gender: 0,
+                yob: null,
+                avatarLink: '',
             },});
         }
-        console.log(this.state.user);
+        
     }
 
     generateUser()
     {
-        console.log(this.state.user);
-        if(this.state.user.user === null || this.state.user.user === false)
+        if(this.state.user.id === -1)
         {
             return(
                 <div className="btn-group pr-5">
@@ -80,8 +163,9 @@ export default class SecondaryNavBar extends Component {
         }
         else
         {
-            let ImgSrc = this.state.user.user.loginUser.avatarLink;
-            if(ImgSrc === "" || ImgSrc === null)
+            let ImgSrc = this.state.user.avatarLink;
+            console.log(this.state.user);
+            if(ImgSrc === '' || ImgSrc === null || ImgSrc === undefined)
             {
                 ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
             }
@@ -105,7 +189,7 @@ export default class SecondaryNavBar extends Component {
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
                             </div>
                         </div>
-                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user.user.loginUser.role === 0 ? 'LEARNER' : 'TUTOR'}</span>
+                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user.role === 0 ? 'LEARNER' : 'TUTOR'}</span>
                     </div>                    
                 </div>
             );
@@ -136,6 +220,15 @@ export default class SecondaryNavBar extends Component {
                     {this.generateUser()}
                     
                 </nav>
+                
+                <div style={{paddingTop:57}}>
+                    {this.state.user.role === 0
+                    ?
+                    <Menu></Menu>
+                    :
+                    <TutorMenu></TutorMenu>
+                    }
+                </div>
             </div>
         )
     }

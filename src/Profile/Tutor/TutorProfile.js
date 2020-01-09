@@ -217,6 +217,7 @@ export default class TutorProfile extends Component {
                     this.tempTutor.isEditting = false;
                     this.setState({tutor: this.tempTutor});
                     this.tempSkills = {...this.state.skills};
+                    this.props.noticeUserLogin();
                 })
                 .catch(err=>{
                     isFailed = true;
@@ -283,9 +284,9 @@ export default class TutorProfile extends Component {
         var professionInfoClass = "";
         var professionInfoBtn = '';
         
-
+        
         let ImgSrc = this.state.tutor.avatarLink;
-        if (ImgSrc === null || ImgSrc === '') {
+        if (ImgSrc === null || ImgSrc === '' || ImgSrc === undefined) {
             ImgSrc = 'https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50a/p50x50/10645251_10150004552801937_4553731092814901385_n.jpg?_nc_cat=1&_nc_ohc=hnKkw-bKtIkAQlIhz4gzarCWd3tTja6CU5x12XZnI2YTuW9TiBuSlIBlQ&_nc_ht=scontent.xx&oh=64b6c755de54ecae67c9742219d23174&oe=5E7F1EA8';
         }
         

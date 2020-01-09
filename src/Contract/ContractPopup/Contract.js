@@ -13,31 +13,30 @@ export default class Contract extends Component {
     handleSubmit(e)
     {
         e.preventDefault();
-        console.log(this.refs.endDate.value);
-        // ls.enrollClass({
-        //     id: this.props.idLearner,
-        //     id_tutor: this.props.idTutor,
-        //     major: this.props.majorCode,
-        //     estimatedEndDate: this.refs.estimatedEndDate.value,
-        //     description: this.refs.description.value,
-        // })
-        // .then(res=>{
+        ls.enrollClass({
+            id: this.props.idLearner,
+            id_tutor: this.props.idTutor,
+            major: this.props.majorCode,
+            estimatedEndDate: this.refs.estimatedEndDate.value,
+            description: this.refs.description.value,
+        })
+        .then(res=>{
             
-        //     cs.noticeContract({
-        //         id_contract: res.info.data.insertId,
-        //         email: this.props.email,
-        //     })
-        //     .then(res2=>{
-        //         //console.log(res2.info.message);
-        //         console.log('success');
-        //         this.props.onClose();
-        //     })
+            cs.noticeContract({
+                id_contract: res.info.data.insertId,
+                email: this.props.email,
+            })
+            .then(res2=>{
+                //console.log(res2.info.message);
+                console.log('success');
+                this.props.onClose();
+            })
             
-        // })
-        // .catch(err=>{
-        //     console.log('failed');
-        //     console.log(err);
-        // })
+        })
+        .catch(err=>{
+            console.log('failed');
+            console.log(err);
+        })
     }
 
     render() {

@@ -25,7 +25,7 @@ export default class TutorMenu extends Component {
         let content = [];
         for (let i of this.state.majorList) {
             content.push(
-                <NavLink className="dropdown-item text-white font-weight-bold" key={i.id} to={`/tutor-list/subject=${i.name}`}>{i.name}</NavLink>
+                <a className="dropdown-item text-white font-weight-bold" key={i.id} href={`/tutor-list/subject=${i.name}`}>{i.name}</a>
             )
         }
         return content;
@@ -35,7 +35,7 @@ export default class TutorMenu extends Component {
         let content = [];
         for (let i of this.state.areaList) {
             content.push(
-                <NavLink className="dropdown-item text-white font-weight-bold" key={i.id_area} to={`/tutor-list/area=${i.area}`}>{i.area}</NavLink>
+                <a className="dropdown-item text-white font-weight-bold" key={i.id_area} href={`/tutor-list/area=${i.area}`}>{i.area}</a>
             )
         }
         return content;
@@ -47,19 +47,19 @@ export default class TutorMenu extends Component {
             <div className="bg-dark border-top border-light">
                 <ul className="nav justify-content-center">
                     <li className="nav-item dropdown mx-1">
-                        <NavLink className="nav-link text-white font-weight-bold" to="/profile">
+                        <a className="nav-link text-white font-weight-bold" href="/profile">
                             My Profile
-                        </NavLink>
+                        </a>
                     </li>
                     <li className="nav-item dropdown mx-1">
-                        <NavLink className="nav-link text-white font-weight-bold" to="/tutor-contract">
+                        <a className="nav-link text-white font-weight-bold" href="/tutor-contract">
                             My Contract
-                        </NavLink>
+                        </a>
                     </li>
                     <li className="nav-item dropdown mx-1">
-                        <NavLink className="nav-link text-white font-weight-bold" to="/tutor-summary">
+                        <a className="nav-link text-white font-weight-bold" href="/tutor-summary">
                             Income Summary
-                        </NavLink>
+                        </a>
                     </li>
                     <li className="nav-item dropdown mx-1">
                         <div className="nav-link text-white font-weight-bold cursor-pointer" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,15 +82,15 @@ export default class TutorMenu extends Component {
                             List by Price
                         </div>
                         <div className="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
-                            <NavLink className="dropdown-item text-white font-weight-bold" to={`/tutor-list/price=${20000}`}>Under $20000</NavLink>
-                            <NavLink className="dropdown-item text-white font-weight-bold" to={`/tutor-list/price=${40000}`}>Under $40000</NavLink>
-                            <NavLink className="dropdown-item text-white font-weight-bold" to={`/tutor-list/price=${60000}`}>Under $60000</NavLink>
+                            <a className="dropdown-item text-white font-weight-bold" href={`/tutor-list/price=${20000}`}>Under $20000</a>
+                            <a className="dropdown-item text-white font-weight-bold" href={`/tutor-list/price=${40000}`}>Under $40000</a>
+                            <a className="dropdown-item text-white font-weight-bold" href={`/tutor-list/price=${60000}`}>Under $60000</a>
                         </div>
                     </li>
                     <li className="nav-item mx-1">
-                        <NavLink className="nav-link text-white font-weight-bold" to="/tutor-list">
+                        <a className="nav-link text-white font-weight-bold" href="/tutor-list">
                             List of Tutor
-                        </NavLink>
+                        </a>
                     </li>
                 </ul>
             </div>

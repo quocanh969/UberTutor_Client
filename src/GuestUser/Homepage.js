@@ -49,10 +49,6 @@ export default class Homepage extends Component {
     render() {
         return (
             <div>
-                <div className="cat-bar">
-                    <Menu majorList={this.state.majorList} areaList={this.state.areaList}/>
-                </div>
-                
                 
                 {/* Website Intro */}
                 <div id="carouselExampleCaptions" className="carousel slide container-fluid mx-0 px-0" data-ride="carousel">

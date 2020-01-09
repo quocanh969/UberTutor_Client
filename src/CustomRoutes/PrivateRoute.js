@@ -68,7 +68,7 @@ export const LoginRoute = ({ component: Component,noticeUserLogin, ...rest }) =>
     );
 }
 
-export const ProfileRoute = ({ component: Component, ...rest }) => {
+export const ProfileRoute = ({ component: Component, noticeUserLogin, ...rest }) => {
     return (
         <Route {...rest} render={
             (props) => {
@@ -82,13 +82,13 @@ export const ProfileRoute = ({ component: Component, ...rest }) => {
                     if(user.user.loginUser.role === 0)
                     { // learner
                         return (
-                            <LearnerProfile {...props}></LearnerProfile>
+                            <LearnerProfile noticeUserLogin={noticeUserLogin} {...props}></LearnerProfile>
                         );
                     }
                     else
                     { // tutor
                         return (
-                            <TutorProfile {...props}></TutorProfile>
+                            <TutorProfile noticeUserLogin={noticeUserLogin} {...props}></TutorProfile>
                         );
                     }
                 }

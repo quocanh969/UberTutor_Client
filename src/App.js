@@ -67,7 +67,7 @@ class App extends Component {
               <TutorRoute path="/contract-details/id=:id" exact component={ContractDetail}></TutorRoute>
               <LearnerRoute path="/contract-details-for-learner/id=:id" exact component={ContractDetailLearner}></LearnerRoute>
 
-              <ProfileRoute path="/profile"></ProfileRoute>
+              <ProfileRoute path="/profile" noticeUserLogin={()=>{this.updateUserInfo()}}></ProfileRoute>
 
               <Route path="/detail-tutor/id=:id" exact component={DetailTutor}></Route>
 

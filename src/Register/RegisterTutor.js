@@ -191,7 +191,7 @@ export default class RegisterTutor extends Component {
                                         </form>
                                         <hr />
                                         <div className="text-center">
-                                            <a className="small" href="forgot-password.html">Forgot Password?</a>
+                                            <NavLink className="small" to="/forgot-password">Forgot Password?</NavLink>
                                         </div>
                                         <div className="text-center">
                                             <NavLink className="small" to="/register">Sign up as a learner instead?</NavLink>

@@ -150,6 +150,7 @@ export default class SecondaryNavBar extends Component {
     {
         if(this.state.user.id === -1)
         {
+
             return(
                 <div className="btn-group pr-5">
                     <NavLink to="/login" className="btn btn-outline-light border-width-2px font-weight-bold">
@@ -189,7 +190,7 @@ export default class SecondaryNavBar extends Component {
                                 <i className="fa fa-sign-out-alt mr-2"></i>Sign Out
                             </div>
                         </div>
-                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user.role === 0 ? 'LEARNER' : 'TUTOR'}</span>
+                        <span className='text-white font-weight-bold'>&nbsp;&nbsp;AS {this.state.user[0].role === 0 ? 'LEARNER' : 'TUTOR'}</span>
                     </div>                    
                 </div>
             );
@@ -222,7 +223,7 @@ export default class SecondaryNavBar extends Component {
                 </nav>
                 
                 <div style={{paddingTop:57}}>
-                    {this.state.user.role === 0
+                    {this.state.user[0].role === 0
                     ?
                     <Menu></Menu>
                     :
